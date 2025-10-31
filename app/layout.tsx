@@ -13,7 +13,7 @@ const prompt = Prompt({
 
 export const metadata: Metadata = {
   title: "Key Turn & Co. Realty Group",
-  description: "Educating and helping buyers find their new home, VA and first time buyers welcome!",
+  description: "Educating and helping buyers find their new construction home, VA and first time buyers welcome!",
   generator: "v0.app",
 }
 
