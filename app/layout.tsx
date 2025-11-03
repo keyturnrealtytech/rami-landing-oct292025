@@ -12,8 +12,8 @@ const prompt = Prompt({
 })
 
 export const metadata: Metadata = {
-  title: "Wanderlust Travel - Discover Your Next Adventure",
-  description: "Explore breathtaking destinations around the world with curated travel experiences",
+  title: "KeyTurn Realty",
+  description: "Your trusted real estate partner for finding the perfect home in San Antonio",
   generator: "v0.app",
 }
 
