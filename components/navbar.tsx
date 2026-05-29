@@ -26,7 +26,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-semibold tracking-tight">Rami Rafeh</h1>
+            <div className="text-2xl font-semibold tracking-tight">Rami Rafeh</div>
           </div>
 
           {/* Desktop Navigation */}
