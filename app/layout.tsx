@@ -29,6 +29,7 @@ const structuredData = {
       description:
         "Retired Air Force veteran and San Antonio real estate agent specializing in VA loans, first-time home buyers, and new construction across San Antonio and the surrounding Hill Country.",
       url: "https://keyturnrealty.com",
+      image: "https://keyturnrealty.com/rami-rafeh-headshot.png",
       telephone: "713-440-9407",
       email: "admin@keyturnrealty.com",
       priceRange: "$$",
@@ -65,6 +66,7 @@ const structuredData = {
         "@type": "Person",
         name: "Rami Rafeh",
         jobTitle: "Real Estate Agent",
+        image: "https://keyturnrealty.com/rami-rafeh-headshot.png",
         description:
           "Retired U.S. Air Force veteran and licensed Texas REALTOR® (TREC License #724566).",
         sameAs: [
