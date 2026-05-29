@@ -16,12 +16,13 @@ export function Hero() {
       <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-8 text-center py-32">
         <div className="space-y-8">
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-tight leading-tight">
-            Discover Your New
-            <span className="block font-semibold mt-2">Home</span>
+            Discover Your New Home in
+            <span className="block font-semibold mt-2">San Antonio</span>
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-balance leading-relaxed">
-            Rami is a renowned realtor based in San Antonio. Retired Veteran and expert in first time home buying.
+            Rami Rafeh is a San Antonio realtor and retired Air Force veteran specializing in VA loans, first-time home
+            buyers, and new construction.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">

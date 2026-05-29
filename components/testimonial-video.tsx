@@ -57,7 +57,7 @@ export function TestimonialVideo() {
                 <div className="relative h-[400px] overflow-hidden">
                   <img
                     src={`/testimonoal-pics/${image}`}
-                    alt={`Client testimonial ${index + 1}`}
+                    alt={`5-star client review of Rami Rafeh, San Antonio realtor at Key Turn Realty Group (${index + 1})`}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/0 to-black/0" />
