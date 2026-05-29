@@ -87,7 +87,7 @@ const structuredData = {
       aggregateRating: {
         "@type": "AggregateRating",
         ratingValue: "5.0",
-        reviewCount: "6",
+        reviewCount: "10",
         bestRating: "5",
       },
       review: [
@@ -125,6 +125,40 @@ const structuredData = {
           reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
           reviewBody:
             "I'm so grateful for Rami and his realtor services. I saw his ad on Instagram and messaged him to see if I qualified for any of the homes he was advertising at a lower mortgage interest rate and minimal down payment. He contacted me right away with information, then again the next day about the mortgage loan I qualified for. He gave me two builder options, set up tours of new-built homes, and was right by my side as the builder presented the home, price, and incentives. Rami gave me a clear breakdown of every step, provided the service contractors I'd need, and was always available for any question or concern. He even helped me buy out my remaining apartment lease. I'm grateful for him and his services for helping make my dream of becoming a homeowner a reality.",
+        },
+        {
+          "@type": "Review",
+          author: { "@type": "Person", name: "Susan Griffith" },
+          reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+          reviewBody:
+            "Rami handled my spur-of-the-moment purchase with incredible ease. He approached each interaction very professionally and really had my best interests in mind. He is knowledgeable, pro-active, and wants successful outcomes for his clients. He makes himself available — which is so important throughout the home buying experience. I would highly recommend Rami, and my expectations are exceptionally high.",
+        },
+        {
+          "@type": "Review",
+          author: { "@type": "Person", name: "Trevor Rice" },
+          reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+          reviewBody:
+            "Rami was a very professional realtor and tough negotiator while searching for our home in San Antonio, TX. He worked our price down by 8 grand and even convinced them to throw in a fridge. We are a military couple and were navigating the buying process all the way from Maryland, and he had no problem bridging the distance for us. Rami made it his mission to ensure we got the home we wanted, and now we own a home! He even picked up the keys for us after closing since we weren't in town yet. You can't go wrong with this realtor!",
+        },
+        {
+          "@type": "Review",
+          author: { "@type": "Person", name: "Tony Castelluci" },
+          reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+          reviewBody:
+            "Rami was excellent in every way. Considering we found and closed on exactly the house I wanted during the COVID-19 epidemic, it's easy to say he went above and beyond what I expected. What I liked a lot about his service was that there were a few houses he was honest about not being positive on — so his opinions are genuinely helpful. I ended up in a house with the exact features I had given him as mandatory. I highly recommend this realtor.",
+        },
+        {
+          "@type": "Review",
+          author: { "@type": "Person", name: "S.N." },
+          reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+          reviewBody:
+            "Rami is an excellent real estate agent. He is knowledgeable about the process and guides you throughout. His negotiation skills are unmatched. I've already used him for multiple transactions and every time he exceeded my expectations. I strongly recommend Rami for your real estate needs.",
+        },
+        {
+          "@type": "Review",
+          author: { "@type": "Person", name: "Bea" },
+          reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+          reviewBody: "Great experience with Rami selling my home.",
         },
       ],
     },
