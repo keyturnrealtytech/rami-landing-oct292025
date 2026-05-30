@@ -2,12 +2,14 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { MapPin, ArrowRight } from "lucide-react"
 import { ContactFormModal } from "@/components/contact-form-modal"
+import { LazyVideo } from "@/components/lazy-video"
 
 const destinations = [
   {
     name: "Featured Listing 1",
     country: "San Antonio",
     image: "/placeholder.svg",
+    poster: "/posters-listing-1.jpg",
     video: "/RAMI-1ST-LISTINGROW.mp4",
     description: "Premium home in San Antonio",
     price: "Contact for Details",
@@ -16,6 +18,7 @@ const destinations = [
     name: "Featured Listing 2",
     country: "San Antonio",
     image: "/placeholder.svg",
+    poster: "/posters-listing-2.jpg",
     video: "/RAMI-2ND-LIST-ROW.mp4",
     description: "Beautiful property in San Antonio",
     price: "Contact for Details",
@@ -24,6 +27,7 @@ const destinations = [
     name: "Featured Listing 3",
     country: "San Antonio",
     image: "/placeholder.svg",
+    poster: "/posters-listing-3.jpg",
     video: "/RAMI-LIST-3rd-listing.mp4",
     description: "Stunning home in San Antonio",
     price: "Contact for Details",
@@ -102,12 +106,12 @@ export function FeaturedDestinations() {
               {/* Image */}
               <div className="relative h-[600px] overflow-hidden">
                 {destination.video ? (
-                  <video
-                    src={destination.video || "/placeholder.svg"}
+                  <LazyVideo
+                    src={destination.video}
+                    poster={destination.poster || destination.image}
                     autoPlay
                     loop
                     muted
-                    playsInline
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                 ) : (

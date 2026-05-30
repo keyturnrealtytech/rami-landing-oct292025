@@ -1,15 +1,21 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { ContactFormModal } from "@/components/contact-form-modal"
+import { LazyVideo } from "@/components/lazy-video"
 
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-muted/30 to-background">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
-        <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-20">
-          <source src="/HERO-VIDEO.mp4" type="video/mp4" />
-        </video>
+        <LazyVideo
+          src="/HERO-VIDEO.mp4"
+          poster="/posters-hero.jpg"
+          autoPlay
+          loop
+          muted
+          className="w-full h-full object-cover opacity-20"
+        />
       </div>
 
       {/* Content */}

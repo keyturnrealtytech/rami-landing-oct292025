@@ -1,19 +1,23 @@
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ContactFormModal } from "@/components/contact-form-modal"
+import { LazyVideo } from "@/components/lazy-video"
 
 const videos = [
   {
     title: "Informative Video 1",
     video: "/informative-vid-1.mp4",
+    poster: "/posters-informative-1.jpg",
   },
   {
     title: "Informative Video 2",
     video: "/informative-vid-2.mp4",
+    poster: "/posters-informative-2.jpg",
   },
   {
     title: "Informative Video 3",
     video: "/informative-vid-3.mp4",
+    poster: "/posters-informative-3.jpg",
   },
 ]
 
@@ -40,17 +44,15 @@ export function InformativeVideos() {
             >
               {/* Video */}
               <div className="relative h-[600px] overflow-hidden">
-                <video
+                <LazyVideo
                   src={item.video}
+                  poster={item.poster}
                   autoPlay
                   loop
                   muted
-                  playsInline
                   controls
                   className="w-full h-full object-cover"
-                >
-                  Your browser does not support the video tag.
-                </video>
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 pointer-events-none" />
               </div>
             </Card>
