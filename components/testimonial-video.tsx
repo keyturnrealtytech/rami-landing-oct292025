@@ -36,8 +36,11 @@ export function TestimonialVideo() {
 
           <div className="relative w-full max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl">
             <video
-              controls
+              autoPlay
+              loop
+              muted
               playsInline
+              controls
               poster="/testimonial-rami-poster.jpg"
               className="w-full h-auto"
             >
