@@ -52,16 +52,13 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
     try {
-      const response = await fetch(
-        'https://n8n-production-4d3a2.up.railway.app/webhook/82b5acf6-50ad-497e-9d51-7a58f9a93ef4',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        }
-      )
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
 
       if (response.ok) {
         toast.success('Thank you! We will contact you soon.')
