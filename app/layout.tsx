@@ -87,10 +87,17 @@ const structuredData = {
       aggregateRating: {
         "@type": "AggregateRating",
         ratingValue: "5.0",
-        reviewCount: "10",
+        reviewCount: "11",
         bestRating: "5",
       },
       review: [
+        {
+          "@type": "Review",
+          author: { "@type": "Person", name: "Gaby Adame" },
+          reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+          reviewBody:
+            "Really grateful I clicked on Rami's Instagram ad and decided to go with him. I was able to purchase my brand new home, and he made the buying process super easy! Thank you, Rami!",
+        },
         {
           "@type": "Review",
           author: { "@type": "Person", name: "Marissa Arras" },
