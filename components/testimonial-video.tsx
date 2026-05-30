@@ -40,9 +40,10 @@ export function TestimonialVideo() {
               loop
               muted
               playsInline
+              poster="/testimonial-rami-poster.jpg"
               className="w-full h-auto"
             >
-              <source src="/TESTIMONIAL-rami.mp4" type="video/mp4" />
+              <source src="/testimonial-rami-hd.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
