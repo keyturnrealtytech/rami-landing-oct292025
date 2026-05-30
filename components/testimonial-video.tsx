@@ -43,6 +43,7 @@ export function TestimonialVideo() {
               loop
               muted
               controls
+              rootMargin="1500px"
               className="w-full h-auto"
             />
           </div>

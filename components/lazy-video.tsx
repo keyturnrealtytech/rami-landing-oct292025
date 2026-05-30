@@ -10,6 +10,8 @@ interface LazyVideoProps {
   loop?: boolean
   muted?: boolean
   controls?: boolean
+  /** How far before entering the viewport to start loading. Larger = earlier head-start. */
+  rootMargin?: string
 }
 
 /**
@@ -17,7 +19,16 @@ interface LazyVideoProps {
  * once it scrolls into view (IntersectionObserver). Keeps the page's first
  * paint fast on mobile by deferring heavy video until needed.
  */
-export function LazyVideo({ src, poster, className, autoPlay, loop, muted, controls }: LazyVideoProps) {
+export function LazyVideo({
+  src,
+  poster,
+  className,
+  autoPlay,
+  loop,
+  muted,
+  controls,
+  rootMargin = "300px",
+}: LazyVideoProps) {
   const ref = useRef<HTMLVideoElement>(null)
   const [inView, setInView] = useState(false)
 
@@ -31,11 +42,11 @@ export function LazyVideo({ src, poster, className, autoPlay, loop, muted, contr
           observer.disconnect()
         }
       },
-      { rootMargin: "300px" },
+      { rootMargin },
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [])
+  }, [rootMargin])
 
   useEffect(() => {
     const el = ref.current
