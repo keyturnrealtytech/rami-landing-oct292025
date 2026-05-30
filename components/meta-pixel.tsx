@@ -2,7 +2,7 @@
 
 import Script from "next/script"
 
-const PIXEL_ID = "1862340514472682"
+const PIXEL_ID = "1541113180463878"
 
 /**
  * Meta (Facebook/Instagram) Pixel. Loads the base code and tracks PageView on
