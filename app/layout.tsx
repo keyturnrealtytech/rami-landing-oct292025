@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Prompt } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
+import { MetaPixel } from "@/components/meta-pixel"
 import "./globals.css"
 
 const prompt = Prompt({
@@ -210,6 +211,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${prompt.variable} antialiased`}>
+        <MetaPixel />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

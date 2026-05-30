@@ -61,6 +61,10 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
       })
 
       if (response.ok) {
+        // Meta Pixel: track the lead conversion
+        if (typeof window !== 'undefined') {
+          ;(window as Window & { fbq?: (...args: unknown[]) => void }).fbq?.('track', 'Lead')
+        }
         toast.success('Thank you! We will contact you soon.')
         form.reset()
         setOpen(false)
