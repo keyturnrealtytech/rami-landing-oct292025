@@ -51,19 +51,22 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
+    // Shared ID so the browser pixel and the server Conversions API event de-duplicate into one.
+    const eventId =
+      typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, eventId }),
       })
 
       if (response.ok) {
-        // Meta Pixel: track the lead conversion
+        // Meta Pixel: track the lead conversion (same eventID as the server CAPI event)
         if (typeof window !== 'undefined') {
-          ;(window as Window & { fbq?: (...args: unknown[]) => void }).fbq?.('track', 'Lead')
+          ;(window as Window & { fbq?: (...args: unknown[]) => void }).fbq?.('track', 'Lead', {}, { eventID: eventId })
         }
         toast.success('Thank you! We will contact you soon.')
         form.reset()
