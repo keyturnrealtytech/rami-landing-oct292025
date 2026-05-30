@@ -2,6 +2,11 @@ import { Star } from "lucide-react"
 
 const reviews = [
   {
+    name: "Gaby Adame",
+    source: "Google",
+    text: "Really grateful I clicked on Rami's Instagram ad and decided to go with him. I was able to purchase my brand new home, and he made the buying process super easy! Thank you, Rami!",
+  },
+  {
     name: "Marissa Arras",
     source: "Google",
     text: "Rami was so helpful, went out of his way to help me get my beautiful home!",

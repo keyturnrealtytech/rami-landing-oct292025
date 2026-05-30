@@ -31,7 +31,6 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-12">
-            <span className="text-sm font-medium text-foreground/70">DRE #2022092</span>
             <a
               href="#destinations"
               className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors"
