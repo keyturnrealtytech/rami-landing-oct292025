@@ -58,7 +58,7 @@ export function Hero() {
           </div>
           <div className="space-y-2">
             <div className="text-4xl md:text-5xl font-light">$50M+</div>
-            <div className="text-sm text-muted-foreground">Homes Sold</div>
+            <div className="text-sm text-muted-foreground">In Home Sales</div>
           </div>
           <div className="space-y-2">
             <div className="text-4xl md:text-5xl font-light">5.0 ★</div>
