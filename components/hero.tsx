@@ -47,15 +47,15 @@ export function Hero() {
         {/* Stats */}
         <div className="grid grid-cols-3 gap-8 md:gap-16 max-w-3xl mx-auto mt-24 pt-16 border-t border-border/50">
           <div className="space-y-2">
-            <div className="text-4xl md:text-5xl font-light">150+</div>
+            <div className="text-4xl md:text-5xl font-light">200+</div>
             <div className="text-sm text-muted-foreground">Transactions</div>
           </div>
           <div className="space-y-2">
-            <div className="text-4xl md:text-5xl font-light">500+</div>
-            <div className="text-sm text-muted-foreground">Happy Homeowners </div>
+            <div className="text-4xl md:text-5xl font-light">$50M+</div>
+            <div className="text-sm text-muted-foreground">Homes Sold</div>
           </div>
           <div className="space-y-2">
-            <div className="text-4xl md:text-5xl font-light">4.9 ⭐</div>
+            <div className="text-4xl md:text-5xl font-light">5.0 ★</div>
             <div className="text-sm text-muted-foreground">Average Rating</div>
           </div>
         </div>

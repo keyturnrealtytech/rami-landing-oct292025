@@ -40,6 +40,7 @@ export function TestimonialVideo() {
               loop
               muted
               playsInline
+              controls
               poster="/testimonial-rami-poster.jpg"
               className="w-full h-auto"
             >
