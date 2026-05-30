@@ -32,54 +32,6 @@ const destinations = [
     description: "Stunning home in San Antonio",
     price: "Contact for Details",
   },
-  {
-    name: "Santorini",
-    country: "Greece",
-    image: "/santorini-sunset.png",
-    video: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/RAMI-listing2%202-F81xzYFyGdHJLaLecFpomM5Txbf9IH.mp4",
-    description: "Iconic white-washed buildings and stunning sunsets",
-    price: "From $2,499",
-  },
-  {
-    name: "Bali",
-    country: "Indonesia",
-    image: "/bali-indonesia-rice-terraces-tropical-paradise.jpg",
-    video: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/RAMI-listing-knT3sT4gyj8jGUt5a458rslEi7BzzB.mp4",
-    description: "Tropical paradise with ancient temples and beaches",
-    price: "From $1,899",
-  },
-  {
-    name: "Kyoto",
-    country: "Japan",
-    image: "/kyoto-japan-traditional-temples-cherry-blossoms.jpg",
-    video: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/RAMI-listing3-5h31JCWwCMjPZECzHqNKn615FSIjCb.mp4", // Added video property for Japan listing
-    description: "Ancient temples and traditional Japanese culture",
-    price: "From $2,799",
-  },
-  {
-    name: "Maldives",
-    country: "Indian Ocean",
-    image: "/maldives-overwater-bungalows-crystal-clear-water.jpg",
-    video: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/indownloader.app_video_0055248001761342656-JLihPL0bPi87bRaFFhCjeItvM4tGba.mp4", // Updated video property for Maldives listing
-    description: "Overwater villas and pristine coral reefs",
-    price: "From $3,499",
-  },
-  {
-    name: "Iceland",
-    country: "Nordic",
-    image: "/iceland-northern-lights-waterfalls-dramatic-landsc.jpg",
-    video: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/indownloader.app_video_0446854001761342798-HD5kyqNsPR4botE3VxA5IR535LV3TY.mp4", // Added video property for Iceland listing
-    description: "Northern lights and dramatic volcanic landscapes",
-    price: "From $2,999",
-  },
-  {
-    name: "Dubai",
-    country: "UAE",
-    image: "/dubai-modern-skyline-luxury-desert.jpg",
-    video: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/indownloader.app_video_0532373001761342899-xSSRMkOcuQNIxyiCbbugLGmm2SMQRW.mp4", // Added video property for Dubai listing
-    description: "Modern luxury meets Arabian desert adventures",
-    price: "From $2,299",
-  },
 ]
 
 export function FeaturedDestinations() {
