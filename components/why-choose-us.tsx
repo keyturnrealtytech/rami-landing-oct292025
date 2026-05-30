@@ -38,7 +38,8 @@ export function WhyChooseUs() {
             Why Choose <span className="font-semibold">Rami</span>
           </h2>
           <p className="text-lg text-muted-foreground text-balance leading-relaxed">
-            Thousands of first-time homebuyers in San Antonio trust Rami to find the best home for their needs.
+            First-time homebuyers, veterans, and military families across San Antonio trust Rami to find the right home
+            for their needs.
           </p>
         </div>
 

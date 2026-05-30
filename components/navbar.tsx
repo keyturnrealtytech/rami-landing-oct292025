@@ -41,6 +41,9 @@ export function Navbar() {
             <a href="#about" className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors">
               About
             </a>
+            <a href="#reviews" className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors">
+              Reviews
+            </a>
             <a
               href="#contact"
               className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors"
@@ -81,6 +84,9 @@ export function Navbar() {
             </a>
             <a href="#about" className="block text-base font-medium text-foreground/70 hover:text-foreground">
               About
+            </a>
+            <a href="#reviews" className="block text-base font-medium text-foreground/70 hover:text-foreground">
+              Reviews
             </a>
             <a href="#contact" className="block text-base font-medium text-foreground/70 hover:text-foreground">
               Contact
