@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card"
+import { LazyVideo } from "@/components/lazy-video"
 
 const testimonialImages = [
   "1stNov-testimonnial1.jpg",
@@ -35,18 +36,16 @@ export function TestimonialVideo() {
           </div>
 
           <div className="relative w-full max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl">
-            <video
+            <LazyVideo
+              src="/testimonial-rami-hd.mp4"
+              poster="/testimonial-rami-poster.jpg"
               autoPlay
               loop
               muted
-              playsInline
               controls
-              poster="/testimonial-rami-poster.jpg"
+              rootMargin="1500px"
               className="w-full h-auto"
-            >
-              <source src="/testimonial-rami-hd.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            />
           </div>
 
           {/* Testimonial Photos Grid */}
