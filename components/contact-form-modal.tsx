@@ -45,6 +45,19 @@ const PAYMENT_OPTIONS = ['$1,800-$2,300', '$2,300-$2,500', '$2,500-$3,000', '$3,
 const VETERAN_OPTIONS = ['No', 'Yes', 'Yes - 100% disabled']
 const FINANCING_OPTIONS = ['Already pre-approved', 'Need help']
 
+// Friendly, rounded styling shared across fields (teal brand accent #81D8D0).
+const FIELD_CLASS =
+  'h-12 rounded-2xl border-2 border-[#cdeae6] bg-white text-base shadow-sm focus-visible:border-[#81D8D0] focus-visible:ring-4 focus-visible:ring-[#81D8D0]/20'
+const LABEL_CLASS = 'text-[15px] font-semibold text-foreground'
+
+function optionCardClass(selected: boolean) {
+  return `flex items-center gap-3 rounded-2xl border-2 px-4 py-3 cursor-pointer transition-all ${
+    selected
+      ? 'border-[#81D8D0] bg-[#81D8D0]/15 shadow-sm'
+      : 'border-[#e6efee] hover:border-[#81D8D0]/60 hover:bg-[#81D8D0]/5'
+  }`
+}
+
 const formSchema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
   phoneNumber: z.string().min(1, 'Phone number is required'),
@@ -63,10 +76,14 @@ type FormData = z.infer<typeof formSchema>
 type FieldName = keyof FormData
 
 // Fields grouped into the 3 wizard steps. Order here drives validation-per-step.
-const STEPS: { title: string; fields: FieldName[] }[] = [
-  { title: 'About you', fields: ['fullName', 'phoneNumber', 'email'] },
-  { title: 'Your situation', fields: ['workingWithAgent', 'financingStatus', 'moveInTimeline', 'veteranStatus'] },
-  { title: 'Your home', fields: ['bedrooms', 'desiredArea', 'monthlyPayment'] },
+const STEPS: { title: string; emoji: string; fields: FieldName[] }[] = [
+  { title: 'About you', emoji: '👋', fields: ['fullName', 'phoneNumber', 'email'] },
+  {
+    title: 'Your situation',
+    emoji: '🧭',
+    fields: ['workingWithAgent', 'financingStatus', 'moveInTimeline', 'veteranStatus'],
+  },
+  { title: 'Your home', emoji: '🏡', fields: ['bedrooms', 'desiredArea', 'monthlyPayment'] },
 ]
 const LAST_STEP = STEPS.length - 1
 
@@ -155,28 +172,29 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
     }
   }
 
+  const progress = ((step + 1) / STEPS.length) * 100
+
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Get in Touch</DialogTitle>
-          <DialogDescription>
-            Step {step + 1} of {STEPS.length} · {STEPS[step].title}
+      <DialogContent className="sm:max-w-[440px] rounded-[28px] border-2 border-[#d8eeec] bg-[#fbfdfc] p-6 shadow-2xl">
+        <DialogHeader className="space-y-3">
+          <DialogTitle className="text-2xl font-bold tracking-tight">Let&apos;s find your place 🏡</DialogTitle>
+          <DialogDescription className="text-[15px]">
+            <span className="font-semibold text-[#2c8f87]">
+              {STEPS[step].emoji} {STEPS[step].title}
+            </span>{' '}
+            · Step {step + 1} of {STEPS.length}
           </DialogDescription>
-          <div className="flex items-center gap-1.5 pt-2" aria-hidden="true">
-            {STEPS.map((_, i) => (
-              <span
-                key={i}
-                className={`h-1.5 rounded-full transition-all ${
-                  i === step ? 'w-6 bg-primary' : i < step ? 'w-4 bg-primary/50' : 'w-4 bg-muted'
-                }`}
-              />
-            ))}
+          <div className="h-2 w-full overflow-hidden rounded-full bg-[#e6efee]">
+            <div
+              className="h-full rounded-full bg-[#81D8D0] transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
           </div>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={handleFormSubmit} className="space-y-4 max-h-[65vh] overflow-y-auto pr-1">
+          <form onSubmit={handleFormSubmit} className="space-y-5 max-h-[62vh] overflow-y-auto pr-1">
             {step === 0 && (
               <>
                 <FormField
@@ -184,9 +202,9 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                   name="fullName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Full Name *</FormLabel>
+                      <FormLabel className={LABEL_CLASS}>Full Name *</FormLabel>
                       <FormControl>
-                        <Input placeholder="John Doe" {...field} />
+                        <Input placeholder="John Doe" className={FIELD_CLASS} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -197,9 +215,9 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                   name="phoneNumber"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Phone Number *</FormLabel>
+                      <FormLabel className={LABEL_CLASS}>Phone Number *</FormLabel>
                       <FormControl>
-                        <Input type="tel" placeholder="+1 (555) 000-0000" {...field} />
+                        <Input type="tel" placeholder="+1 (555) 000-0000" className={FIELD_CLASS} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -210,9 +228,9 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email (Optional)</FormLabel>
+                      <FormLabel className={LABEL_CLASS}>Email (Optional)</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="john@example.com" {...field} />
+                        <Input type="email" placeholder="john@example.com" className={FIELD_CLASS} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -228,17 +246,13 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                   name="workingWithAgent"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Are you currently working with a Real Estate Agent? *</FormLabel>
+                      <FormLabel className={LABEL_CLASS}>Working with a Real Estate Agent? *</FormLabel>
                       <FormControl>
-                        <RadioGroup
-                          onValueChange={field.onChange}
-                          value={field.value}
-                          className="flex flex-wrap gap-x-6 gap-y-2 pt-1"
-                        >
+                        <RadioGroup onValueChange={field.onChange} value={field.value} className="grid grid-cols-2 gap-3 pt-1">
                           {['Yes', 'No'].map((opt) => (
-                            <label key={opt} className="flex items-center gap-2 text-sm font-normal cursor-pointer">
-                              <RadioGroupItem value={opt} />
-                              {opt}
+                            <label key={opt} className={optionCardClass(field.value === opt)}>
+                              <RadioGroupItem value={opt} className="size-5 border-2 border-[#81D8D0] text-[#2c8f87]" />
+                              <span className="text-sm font-medium">{opt}</span>
                             </label>
                           ))}
                         </RadioGroup>
@@ -252,17 +266,13 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                   name="financingStatus"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Financing status? *</FormLabel>
+                      <FormLabel className={LABEL_CLASS}>Financing status? *</FormLabel>
                       <FormControl>
-                        <RadioGroup
-                          onValueChange={field.onChange}
-                          value={field.value}
-                          className="flex flex-col gap-2 pt-1"
-                        >
+                        <RadioGroup onValueChange={field.onChange} value={field.value} className="flex flex-col gap-3 pt-1">
                           {FINANCING_OPTIONS.map((opt) => (
-                            <label key={opt} className="flex items-center gap-2 text-sm font-normal cursor-pointer">
-                              <RadioGroupItem value={opt} />
-                              {opt}
+                            <label key={opt} className={optionCardClass(field.value === opt)}>
+                              <RadioGroupItem value={opt} className="size-5 border-2 border-[#81D8D0] text-[#2c8f87]" />
+                              <span className="text-sm font-medium">{opt}</span>
                             </label>
                           ))}
                         </RadioGroup>
@@ -276,16 +286,16 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                   name="moveInTimeline"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Desired move-in date? *</FormLabel>
+                      <FormLabel className={LABEL_CLASS}>Desired move-in date? *</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger className={FIELD_CLASS}>
                             <SelectValue placeholder="Select a timeline" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
+                        <SelectContent className="rounded-2xl">
                           {TIMELINE_OPTIONS.map((opt) => (
-                            <SelectItem key={opt} value={opt}>
+                            <SelectItem key={opt} value={opt} className="rounded-xl">
                               {opt}
                             </SelectItem>
                           ))}
@@ -300,17 +310,13 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                   name="veteranStatus"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Are you a Veteran? *</FormLabel>
+                      <FormLabel className={LABEL_CLASS}>Are you a Veteran? *</FormLabel>
                       <FormControl>
-                        <RadioGroup
-                          onValueChange={field.onChange}
-                          value={field.value}
-                          className="flex flex-col gap-2 pt-1"
-                        >
+                        <RadioGroup onValueChange={field.onChange} value={field.value} className="flex flex-col gap-3 pt-1">
                           {VETERAN_OPTIONS.map((opt) => (
-                            <label key={opt} className="flex items-center gap-2 text-sm font-normal cursor-pointer">
-                              <RadioGroupItem value={opt} />
-                              {opt}
+                            <label key={opt} className={optionCardClass(field.value === opt)}>
+                              <RadioGroupItem value={opt} className="size-5 border-2 border-[#81D8D0] text-[#2c8f87]" />
+                              <span className="text-sm font-medium">{opt}</span>
                             </label>
                           ))}
                         </RadioGroup>
@@ -329,16 +335,16 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                   name="bedrooms"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Bedrooms? *</FormLabel>
+                      <FormLabel className={LABEL_CLASS}>Bedrooms? *</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger className={FIELD_CLASS}>
                             <SelectValue placeholder="Select bedrooms" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
+                        <SelectContent className="rounded-2xl">
                           {BEDROOM_OPTIONS.map((opt) => (
-                            <SelectItem key={opt} value={opt}>
+                            <SelectItem key={opt} value={opt} className="rounded-xl">
                               {opt}
                             </SelectItem>
                           ))}
@@ -353,9 +359,9 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                   name="desiredArea"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Desired area? *</FormLabel>
+                      <FormLabel className={LABEL_CLASS}>Desired area? *</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g. Stone Oak, Alamo Ranch, Schertz" {...field} />
+                        <Input placeholder="e.g. Stone Oak, Alamo Ranch, Schertz" className={FIELD_CLASS} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -366,16 +372,16 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                   name="monthlyPayment"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Max affordable monthly payment? *</FormLabel>
+                      <FormLabel className={LABEL_CLASS}>Max affordable monthly payment? *</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger className={FIELD_CLASS}>
                             <SelectValue placeholder="Select a range" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
+                        <SelectContent className="rounded-2xl">
                           {PAYMENT_OPTIONS.map((opt) => (
-                            <SelectItem key={opt} value={opt}>
+                            <SelectItem key={opt} value={opt} className="rounded-xl">
                               {opt}
                             </SelectItem>
                           ))}
@@ -390,19 +396,33 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
 
             <div className="flex justify-between gap-3 pt-2">
               {step > 0 ? (
-                <Button type="button" variant="outline" onClick={goBack} disabled={isSubmitting}>
-                  Back
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={goBack}
+                  disabled={isSubmitting}
+                  className="h-12 rounded-2xl border-2 px-6 text-base font-semibold"
+                >
+                  ← Back
                 </Button>
               ) : (
                 <span />
               )}
               {step < LAST_STEP ? (
-                <Button type="button" onClick={goNext}>
-                  Next
+                <Button
+                  type="button"
+                  onClick={goNext}
+                  className="h-12 rounded-2xl px-7 text-base font-bold bg-[#81D8D0] text-[#0b3b37] hover:bg-[#74cdc5] shadow-[0_4px_0_0_#57bdb4] hover:shadow-[0_2px_0_0_#57bdb4] hover:translate-y-[2px] active:translate-y-[4px] active:shadow-none transition-all"
+                >
+                  Next →
                 </Button>
               ) : (
-                <Button type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? 'Submitting...' : 'Submit'}
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="h-12 rounded-2xl px-7 text-base font-bold bg-[#81D8D0] text-[#0b3b37] hover:bg-[#74cdc5] shadow-[0_4px_0_0_#57bdb4] hover:shadow-[0_2px_0_0_#57bdb4] hover:translate-y-[2px] active:translate-y-[4px] active:shadow-none transition-all"
+                >
+                  {isSubmitting ? 'Submitting…' : 'Submit 🎉'}
                 </Button>
               )}
             </div>
