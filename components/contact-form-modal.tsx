@@ -30,6 +30,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
 
 const BEDROOM_OPTIONS = ['3', '4', '5+', 'Need office']
@@ -72,6 +73,7 @@ const formSchema = z.object({
   desiredArea: z.string().min(1, 'Desired area is required'),
   monthlyPayment: z.string().min(1, 'Please select an option'),
   veteranStatus: z.string().min(1, 'Please select an option'),
+  additionalInfo: z.string().optional(),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -96,7 +98,8 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    mode: 'onTouched',
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
     defaultValues: {
       fullName: '',
       phoneNumber: '',
@@ -106,6 +109,7 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
       desiredArea: '',
       monthlyPayment: '',
       veteranStatus: '',
+      additionalInfo: '',
     },
   })
 
@@ -121,10 +125,17 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
 
   const goNext = async () => {
     const valid = await form.trigger(STEPS[step].fields)
-    if (valid) setStep((s) => Math.min(s + 1, LAST_STEP))
+    if (!valid) return
+    // The Zod resolver surfaces errors for every field at once; clear them so the
+    // next step arrives clean and only flags fields when the user tries to advance.
+    form.clearErrors()
+    setStep((s) => Math.min(s + 1, LAST_STEP))
   }
 
-  const goBack = () => setStep((s) => Math.max(s - 1, 0))
+  const goBack = () => {
+    form.clearErrors()
+    setStep((s) => Math.max(s - 1, 0))
+  }
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
@@ -346,6 +357,25 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                           ))}
                         </SelectContent>
                       </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="additionalInfo"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={LABEL_CLASS}>
+                        Anything else relevant to your consult? (Optional)
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Share anything that'd help — must-haves, your situation, questions…"
+                          className="min-h-24 rounded-2xl border-2 border-[#cdeae6] bg-white text-base shadow-sm focus-visible:border-[#81D8D0] focus-visible:ring-4 focus-visible:ring-[#81D8D0]/20"
+                          {...field}
+                        />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
