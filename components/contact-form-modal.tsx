@@ -60,16 +60,28 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
+type FieldName = keyof FormData
+
+// Fields grouped into the 3 wizard steps. Order here drives validation-per-step.
+const STEPS: { title: string; fields: FieldName[] }[] = [
+  { title: 'About you', fields: ['fullName', 'phoneNumber', 'email'] },
+  { title: 'Your situation', fields: ['workingWithAgent', 'financingStatus', 'moveInTimeline', 'veteranStatus'] },
+  { title: 'Your home', fields: ['bedrooms', 'desiredArea', 'monthlyPayment'] },
+]
+const LAST_STEP = STEPS.length - 1
+
 interface ContactFormModalProps {
   children: React.ReactNode
 }
 
 export function ContactFormModal({ children }: ContactFormModalProps) {
   const [open, setOpen] = React.useState(false)
+  const [step, setStep] = React.useState(0)
   const [isSubmitting, setIsSubmitting] = React.useState(false)
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    mode: 'onTouched',
     defaultValues: {
       fullName: '',
       phoneNumber: '',
@@ -83,6 +95,23 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
       financingStatus: '',
     },
   })
+
+  const resetWizard = React.useCallback(() => {
+    setStep(0)
+    form.reset()
+  }, [form])
+
+  const handleOpenChange = (next: boolean) => {
+    setOpen(next)
+    if (!next) resetWizard()
+  }
+
+  const goNext = async () => {
+    const valid = await form.trigger(STEPS[step].fields)
+    if (valid) setStep((s) => Math.min(s + 1, LAST_STEP))
+  }
+
+  const goBack = () => setStep((s) => Math.max(s - 1, 0))
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
@@ -104,8 +133,7 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
           ;(window as Window & { fbq?: (...args: unknown[]) => void }).fbq?.('track', 'Lead', {}, { eventID: eventId })
         }
         toast.success('Thank you! We will contact you soon.')
-        form.reset()
-        setOpen(false)
+        handleOpenChange(false)
       } else {
         toast.error('Something went wrong. Please try again.')
       }
@@ -117,221 +145,267 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
     }
   }
 
+  // Enter advances steps; only the final step actually submits.
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (step === LAST_STEP) {
+      void form.handleSubmit(onSubmit)()
+    } else {
+      void goNext()
+    }
+  }
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Get in Touch</DialogTitle>
           <DialogDescription>
-            A few quick questions so we can point you in the right direction.
+            Step {step + 1} of {STEPS.length} · {STEPS[step].title}
           </DialogDescription>
+          <div className="flex items-center gap-1.5 pt-2" aria-hidden="true">
+            {STEPS.map((_, i) => (
+              <span
+                key={i}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === step ? 'w-6 bg-primary' : i < step ? 'w-4 bg-primary/50' : 'w-4 bg-muted'
+                }`}
+              />
+            ))}
+          </div>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 max-h-[70vh] overflow-y-auto pr-1">
-            <FormField
-              control={form.control}
-              name="fullName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Full Name *</FormLabel>
-                  <FormControl>
-                    <Input placeholder="John Doe" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+          <form onSubmit={handleFormSubmit} className="space-y-4 max-h-[65vh] overflow-y-auto pr-1">
+            {step === 0 && (
+              <>
+                <FormField
+                  control={form.control}
+                  name="fullName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Full Name *</FormLabel>
+                      <FormControl>
+                        <Input placeholder="John Doe" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="phoneNumber"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Phone Number *</FormLabel>
+                      <FormControl>
+                        <Input type="tel" placeholder="+1 (555) 000-0000" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email (Optional)</FormLabel>
+                      <FormControl>
+                        <Input type="email" placeholder="john@example.com" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+            )}
+
+            {step === 1 && (
+              <>
+                <FormField
+                  control={form.control}
+                  name="workingWithAgent"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Are you currently working with a Real Estate Agent? *</FormLabel>
+                      <FormControl>
+                        <RadioGroup
+                          onValueChange={field.onChange}
+                          value={field.value}
+                          className="flex flex-wrap gap-x-6 gap-y-2 pt-1"
+                        >
+                          {['Yes', 'No'].map((opt) => (
+                            <label key={opt} className="flex items-center gap-2 text-sm font-normal cursor-pointer">
+                              <RadioGroupItem value={opt} />
+                              {opt}
+                            </label>
+                          ))}
+                        </RadioGroup>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="financingStatus"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Financing status? *</FormLabel>
+                      <FormControl>
+                        <RadioGroup
+                          onValueChange={field.onChange}
+                          value={field.value}
+                          className="flex flex-col gap-2 pt-1"
+                        >
+                          {FINANCING_OPTIONS.map((opt) => (
+                            <label key={opt} className="flex items-center gap-2 text-sm font-normal cursor-pointer">
+                              <RadioGroupItem value={opt} />
+                              {opt}
+                            </label>
+                          ))}
+                        </RadioGroup>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="moveInTimeline"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Desired move-in date? *</FormLabel>
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a timeline" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {TIMELINE_OPTIONS.map((opt) => (
+                            <SelectItem key={opt} value={opt}>
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="veteranStatus"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Are you a Veteran? *</FormLabel>
+                      <FormControl>
+                        <RadioGroup
+                          onValueChange={field.onChange}
+                          value={field.value}
+                          className="flex flex-col gap-2 pt-1"
+                        >
+                          {VETERAN_OPTIONS.map((opt) => (
+                            <label key={opt} className="flex items-center gap-2 text-sm font-normal cursor-pointer">
+                              <RadioGroupItem value={opt} />
+                              {opt}
+                            </label>
+                          ))}
+                        </RadioGroup>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+            )}
+
+            {step === 2 && (
+              <>
+                <FormField
+                  control={form.control}
+                  name="bedrooms"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Bedrooms? *</FormLabel>
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select bedrooms" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {BEDROOM_OPTIONS.map((opt) => (
+                            <SelectItem key={opt} value={opt}>
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="desiredArea"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Desired area? *</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. Stone Oak, Alamo Ranch, Schertz" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="monthlyPayment"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Max affordable monthly payment? *</FormLabel>
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a range" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {PAYMENT_OPTIONS.map((opt) => (
+                            <SelectItem key={opt} value={opt}>
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+            )}
+
+            <div className="flex justify-between gap-3 pt-2">
+              {step > 0 ? (
+                <Button type="button" variant="outline" onClick={goBack} disabled={isSubmitting}>
+                  Back
+                </Button>
+              ) : (
+                <span />
               )}
-            />
-            <FormField
-              control={form.control}
-              name="phoneNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone Number *</FormLabel>
-                  <FormControl>
-                    <Input type="tel" placeholder="+1 (555) 000-0000" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+              {step < LAST_STEP ? (
+                <Button type="button" onClick={goNext}>
+                  Next
+                </Button>
+              ) : (
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? 'Submitting...' : 'Submit'}
+                </Button>
               )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email (Optional)</FormLabel>
-                  <FormControl>
-                    <Input type="email" placeholder="john@example.com" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="workingWithAgent"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Are you currently working with a Real Estate Agent? *</FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      value={field.value}
-                      className="flex flex-wrap gap-x-6 gap-y-2 pt-1"
-                    >
-                      {['Yes', 'No'].map((opt) => (
-                        <label key={opt} className="flex items-center gap-2 text-sm font-normal cursor-pointer">
-                          <RadioGroupItem value={opt} />
-                          {opt}
-                        </label>
-                      ))}
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="bedrooms"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Bedrooms? *</FormLabel>
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select bedrooms" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {BEDROOM_OPTIONS.map((opt) => (
-                        <SelectItem key={opt} value={opt}>
-                          {opt}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="moveInTimeline"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Desired move-in date? *</FormLabel>
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a timeline" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {TIMELINE_OPTIONS.map((opt) => (
-                        <SelectItem key={opt} value={opt}>
-                          {opt}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="desiredArea"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Desired area? *</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g. Stone Oak, Alamo Ranch, Schertz" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="monthlyPayment"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Max affordable monthly payment? *</FormLabel>
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a range" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {PAYMENT_OPTIONS.map((opt) => (
-                        <SelectItem key={opt} value={opt}>
-                          {opt}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="veteranStatus"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Are you a Veteran? *</FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      value={field.value}
-                      className="flex flex-col gap-2 pt-1"
-                    >
-                      {VETERAN_OPTIONS.map((opt) => (
-                        <label key={opt} className="flex items-center gap-2 text-sm font-normal cursor-pointer">
-                          <RadioGroupItem value={opt} />
-                          {opt}
-                        </label>
-                      ))}
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="financingStatus"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Financing status? *</FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      value={field.value}
-                      className="flex flex-col gap-2 pt-1"
-                    >
-                      {FINANCING_OPTIONS.map((opt) => (
-                        <label key={opt} className="flex items-center gap-2 text-sm font-normal cursor-pointer">
-                          <RadioGroupItem value={opt} />
-                          {opt}
-                        </label>
-                      ))}
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Submitting...' : 'Submit'}
-            </Button>
+            </div>
           </form>
         </Form>
       </DialogContent>
