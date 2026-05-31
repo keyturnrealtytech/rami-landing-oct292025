@@ -8,13 +8,12 @@ interface ContactPayload {
   phoneNumber?: string
   email?: string
   eventId?: string
-  workingWithAgent?: string
+  creditScore?: string
   bedrooms?: string
   moveInTimeline?: string
   desiredArea?: string
   monthlyPayment?: string
   veteranStatus?: string
-  financingStatus?: string
 }
 
 // Meta requires user data hashed with SHA-256 (lowercased/normalized first).
@@ -50,13 +49,12 @@ export async function POST(req: Request) {
   // Qualifying answers — rendered into the FUB lead note and the email copy so Rami
   // sees them the moment the lead lands.
   const qualifiers: [string, string | undefined][] = [
-    ["Working with an agent", data.workingWithAgent],
+    ["Credit score", data.creditScore],
     ["Bedrooms", data.bedrooms],
     ["Move-in timeline", data.moveInTimeline],
     ["Desired area", data.desiredArea?.trim()],
     ["Max monthly payment", data.monthlyPayment],
     ["Veteran", data.veteranStatus],
-    ["Financing", data.financingStatus],
   ]
   const qualifierLines = qualifiers
     .filter(([, value]) => value)

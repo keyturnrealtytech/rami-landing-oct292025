@@ -43,7 +43,6 @@ const TIMELINE_OPTIONS = [
 ]
 const PAYMENT_OPTIONS = ['$1,800-$2,300', '$2,300-$2,500', '$2,500-$3,000', '$3,000+']
 const VETERAN_OPTIONS = ['No', 'Yes', 'Yes - 100% disabled']
-const FINANCING_OPTIONS = ['Already pre-approved', 'Need help']
 
 // Friendly, rounded styling shared across fields (teal brand accent #81D8D0).
 const FIELD_CLASS =
@@ -61,29 +60,28 @@ function optionCardClass(selected: boolean) {
 const formSchema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
   phoneNumber: z.string().min(1, 'Phone number is required'),
-  email: z.string().email('Invalid email address').optional().or(z.literal('')),
-  workingWithAgent: z.string().min(1, 'Please select an option'),
+  creditScore: z
+    .string()
+    .min(1, 'Credit score is required')
+    .refine((v) => {
+      const n = Number(v)
+      return Number.isInteger(n) && n >= 300 && n <= 850
+    }, 'Enter a score between 300 and 850'),
   bedrooms: z.string().min(1, 'Please select an option'),
   moveInTimeline: z.string().min(1, 'Please select an option'),
   desiredArea: z.string().min(1, 'Desired area is required'),
   monthlyPayment: z.string().min(1, 'Please select an option'),
   veteranStatus: z.string().min(1, 'Please select an option'),
-  financingStatus: z.string().min(1, 'Please select an option'),
 })
 
 type FormData = z.infer<typeof formSchema>
 
 type FieldName = keyof FormData
 
-// Fields grouped into the 3 wizard steps. Order here drives validation-per-step.
+// Fields grouped into the 2 wizard steps. Order here drives validation-per-step.
 const STEPS: { title: string; emoji: string; fields: FieldName[] }[] = [
-  { title: 'About you', emoji: '👋', fields: ['fullName', 'phoneNumber', 'email'] },
-  {
-    title: 'Your situation',
-    emoji: '🧭',
-    fields: ['workingWithAgent', 'financingStatus', 'moveInTimeline', 'veteranStatus'],
-  },
-  { title: 'Your home', emoji: '🏡', fields: ['bedrooms', 'desiredArea', 'monthlyPayment'] },
+  { title: 'About you', emoji: '👋', fields: ['fullName', 'phoneNumber', 'creditScore', 'veteranStatus'] },
+  { title: 'Your home', emoji: '🏡', fields: ['bedrooms', 'moveInTimeline', 'desiredArea', 'monthlyPayment'] },
 ]
 const LAST_STEP = STEPS.length - 1
 
@@ -102,14 +100,12 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
     defaultValues: {
       fullName: '',
       phoneNumber: '',
-      email: '',
-      workingWithAgent: '',
+      creditScore: '',
       bedrooms: '',
       moveInTimeline: '',
       desiredArea: '',
       monthlyPayment: '',
       veteranStatus: '',
-      financingStatus: '',
     },
   })
 
@@ -225,82 +221,21 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                 />
                 <FormField
                   control={form.control}
-                  name="email"
+                  name="creditScore"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className={LABEL_CLASS}>Email (Optional)</FormLabel>
+                      <FormLabel className={LABEL_CLASS}>Credit score? *</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="john@example.com" className={FIELD_CLASS} {...field} />
+                        <Input
+                          type="number"
+                          inputMode="numeric"
+                          min={300}
+                          max={850}
+                          placeholder="e.g. 720"
+                          className={FIELD_CLASS}
+                          {...field}
+                        />
                       </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
-
-            {step === 1 && (
-              <>
-                <FormField
-                  control={form.control}
-                  name="workingWithAgent"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className={LABEL_CLASS}>Working with a Real Estate Agent? *</FormLabel>
-                      <FormControl>
-                        <RadioGroup onValueChange={field.onChange} value={field.value} className="grid grid-cols-2 gap-3 pt-1">
-                          {['Yes', 'No'].map((opt) => (
-                            <label key={opt} className={optionCardClass(field.value === opt)}>
-                              <RadioGroupItem value={opt} className="size-5 border-2 border-[#81D8D0] text-[#2c8f87]" />
-                              <span className="text-sm font-medium">{opt}</span>
-                            </label>
-                          ))}
-                        </RadioGroup>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="financingStatus"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className={LABEL_CLASS}>Financing status? *</FormLabel>
-                      <FormControl>
-                        <RadioGroup onValueChange={field.onChange} value={field.value} className="flex flex-col gap-3 pt-1">
-                          {FINANCING_OPTIONS.map((opt) => (
-                            <label key={opt} className={optionCardClass(field.value === opt)}>
-                              <RadioGroupItem value={opt} className="size-5 border-2 border-[#81D8D0] text-[#2c8f87]" />
-                              <span className="text-sm font-medium">{opt}</span>
-                            </label>
-                          ))}
-                        </RadioGroup>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="moveInTimeline"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className={LABEL_CLASS}>Desired move-in date? *</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
-                        <FormControl>
-                          <SelectTrigger className={FIELD_CLASS}>
-                            <SelectValue placeholder="Select a timeline" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="rounded-2xl">
-                          {TIMELINE_OPTIONS.map((opt) => (
-                            <SelectItem key={opt} value={opt} className="rounded-xl">
-                              {opt}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -328,7 +263,7 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
               </>
             )}
 
-            {step === 2 && (
+            {step === 1 && (
               <>
                 <FormField
                   control={form.control}
@@ -344,6 +279,30 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                         </FormControl>
                         <SelectContent className="rounded-2xl">
                           {BEDROOM_OPTIONS.map((opt) => (
+                            <SelectItem key={opt} value={opt} className="rounded-xl">
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="moveInTimeline"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={LABEL_CLASS}>Desired move-in date? *</FormLabel>
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <FormControl>
+                          <SelectTrigger className={FIELD_CLASS}>
+                            <SelectValue placeholder="Select a timeline" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="rounded-2xl">
+                          {TIMELINE_OPTIONS.map((opt) => (
                             <SelectItem key={opt} value={opt} className="rounded-xl">
                               {opt}
                             </SelectItem>
