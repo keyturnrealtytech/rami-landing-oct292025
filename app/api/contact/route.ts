@@ -8,6 +8,13 @@ interface ContactPayload {
   phoneNumber?: string
   email?: string
   eventId?: string
+  creditScore?: string
+  bedrooms?: string
+  moveInTimeline?: string
+  desiredArea?: string
+  monthlyPayment?: string
+  veteranStatus?: string
+  additionalInfo?: string
 }
 
 // Meta requires user data hashed with SHA-256 (lowercased/normalized first).
@@ -40,6 +47,23 @@ export async function POST(req: Request) {
   const [firstName, ...rest] = fullName.split(/\s+/)
   const lastName = rest.join(" ")
 
+  // Qualifying answers — rendered into the FUB lead note and the email copy so Rami
+  // sees them the moment the lead lands.
+  const qualifiers: [string, string | undefined][] = [
+    ["Credit score", data.creditScore],
+    ["Bedrooms", data.bedrooms],
+    ["Move-in timeline", data.moveInTimeline],
+    ["Desired area", data.desiredArea?.trim()],
+    ["Max monthly payment", data.monthlyPayment],
+    ["Veteran", data.veteranStatus],
+  ]
+  const qualifierLines = qualifiers
+    .filter(([, value]) => value)
+    .map(([label, value]) => `${label}: ${value}`)
+  const qualifierSummary = qualifierLines.length ? "\n\nQualifying answers:\n" + qualifierLines.join("\n") : ""
+  const note = data.additionalInfo?.trim()
+  const noteSummary = note ? `\n\nFrom them:\n${note}` : ""
+
   // 1) Create the lead in Follow Up Boss (required)
   try {
     const fubRes = await fetch("https://api.followupboss.com/v1/events", {
@@ -53,7 +77,7 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         source: "Key Turn Realty Website",
         type: "General Inquiry",
-        message: `New contact form submission from ${fullName}.`,
+        message: `New contact form submission from ${fullName}.${qualifierSummary}${noteSummary}`,
         person: {
           firstName: firstName || fullName,
           lastName,
@@ -117,7 +141,7 @@ export async function POST(req: Request) {
           from: process.env.CONTACT_FROM_EMAIL ?? "leads@keyturnrealty.com",
           to: process.env.CONTACT_TO_EMAIL ?? "admin@keyturnrealty.com",
           subject: `New website lead: ${fullName}`,
-          text: `Name: ${fullName}\nPhone: ${phoneNumber}\nEmail: ${email || "(not provided)"}\n\nSource: keyturnrealty.com contact form`,
+          text: `Name: ${fullName}\nPhone: ${phoneNumber}\nEmail: ${email || "(not provided)"}${qualifierSummary}${noteSummary}\n\nSource: keyturnrealty.com contact form`,
         }),
       })
     } catch (err) {

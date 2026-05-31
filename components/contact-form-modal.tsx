@@ -22,15 +22,70 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
+
+const BEDROOM_OPTIONS = ['3', '4', '5+', 'Need office']
+const TIMELINE_OPTIONS = [
+  'ASAP (0-30 days)',
+  '1-3 months',
+  '3-6 months',
+  '6+ months',
+  'Just exploring',
+  'Need lease buyout',
+]
+const PAYMENT_OPTIONS = ['$1,800-$2,300', '$2,300-$2,500', '$2,500-$3,000', '$3,000+']
+const VETERAN_OPTIONS = ['No', 'Yes', 'Yes - 100% disabled']
+
+// Friendly, rounded styling shared across fields (teal brand accent #81D8D0).
+const FIELD_CLASS =
+  'h-12 rounded-2xl border-2 border-[#cdeae6] bg-white text-base shadow-sm focus-visible:border-[#81D8D0] focus-visible:ring-4 focus-visible:ring-[#81D8D0]/20'
+const LABEL_CLASS = 'text-[15px] font-semibold text-foreground'
+
+function optionCardClass(selected: boolean) {
+  return `flex items-center gap-3 rounded-2xl border-2 px-4 py-3 cursor-pointer transition-all ${
+    selected
+      ? 'border-[#81D8D0] bg-[#81D8D0]/15 shadow-sm'
+      : 'border-[#e6efee] hover:border-[#81D8D0]/60 hover:bg-[#81D8D0]/5'
+  }`
+}
 
 const formSchema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
   phoneNumber: z.string().min(1, 'Phone number is required'),
-  email: z.string().email('Invalid email address').optional().or(z.literal('')),
+  creditScore: z
+    .string()
+    .min(1, 'Credit score is required')
+    .refine((v) => {
+      const n = Number(v)
+      return Number.isInteger(n) && n >= 300 && n <= 850
+    }, 'Enter a score between 300 and 850'),
+  bedrooms: z.string().min(1, 'Please select an option'),
+  moveInTimeline: z.string().min(1, 'Please select an option'),
+  desiredArea: z.string().min(1, 'Desired area is required'),
+  monthlyPayment: z.string().min(1, 'Please select an option'),
+  veteranStatus: z.string().min(1, 'Please select an option'),
+  additionalInfo: z.string().optional(),
 })
 
 type FormData = z.infer<typeof formSchema>
+
+type FieldName = keyof FormData
+
+// Fields grouped into the 2 wizard steps. Order here drives validation-per-step.
+const STEPS: { title: string; emoji: string; fields: FieldName[] }[] = [
+  { title: 'About you', emoji: '👋', fields: ['fullName', 'phoneNumber', 'creditScore', 'veteranStatus'] },
+  { title: 'Your home', emoji: '🏡', fields: ['bedrooms', 'moveInTimeline', 'desiredArea', 'monthlyPayment'] },
+]
+const LAST_STEP = STEPS.length - 1
 
 interface ContactFormModalProps {
   children: React.ReactNode
@@ -38,16 +93,60 @@ interface ContactFormModalProps {
 
 export function ContactFormModal({ children }: ContactFormModalProps) {
   const [open, setOpen] = React.useState(false)
+  const [step, setStep] = React.useState(0)
   const [isSubmitting, setIsSubmitting] = React.useState(false)
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
     defaultValues: {
       fullName: '',
       phoneNumber: '',
-      email: '',
+      creditScore: '',
+      bedrooms: '',
+      moveInTimeline: '',
+      desiredArea: '',
+      monthlyPayment: '',
+      veteranStatus: '',
+      additionalInfo: '',
     },
   })
+
+  const resetWizard = React.useCallback(() => {
+    setStep(0)
+    form.reset()
+  }, [form])
+
+  const handleOpenChange = (next: boolean) => {
+    setOpen(next)
+    if (!next) resetWizard()
+  }
+
+  const goNext = () => {
+    // Validate ONLY the current step's fields manually. A schema-wide trigger()
+    // leaks errors onto later steps, so we set errors for this step's fields only —
+    // nothing on the next page can light up until the user gets there and submits.
+    const result = formSchema.safeParse(form.getValues())
+    const stepFields = STEPS[step].fields
+    form.clearErrors()
+    let ok = true
+    if (!result.success) {
+      for (const issue of result.error.issues) {
+        const name = issue.path[0] as FieldName
+        if (stepFields.includes(name)) {
+          form.setError(name, { type: 'manual', message: issue.message })
+          ok = false
+        }
+      }
+    }
+    if (ok) setStep((s) => Math.min(s + 1, LAST_STEP))
+  }
+
+  const goBack = () => {
+    form.clearErrors()
+    setStep((s) => Math.max(s - 1, 0))
+  }
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
@@ -69,8 +168,7 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
           ;(window as Window & { fbq?: (...args: unknown[]) => void }).fbq?.('track', 'Lead', {}, { eventID: eventId })
         }
         toast.success('Thank you! We will contact you soon.')
-        form.reset()
-        setOpen(false)
+        handleOpenChange(false)
       } else {
         toast.error('Something went wrong. Please try again.')
       }
@@ -82,64 +180,252 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
     }
   }
 
+  // Enter advances steps; only the final step actually submits.
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (step === LAST_STEP) {
+      void form.handleSubmit(onSubmit)()
+    } else {
+      void goNext()
+    }
+  }
+
+  const progress = ((step + 1) / STEPS.length) * 100
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Get in Touch</DialogTitle>
-          <DialogDescription>
-            Fill out the form below and we'll get back to you as soon as possible.
+      <DialogContent className="sm:max-w-[440px] rounded-[28px] border-2 border-[#d8eeec] bg-[#fbfdfc] p-6 shadow-2xl">
+        <DialogHeader className="space-y-3">
+          <DialogTitle className="text-2xl font-bold tracking-tight">Let&apos;s find your place 🏡</DialogTitle>
+          <DialogDescription className="text-[15px]">
+            <span className="font-semibold text-[#2c8f87]">
+              {STEPS[step].emoji} {STEPS[step].title}
+            </span>{' '}
+            · Step {step + 1} of {STEPS.length}
           </DialogDescription>
+          <div className="h-2 w-full overflow-hidden rounded-full bg-[#e6efee]">
+            <div
+              className="h-full rounded-full bg-[#81D8D0] transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="fullName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Full Name *</FormLabel>
-                  <FormControl>
-                    <Input placeholder="John Doe" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+          <form onSubmit={handleFormSubmit} className="space-y-5 max-h-[62vh] overflow-y-auto pr-1">
+            {step === 0 && (
+              <>
+                <FormField
+                  control={form.control}
+                  name="fullName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={LABEL_CLASS}>Full Name *</FormLabel>
+                      <FormControl>
+                        <Input placeholder="John Doe" className={FIELD_CLASS} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="phoneNumber"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={LABEL_CLASS}>Phone Number *</FormLabel>
+                      <FormControl>
+                        <Input type="tel" placeholder="+1 (555) 000-0000" className={FIELD_CLASS} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="creditScore"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={LABEL_CLASS}>Credit score? *</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          inputMode="numeric"
+                          min={300}
+                          max={850}
+                          placeholder="e.g. 720"
+                          className={FIELD_CLASS}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="veteranStatus"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={LABEL_CLASS}>Are you a Veteran? *</FormLabel>
+                      <FormControl>
+                        <RadioGroup onValueChange={field.onChange} value={field.value} className="flex flex-col gap-3 pt-1">
+                          {VETERAN_OPTIONS.map((opt) => (
+                            <label key={opt} className={optionCardClass(field.value === opt)}>
+                              <RadioGroupItem value={opt} className="size-5 border-2 border-[#81D8D0] text-[#2c8f87]" />
+                              <span className="text-sm font-medium">{opt}</span>
+                            </label>
+                          ))}
+                        </RadioGroup>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+            )}
+
+            {step === 1 && (
+              <>
+                <FormField
+                  control={form.control}
+                  name="bedrooms"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={LABEL_CLASS}>Bedrooms? *</FormLabel>
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <FormControl>
+                          <SelectTrigger className={FIELD_CLASS}>
+                            <SelectValue placeholder="Select bedrooms" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="rounded-2xl">
+                          {BEDROOM_OPTIONS.map((opt) => (
+                            <SelectItem key={opt} value={opt} className="rounded-xl">
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="moveInTimeline"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={LABEL_CLASS}>Desired move-in date? *</FormLabel>
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <FormControl>
+                          <SelectTrigger className={FIELD_CLASS}>
+                            <SelectValue placeholder="Select a timeline" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="rounded-2xl">
+                          {TIMELINE_OPTIONS.map((opt) => (
+                            <SelectItem key={opt} value={opt} className="rounded-xl">
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="desiredArea"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={LABEL_CLASS}>Desired area? *</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. Stone Oak, Alamo Ranch, Schertz" className={FIELD_CLASS} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="monthlyPayment"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={LABEL_CLASS}>Max affordable monthly payment? *</FormLabel>
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <FormControl>
+                          <SelectTrigger className={FIELD_CLASS}>
+                            <SelectValue placeholder="Select a range" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="rounded-2xl">
+                          {PAYMENT_OPTIONS.map((opt) => (
+                            <SelectItem key={opt} value={opt} className="rounded-xl">
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="additionalInfo"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={LABEL_CLASS}>
+                        Anything else relevant to your consult? (Optional)
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Share anything that'd help — must-haves, your situation, questions…"
+                          className="min-h-24 rounded-2xl border-2 border-[#cdeae6] bg-white text-base shadow-sm focus-visible:border-[#81D8D0] focus-visible:ring-4 focus-visible:ring-[#81D8D0]/20"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+            )}
+
+            <div className="flex justify-between gap-3 pt-2">
+              {step > 0 ? (
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={goBack}
+                  disabled={isSubmitting}
+                  className="h-12 rounded-2xl border-2 px-6 text-base font-semibold"
+                >
+                  ← Back
+                </Button>
+              ) : (
+                <span />
               )}
-            />
-            <FormField
-              control={form.control}
-              name="phoneNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone Number *</FormLabel>
-                  <FormControl>
-                    <Input type="tel" placeholder="+1 (555) 000-0000" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+              {step < LAST_STEP ? (
+                <Button
+                  type="button"
+                  onClick={goNext}
+                  className="h-12 rounded-2xl px-7 text-base font-bold bg-[#81D8D0] text-[#0b3b37] hover:bg-[#74cdc5] shadow-[0_4px_0_0_#57bdb4] hover:shadow-[0_2px_0_0_#57bdb4] hover:translate-y-[2px] active:translate-y-[4px] active:shadow-none transition-all"
+                >
+                  Next →
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="h-12 rounded-2xl px-7 text-base font-bold bg-[#81D8D0] text-[#0b3b37] hover:bg-[#74cdc5] shadow-[0_4px_0_0_#57bdb4] hover:shadow-[0_2px_0_0_#57bdb4] hover:translate-y-[2px] active:translate-y-[4px] active:shadow-none transition-all"
+                >
+                  {isSubmitting ? 'Submitting…' : 'Submit 🎉'}
+                </Button>
               )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email (Optional)</FormLabel>
-                  <FormControl>
-                    <Input type="email" placeholder="john@example.com" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Submitting...' : 'Submit'}
-            </Button>
+            </div>
           </form>
         </Form>
       </DialogContent>
