@@ -22,12 +22,40 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { toast } from 'sonner'
+
+const BEDROOM_OPTIONS = ['3', '4', '5+', 'Need office']
+const TIMELINE_OPTIONS = [
+  'ASAP (0-30 days)',
+  '1-3 months',
+  '3-6 months',
+  '6+ months',
+  'Just exploring',
+  'Need lease buyout',
+]
+const PAYMENT_OPTIONS = ['$1,800-$2,300', '$2,300-$2,500', '$2,500-$3,000', '$3,000+']
+const VETERAN_OPTIONS = ['No', 'Yes', 'Yes - 100% disabled']
+const FINANCING_OPTIONS = ['Already pre-approved', 'Need help']
 
 const formSchema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
   phoneNumber: z.string().min(1, 'Phone number is required'),
   email: z.string().email('Invalid email address').optional().or(z.literal('')),
+  workingWithAgent: z.string().min(1, 'Please select an option'),
+  bedrooms: z.string().min(1, 'Please select an option'),
+  moveInTimeline: z.string().min(1, 'Please select an option'),
+  desiredArea: z.string().min(1, 'Desired area is required'),
+  monthlyPayment: z.string().min(1, 'Please select an option'),
+  veteranStatus: z.string().min(1, 'Please select an option'),
+  financingStatus: z.string().min(1, 'Please select an option'),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -46,6 +74,13 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
       fullName: '',
       phoneNumber: '',
       email: '',
+      workingWithAgent: '',
+      bedrooms: '',
+      moveInTimeline: '',
+      desiredArea: '',
+      monthlyPayment: '',
+      veteranStatus: '',
+      financingStatus: '',
     },
   })
 
@@ -89,11 +124,11 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
         <DialogHeader>
           <DialogTitle>Get in Touch</DialogTitle>
           <DialogDescription>
-            Fill out the form below and we'll get back to you as soon as possible.
+            A few quick questions so we can point you in the right direction.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 max-h-[70vh] overflow-y-auto pr-1">
             <FormField
               control={form.control}
               name="fullName"
@@ -128,6 +163,163 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                   <FormLabel>Email (Optional)</FormLabel>
                   <FormControl>
                     <Input type="email" placeholder="john@example.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="workingWithAgent"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Are you currently working with a Real Estate Agent? *</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      className="flex flex-wrap gap-x-6 gap-y-2 pt-1"
+                    >
+                      {['Yes', 'No'].map((opt) => (
+                        <label key={opt} className="flex items-center gap-2 text-sm font-normal cursor-pointer">
+                          <RadioGroupItem value={opt} />
+                          {opt}
+                        </label>
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="bedrooms"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Bedrooms? *</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select bedrooms" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {BEDROOM_OPTIONS.map((opt) => (
+                        <SelectItem key={opt} value={opt}>
+                          {opt}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="moveInTimeline"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Desired move-in date? *</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a timeline" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {TIMELINE_OPTIONS.map((opt) => (
+                        <SelectItem key={opt} value={opt}>
+                          {opt}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="desiredArea"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Desired area? *</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g. Stone Oak, Alamo Ranch, Schertz" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="monthlyPayment"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Max affordable monthly payment? *</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a range" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {PAYMENT_OPTIONS.map((opt) => (
+                        <SelectItem key={opt} value={opt}>
+                          {opt}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="veteranStatus"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Are you a Veteran? *</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      className="flex flex-col gap-2 pt-1"
+                    >
+                      {VETERAN_OPTIONS.map((opt) => (
+                        <label key={opt} className="flex items-center gap-2 text-sm font-normal cursor-pointer">
+                          <RadioGroupItem value={opt} />
+                          {opt}
+                        </label>
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="financingStatus"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Financing status? *</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      className="flex flex-col gap-2 pt-1"
+                    >
+                      {FINANCING_OPTIONS.map((opt) => (
+                        <label key={opt} className="flex items-center gap-2 text-sm font-normal cursor-pointer">
+                          <RadioGroupItem value={opt} />
+                          {opt}
+                        </label>
+                      ))}
+                    </RadioGroup>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
