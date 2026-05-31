@@ -123,13 +123,24 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
     if (!next) resetWizard()
   }
 
-  const goNext = async () => {
-    const valid = await form.trigger(STEPS[step].fields)
-    if (!valid) return
-    // The Zod resolver surfaces errors for every field at once; clear them so the
-    // next step arrives clean and only flags fields when the user tries to advance.
+  const goNext = () => {
+    // Validate ONLY the current step's fields manually. A schema-wide trigger()
+    // leaks errors onto later steps, so we set errors for this step's fields only —
+    // nothing on the next page can light up until the user gets there and submits.
+    const result = formSchema.safeParse(form.getValues())
+    const stepFields = STEPS[step].fields
     form.clearErrors()
-    setStep((s) => Math.min(s + 1, LAST_STEP))
+    let ok = true
+    if (!result.success) {
+      for (const issue of result.error.issues) {
+        const name = issue.path[0] as FieldName
+        if (stepFields.includes(name)) {
+          form.setError(name, { type: 'manual', message: issue.message })
+          ok = false
+        }
+      }
+    }
+    if (ok) setStep((s) => Math.min(s + 1, LAST_STEP))
   }
 
   const goBack = () => {
