@@ -8,6 +8,8 @@ interface ContactPayload {
   phoneNumber?: string
   email?: string
   eventId?: string
+  fbp?: string
+  fbc?: string
   creditScore?: string
   bedrooms?: string
   moveInTimeline?: string
@@ -101,9 +103,19 @@ export async function POST(req: Request) {
   const capiToken = process.env.FB_CAPI_TOKEN
   if (capiToken) {
     try {
-      const userData: Record<string, string[]> = {}
+      // Hashed keys (em/ph/fn/ln) and unhashed browser signals (fbp/fbc/IP/UA).
+      // More keys + higher coverage = higher Event Match Quality.
+      const userData: Record<string, string | string[]> = {}
       if (email) userData.em = [sha256(email.toLowerCase())]
       if (phoneNumber) userData.ph = [sha256(normalizePhone(phoneNumber))]
+      if (firstName) userData.fn = [sha256(firstName.toLowerCase())]
+      if (lastName) userData.ln = [sha256(lastName.toLowerCase())]
+      if (data.fbp) userData.fbp = data.fbp
+      if (data.fbc) userData.fbc = data.fbc
+      const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0].trim()
+      const clientUa = req.headers.get("user-agent")
+      if (clientIp) userData.client_ip_address = clientIp
+      if (clientUa) userData.client_user_agent = clientUa
 
       await fetch(`https://graph.facebook.com/v21.0/${META_DATASET_ID}/events?access_token=${capiToken}`, {
         method: "POST",

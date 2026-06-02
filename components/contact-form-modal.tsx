@@ -32,6 +32,14 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
+import { PIXEL_ID } from './meta-pixel'
+
+// Read a browser cookie (used for Meta's _fbp / _fbc match keys).
+function getCookie(name: string): string | undefined {
+  if (typeof document === 'undefined') return undefined
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
+  return match ? match[2] : undefined
+}
 
 const BEDROOM_OPTIONS = ['3', '4', '5+', 'Need office']
 const TIMELINE_OPTIONS = [
@@ -153,19 +161,28 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
     // Shared ID so the browser pixel and the server Conversions API event de-duplicate into one.
     const eventId =
       typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`
+    // Match keys: the _fbp/_fbc cookies tie this submit back to the ad click; the
+    // server-side CAPI event reuses them (same eventID) for higher match quality.
+    const fbp = getCookie('_fbp')
+    const fbc = getCookie('_fbc')
+    const [firstName, ...rest] = data.fullName.trim().split(/\s+/)
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...data, eventId }),
+        body: JSON.stringify({ ...data, eventId, fbp, fbc }),
       })
 
       if (response.ok) {
-        // Meta Pixel: track the lead conversion (same eventID as the server CAPI event)
+        // Meta Pixel: track the lead conversion (same eventID as the server CAPI event).
         if (typeof window !== 'undefined') {
-          ;(window as Window & { fbq?: (...args: unknown[]) => void }).fbq?.('track', 'Lead', {}, { eventID: eventId })
+          const fbq = (window as Window & { fbq?: (...args: unknown[]) => void }).fbq
+          // Automatic Advanced Matching: re-init with the lead's data so the browser
+          // event carries match keys too. fbq hashes these client-side before sending.
+          fbq?.('init', PIXEL_ID, { ph: data.phoneNumber, fn: firstName, ln: rest.join(' ') })
+          fbq?.('track', 'Lead', {}, { eventID: eventId })
         }
         toast.success('Thank you! We will contact you soon.')
         handleOpenChange(false)
