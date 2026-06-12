@@ -2,6 +2,11 @@ import { Star } from "lucide-react"
 
 const reviews = [
   {
+    name: "Christopher Jones",
+    source: "Google",
+    text: "Rami was outstanding throughout the entire home-buying/selling process!! He was knowledgeable, responsive, and always available to answer questions when they came up. His expertise and attention to detail made everything smooth and stress-free. I truly appreciated his professionalism and dedication to getting the deals. I would highly recommend him to anyone looking for a trustworthy realtor!!",
+  },
+  {
     name: "Gaby Adame",
     source: "Google",
     text: "Really grateful I clicked on Rami's Instagram ad and decided to go with him. I was able to purchase my brand new home, and he made the buying process super easy! Thank you, Rami!",
