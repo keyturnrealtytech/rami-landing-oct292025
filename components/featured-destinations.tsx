@@ -6,7 +6,7 @@ import { LazyVideo } from "@/components/lazy-video"
 
 const destinations = [
   {
-    name: "Featured Listing 1",
+    name: "Video tour of a San Antonio home listed by Rami Rafeh, Key Turn Realty Group",
     country: "San Antonio",
     image: "/placeholder.svg",
     poster: "/posters-listing-1.jpg",
@@ -15,7 +15,7 @@ const destinations = [
     price: "Contact for Details",
   },
   {
-    name: "Featured Listing 2",
+    name: "Video tour of a San Antonio property listed by Rami Rafeh, Key Turn Realty Group",
     country: "San Antonio",
     image: "/placeholder.svg",
     poster: "/posters-listing-2.jpg",
@@ -24,7 +24,7 @@ const destinations = [
     price: "Contact for Details",
   },
   {
-    name: "Featured Listing 3",
+    name: "Video tour of a San Antonio home sold by Rami Rafeh, Key Turn Realty Group",
     country: "San Antonio",
     image: "/placeholder.svg",
     poster: "/posters-listing-3.jpg",

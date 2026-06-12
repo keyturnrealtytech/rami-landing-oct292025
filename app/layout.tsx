@@ -12,11 +12,40 @@ const prompt = Prompt({
   variable: "--font-prompt",
 })
 
+const SITE_URL = "https://keyturnrealty.com"
+const TITLE = "Key Turn Realty Group | VA Loan & First-Time Buyer Realtor in San Antonio, TX"
+const DESCRIPTION =
+  "Retired Air Force veteran and San Antonio realtor Rami Rafeh helps veterans and first-time buyers purchase with confidence — VA loans, new construction, and relocation across San Antonio and the Hill Country. Free consultation."
+
 export const metadata: Metadata = {
-  title: "Key Turn Realty Group | VA Loan & First-Time Buyer Realtor in San Antonio, TX",
-  description:
-    "Retired Air Force veteran and San Antonio realtor Rami Rafeh helps veterans and first-time buyers purchase with confidence — VA loans, new construction, and relocation across San Antonio and the Hill Country. Free consultation.",
-  generator: "v0.app",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: "Key Turn Realty Group",
+    title: TITLE,
+    description: DESCRIPTION,
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Rami Rafeh — VA Loan & First-Time Buyer Realtor, Key Turn Realty Group, San Antonio, TX",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["/og-image.png"],
+  },
 }
 
 const structuredData = {

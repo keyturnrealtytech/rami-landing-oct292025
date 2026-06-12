@@ -10,9 +10,11 @@ export function Newsletter() {
         <div className="space-y-8">
           <div className="space-y-4">
             <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance">
-              Stay <span className="font-semibold">In Touch </span>
+              Ready to make San Antonio <span className="font-semibold">home?</span>
             </h2>
-
+            <p className="text-lg text-muted-foreground text-balance">
+              Tell Rami what you're looking for — it takes about a minute.
+            </p>
           </div>
 
           <div className="max-w-md mx-auto">
@@ -21,13 +23,13 @@ export function Newsletter() {
                 size="lg"
                 className="w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full text-base font-semibold"
               >
-                Contact
+                Start My Home Search
               </Button>
             </ContactFormModal>
           </div>
 
           <p className="text-xs text-muted-foreground">
-            Click to get in touch and we'll reach out to you as soon as possible
+            No spam, no pressure — Rami reaches out personally.
           </p>
         </div>
       </div>
