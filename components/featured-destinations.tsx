@@ -44,7 +44,7 @@ export function FeaturedDestinations() {
             Featured <span className="font-semibold">Listings</span>
           </h2>
           <p className="text-lg text-muted-foreground text-balance leading-relaxed">
-            Handpicked homes that offer unforgettable experiences and breathtaking beauty
+            A look at homes Rami has recently represented across San Antonio
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export function FeaturedDestinations() {
               size="lg"
               className="w-full max-w-md h-12 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full text-base font-semibold"
             >
-              View more listings
+              Find My Home
             </Button>
           </ContactFormModal>
         </div>

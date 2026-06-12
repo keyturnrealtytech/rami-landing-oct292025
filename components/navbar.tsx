@@ -58,7 +58,7 @@ export function Navbar() {
               className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6"
             >
               <a
-                href="https://calendly.com/real_estate_rami/homeconsult?month=2025-10"
+                href="https://calendly.com/real_estate_rami/homeconsult"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -95,7 +95,7 @@ export function Navbar() {
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full"
             >
               <a
-                href="https://calendly.com/real_estate_rami/homeconsult?month=2025-10"
+                href="https://calendly.com/real_estate_rami/homeconsult"
                 target="_blank"
                 rel="noopener noreferrer"
               >

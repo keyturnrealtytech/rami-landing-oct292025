@@ -66,9 +66,12 @@ function optionCardClass(selected: boolean) {
   }`
 }
 
+const CALENDLY_URL = 'https://calendly.com/real_estate_rami/homeconsult'
+
 const formSchema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
   phoneNumber: z.string().min(1, 'Phone number is required'),
+  email: z.string().email('Enter a valid email').optional().or(z.literal('')),
   creditScore: z
     .string()
     .min(1, 'Credit score is required')
@@ -89,9 +92,11 @@ type FormData = z.infer<typeof formSchema>
 type FieldName = keyof FormData
 
 // Fields grouped into the 2 wizard steps. Order here drives validation-per-step.
+// Home preferences come first (low-commitment, engaging); contact info + credit
+// score second, once the visitor is invested.
 const STEPS: { title: string; emoji: string; fields: FieldName[] }[] = [
-  { title: 'About you', emoji: '👋', fields: ['fullName', 'phoneNumber', 'creditScore', 'veteranStatus'] },
   { title: 'Your home', emoji: '🏡', fields: ['bedrooms', 'moveInTimeline', 'desiredArea', 'monthlyPayment'] },
+  { title: 'About you', emoji: '👋', fields: ['fullName', 'phoneNumber', 'email', 'creditScore', 'veteranStatus', 'additionalInfo'] },
 ]
 const LAST_STEP = STEPS.length - 1
 
@@ -103,6 +108,7 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
   const [open, setOpen] = React.useState(false)
   const [step, setStep] = React.useState(0)
   const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const [submittedName, setSubmittedName] = React.useState<string | null>(null)
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -111,6 +117,7 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
     defaultValues: {
       fullName: '',
       phoneNumber: '',
+      email: '',
       creditScore: '',
       bedrooms: '',
       moveInTimeline: '',
@@ -123,6 +130,7 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
 
   const resetWizard = React.useCallback(() => {
     setStep(0)
+    setSubmittedName(null)
     form.reset()
   }, [form])
 
@@ -181,11 +189,17 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
           const fbq = (window as Window & { fbq?: (...args: unknown[]) => void }).fbq
           // Automatic Advanced Matching: re-init with the lead's data so the browser
           // event carries match keys too. fbq hashes these client-side before sending.
-          fbq?.('init', PIXEL_ID, { ph: data.phoneNumber, fn: firstName, ln: rest.join(' ') })
+          fbq?.('init', PIXEL_ID, {
+            ph: data.phoneNumber,
+            fn: firstName,
+            ln: rest.join(' '),
+            ...(data.email ? { em: data.email } : {}),
+          })
           fbq?.('track', 'Lead', {}, { eventID: eventId })
         }
-        toast.success('Thank you! We will contact you soon.')
-        handleOpenChange(false)
+        // Show the in-modal success step (with the Calendly booking offer)
+        // instead of closing — this is the highest-intent moment to book.
+        setSubmittedName(firstName || null)
       } else {
         toast.error('Something went wrong. Please try again.')
       }
@@ -213,6 +227,39 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[440px] rounded-[28px] border-2 border-[#d8eeec] bg-[#fbfdfc] p-6 shadow-2xl">
+        {submittedName !== null ? (
+          <div className="flex flex-col items-center gap-4 py-4 text-center">
+            <div className="flex size-16 items-center justify-center rounded-full bg-[#81D8D0]/20 text-4xl" aria-hidden>
+              🎉
+            </div>
+            <DialogHeader className="space-y-2">
+              <DialogTitle className="text-center text-2xl font-bold tracking-tight">
+                You&apos;re all set{submittedName ? `, ${submittedName}` : ''}!
+              </DialogTitle>
+              <DialogDescription className="text-center text-[15px]">
+                Your info is on its way to Rami — he&apos;ll reach out personally soon.
+              </DialogDescription>
+            </DialogHeader>
+            <p className="text-[15px] font-semibold">Want to skip the wait?</p>
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-12 items-center justify-center rounded-2xl bg-[#81D8D0] px-7 text-base font-bold text-[#0b3b37] shadow-[0_4px_0_0_#57bdb4] transition-all hover:translate-y-[2px] hover:bg-[#74cdc5] hover:shadow-[0_2px_0_0_#57bdb4] active:translate-y-[4px] active:shadow-none"
+            >
+              📅 Book your free consult now
+            </a>
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => handleOpenChange(false)}
+              className="text-sm text-muted-foreground"
+            >
+              Done
+            </Button>
+          </div>
+        ) : (
+          <>
         <DialogHeader className="space-y-3">
           <DialogTitle className="text-2xl font-bold tracking-tight">Let&apos;s find your place 🏡</DialogTitle>
           <DialogDescription className="text-[15px]">
@@ -230,7 +277,7 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={handleFormSubmit} className="space-y-5 max-h-[62vh] overflow-y-auto pr-1">
-            {step === 0 && (
+            {step === 1 && (
               <>
                 <FormField
                   control={form.control}
@@ -253,6 +300,19 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                       <FormLabel className={LABEL_CLASS}>Phone Number *</FormLabel>
                       <FormControl>
                         <Input type="tel" placeholder="+1 (555) 000-0000" className={FIELD_CLASS} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={LABEL_CLASS}>Email (Optional)</FormLabel>
+                      <FormControl>
+                        <Input type="email" inputMode="email" placeholder="you@example.com" className={FIELD_CLASS} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -299,10 +359,29 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name="additionalInfo"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={LABEL_CLASS}>
+                        Anything else relevant to your consult? (Optional)
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Share anything that'd help — must-haves, your situation, questions…"
+                          className="min-h-24 rounded-2xl border-2 border-[#cdeae6] bg-white text-base shadow-sm focus-visible:border-[#81D8D0] focus-visible:ring-4 focus-visible:ring-[#81D8D0]/20"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </>
             )}
 
-            {step === 1 && (
+            {step === 0 && (
               <>
                 <FormField
                   control={form.control}
@@ -389,25 +468,6 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="additionalInfo"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className={LABEL_CLASS}>
-                        Anything else relevant to your consult? (Optional)
-                      </FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Share anything that'd help — must-haves, your situation, questions…"
-                          className="min-h-24 rounded-2xl border-2 border-[#cdeae6] bg-white text-base shadow-sm focus-visible:border-[#81D8D0] focus-visible:ring-4 focus-visible:ring-[#81D8D0]/20"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
               </>
             )}
 
@@ -445,6 +505,8 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
             </div>
           </form>
         </Form>
+          </>
+        )}
       </DialogContent>
     </Dialog>
   )

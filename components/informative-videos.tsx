@@ -66,7 +66,7 @@ export function InformativeVideos() {
               size="lg"
               className="w-full max-w-md h-12 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full text-base font-semibold"
             >
-              Learn More
+              Start My Home Search
             </Button>
           </ContactFormModal>
         </div>
