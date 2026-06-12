@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
 export function About() {
@@ -8,9 +9,12 @@ export function About() {
           {/* Headshot */}
           <div className="relative">
             <div className="overflow-hidden rounded-3xl bg-muted">
-              <img
+              <Image
                 src="/rami-rafeh-headshot.png"
                 alt="Rami Rafeh, San Antonio realtor and retired Air Force veteran, Key Turn Realty Group"
+                width={1154}
+                height={1104}
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="w-full h-auto object-cover"
               />
             </div>

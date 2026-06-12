@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Card } from "@/components/ui/card"
 import { LazyVideo } from "@/components/lazy-video"
 
@@ -56,12 +57,13 @@ export function TestimonialVideo() {
                 className="group overflow-hidden border-0 bg-card hover:shadow-2xl transition-all duration-500"
               >
                 <div className="relative h-[400px] overflow-hidden">
-                  <img
+                  <Image
                     src={`/testimonoal-pics/${image}`}
                     alt={`5-star client review of Rami Rafeh, San Antonio realtor at Key Turn Realty Group (${index + 1})`}
+                    fill
                     loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/0 to-black/0" />
                 </div>
