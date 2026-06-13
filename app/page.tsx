@@ -17,12 +17,12 @@ export default function Home() {
       <Navbar />
       <Hero />
       <AccomplishmentsStrip />
+      <Reviews />
       <About />
+      <TestimonialVideo />
       <InformativeVideos />
       <FeaturedDestinations />
       <WhyChooseUs />
-      <TestimonialVideo />
-      <Reviews />
       <Newsletter />
       <Footer />
       <MobileCtaBar />

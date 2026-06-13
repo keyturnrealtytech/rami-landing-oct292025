@@ -95,21 +95,11 @@ function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
 
 export function Reviews() {
   return (
-    <section id="reviews" className="py-32 bg-gradient-to-b from-[#eef7f5] to-[#faf8f4] overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="text-[11px] uppercase tracking-[0.22em] text-[#1f6b63] font-semibold mb-3">
-            Client Stories
-          </div>
-          <h2 className="text-5xl md:text-6xl font-light tracking-tight mb-6 text-balance text-[#15211f]">
-            What Clients <span className="font-semibold">Say</span>
-          </h2>
-          <p className="text-lg text-[#5d6f6c] text-balance leading-relaxed">
-            A 5.0 average across Google, Zillow, and Realtor.com — from first-time buyers, veterans, and military
-            families across San Antonio.
-          </p>
-        </div>
+    <section id="reviews" className="py-14 bg-gradient-to-b from-[#eef7f5] to-[#faf8f4] overflow-hidden">
+      <div className="text-center mb-8 px-6">
+        <span className="text-[11px] uppercase tracking-[0.22em] text-[#1f6b63] font-semibold">
+          What clients say · <span className="text-[#c9a227]">★★★★★</span> 5.0 across Google, Zillow &amp; Realtor.com
+        </span>
       </div>
 
       {/* Scrolling marquee — pure CSS, pauses on hover (see globals.css) */}
