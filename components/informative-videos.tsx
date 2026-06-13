@@ -5,17 +5,20 @@ import { LazyVideo } from "@/components/lazy-video"
 
 const videos = [
   {
-    title: "Informative Video 1",
+    title: "Watch with Rami",
+    duration: "1:17",
     video: "/informative-vid-1.mp4",
     poster: "/posters-informative-1.jpg",
   },
   {
-    title: "Informative Video 2",
+    title: "Watch with Rami",
+    duration: "1:28",
     video: "/informative-vid-2.mp4",
     poster: "/posters-informative-2.jpg",
   },
   {
-    title: "Informative Video 3",
+    title: "Watch with Rami",
+    duration: "0:32",
     video: "/informative-vid-3.mp4",
     poster: "/posters-informative-3.jpg",
   },
@@ -23,14 +26,17 @@ const videos = [
 
 export function InformativeVideos() {
   return (
-    <section className="py-32 bg-muted/30">
+    <section className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mb-20">
-          <h2 className="text-5xl md:text-6xl font-light tracking-tight mb-6 text-balance">
+          <div className="text-[11px] uppercase tracking-[0.22em] text-[#1f6b63] font-semibold mb-3">
+            Learn the Process
+          </div>
+          <h2 className="text-5xl md:text-6xl font-light tracking-tight mb-6 text-balance text-[#15211f]">
             Informative <span className="font-semibold">Videos</span>
           </h2>
-          <p className="text-lg text-muted-foreground text-balance leading-relaxed">
+          <p className="text-lg text-[#5d6f6c] text-balance leading-relaxed">
             Watch and learn about the home buying process with Rami
           </p>
         </div>
@@ -40,7 +46,7 @@ export function InformativeVideos() {
           {videos.map((item, index) => (
             <Card
               key={index}
-              className="group overflow-hidden border-0 bg-card hover:shadow-2xl transition-all duration-500"
+              className="group overflow-hidden border border-[#e8e4da] rounded-2xl bg-white p-0 gap-0 hover:shadow-2xl transition-all duration-500"
             >
               {/* Video */}
               <div className="relative h-[600px] overflow-hidden">
@@ -53,20 +59,23 @@ export function InformativeVideos() {
                   controls
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 pointer-events-none" />
+              </div>
+              <div className="px-4 py-3 flex items-center justify-between">
+                <span className="text-sm font-semibold text-[#15211f]">{item.title}</span>
+                <span className="text-xs text-[#8aa09c]">▶ {item.duration}</span>
               </div>
             </Card>
           ))}
         </div>
 
-        {/* Learn More Button */}
+        {/* CTA */}
         <div className="text-center mt-16">
           <ContactFormModal>
             <Button
               size="lg"
-              className="w-full max-w-md h-12 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full text-base font-semibold"
+              className="w-full max-w-md h-12 bg-[#15211f] text-white hover:bg-[#15211f]/90 rounded-full text-base font-semibold shadow-[0_10px_28px_-10px_rgba(21,33,31,0.4)]"
             >
-              Learn More
+              Start My Home Search
             </Button>
           </ContactFormModal>
         </div>

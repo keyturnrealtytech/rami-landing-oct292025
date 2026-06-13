@@ -7,6 +7,7 @@ interface ContactPayload {
   fullName?: string
   phoneNumber?: string
   email?: string
+  requestType?: string
   eventId?: string
   fbp?: string
   fbc?: string
@@ -17,6 +18,30 @@ interface ContactPayload {
   monthlyPayment?: string
   veteranStatus?: string
   additionalInfo?: string
+}
+
+// Fixed-window rate limit per IP. Module-level state is per serverless instance,
+// which is enough to blunt a spam flood at this traffic level.
+const RATE_LIMIT_MAX = 5
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000
+const rateBuckets = new Map<string, { count: number; windowStart: number }>()
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now()
+  const bucket = rateBuckets.get(ip)
+  if (!bucket || now - bucket.windowStart > RATE_LIMIT_WINDOW_MS) {
+    rateBuckets.set(ip, { count: 1, windowStart: now })
+    return false
+  }
+  bucket.count++
+  return bucket.count > RATE_LIMIT_MAX
+}
+
+// Collapse newlines/control chars and cap length so user text can't inject
+// fake qualifier lines into the FUB note or notification email.
+function clean(value: string | undefined, max = 1000): string | undefined {
+  const cleaned = value?.replace(/[\r\n\t]+/g, " ").replace(/[\x00-\x1f\x7f]/g, "").trim().slice(0, max)
+  return cleaned || undefined
 }
 
 // Meta requires user data hashed with SHA-256 (lowercased/normalized first).
@@ -30,6 +55,11 @@ function normalizePhone(phone: string): string {
 }
 
 export async function POST(req: Request) {
+  const clientIpForLimit = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown"
+  if (isRateLimited(clientIpForLimit)) {
+    return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 })
+  }
+
   let data: ContactPayload
   try {
     data = await req.json()
@@ -37,12 +67,17 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 })
   }
 
-  const fullName = data.fullName?.trim()
-  const phoneNumber = data.phoneNumber?.trim()
-  const email = data.email?.trim()
+  const fullName = clean(data.fullName, 200)
+  const phoneNumber = clean(data.phoneNumber, 40)
+  const email = clean(data.email, 200)
   const eventId = data.eventId
+  const isGuideRequest = data.requestType === "guide"
 
-  if (!fullName || !phoneNumber) {
+  if (isGuideRequest) {
+    if (!fullName || !email) {
+      return NextResponse.json({ error: "Name and email are required." }, { status: 400 })
+    }
+  } else if (!fullName || !phoneNumber) {
     return NextResponse.json({ error: "Name and phone are required." }, { status: 400 })
   }
 
@@ -52,18 +87,18 @@ export async function POST(req: Request) {
   // Qualifying answers — rendered into the FUB lead note and the email copy so Rami
   // sees them the moment the lead lands.
   const qualifiers: [string, string | undefined][] = [
-    ["Credit score", data.creditScore],
-    ["Bedrooms", data.bedrooms],
-    ["Move-in timeline", data.moveInTimeline],
-    ["Desired area", data.desiredArea?.trim()],
-    ["Max monthly payment", data.monthlyPayment],
-    ["Veteran", data.veteranStatus],
+    ["Credit score", clean(data.creditScore, 10)],
+    ["Bedrooms", clean(data.bedrooms, 30)],
+    ["Move-in timeline", clean(data.moveInTimeline, 50)],
+    ["Desired area", clean(data.desiredArea, 200)],
+    ["Max monthly payment", clean(data.monthlyPayment, 30)],
+    ["Veteran", clean(data.veteranStatus, 30)],
   ]
   const qualifierLines = qualifiers
     .filter(([, value]) => value)
     .map(([label, value]) => `${label}: ${value}`)
   const qualifierSummary = qualifierLines.length ? "\n\nQualifying answers:\n" + qualifierLines.join("\n") : ""
-  const note = data.additionalInfo?.trim()
+  const note = clean(data.additionalInfo)
   const noteSummary = note ? `\n\nFrom them:\n${note}` : ""
 
   // 1) Create the lead in Follow Up Boss (required)
@@ -79,12 +114,14 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         source: "Key Turn Realty Website",
         type: "General Inquiry",
-        message: `New contact form submission from ${fullName}.${qualifierSummary}${noteSummary}`,
+        message: isGuideRequest
+          ? `${fullName} downloaded the First-Time Home Buyer Handbook from the website.`
+          : `New contact form submission from ${fullName}.${qualifierSummary}${noteSummary}`,
         person: {
           firstName: firstName || fullName,
           lastName,
           emails: email ? [{ value: email }] : [],
-          phones: [{ value: phoneNumber }],
+          phones: phoneNumber ? [{ value: phoneNumber }] : [],
         },
       }),
     })
@@ -152,8 +189,10 @@ export async function POST(req: Request) {
         body: JSON.stringify({
           from: process.env.CONTACT_FROM_EMAIL ?? "leads@keyturnrealty.com",
           to: process.env.CONTACT_TO_EMAIL ?? "admin@keyturnrealty.com",
-          subject: `New website lead: ${fullName}`,
-          text: `Name: ${fullName}\nPhone: ${phoneNumber}\nEmail: ${email || "(not provided)"}${qualifierSummary}${noteSummary}\n\nSource: keyturnrealty.com contact form`,
+          subject: isGuideRequest ? `New guide download: ${fullName}` : `New website lead: ${fullName}`,
+          text: isGuideRequest
+            ? `Name: ${fullName}\nEmail: ${email}\nDownloaded: First-Time Home Buyer Handbook\n\nSource: keyturnrealty.com free resources`
+            : `Name: ${fullName}\nPhone: ${phoneNumber}\nEmail: ${email || "(not provided)"}${qualifierSummary}${noteSummary}\n\nSource: keyturnrealty.com contact form`,
         }),
       })
     } catch (err) {

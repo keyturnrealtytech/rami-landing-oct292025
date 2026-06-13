@@ -1,29 +1,35 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
+import { AccomplishmentsStrip } from "@/components/accomplishments-strip"
+import { Tools } from "@/components/tools"
+import { FreeGuide } from "@/components/free-guide"
 import { About } from "@/components/about"
 import { InformativeVideos } from "@/components/informative-videos"
 import { FeaturedDestinations } from "@/components/featured-destinations"
 import { WhyChooseUs } from "@/components/why-choose-us"
-import { PopularPackages } from "@/components/popular-packages"
 import { TestimonialVideo } from "@/components/testimonial-video"
 import { Reviews } from "@/components/reviews"
 import { Newsletter } from "@/components/newsletter"
 import { Footer } from "@/components/footer"
+import { MobileCtaBar } from "@/components/mobile-cta-bar"
 
 export default function Home() {
   return (
     <main className="min-h-screen">
       <Navbar />
       <Hero />
-      <About />
-      <InformativeVideos />
-      <FeaturedDestinations />
-      <WhyChooseUs />
-      <PopularPackages />
-      <TestimonialVideo />
+      <AccomplishmentsStrip />
       <Reviews />
+      <FeaturedDestinations />
+      <Tools />
+      <InformativeVideos />
+      <FreeGuide />
+      <About />
+      <TestimonialVideo />
+      <WhyChooseUs />
       <Newsletter />
       <Footer />
+      <MobileCtaBar />
     </main>
   )
 }

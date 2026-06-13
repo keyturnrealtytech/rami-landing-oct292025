@@ -1,59 +1,75 @@
-import { Globe, Shield, Headphones, Award, GraduationCap } from "lucide-react"
+import { ContactFormModal } from "@/components/contact-form-modal"
+import { Button } from "@/components/ui/button"
 
-const features = [
+const wins = [
   {
-    icon: Globe,
-    title: "Large Network",
-    description: "Direct connections with top builders and lenders across San Antonio for exclusive new construction deals",
+    value: "$0",
+    title: "Down Payment",
+    detail: "VA and first-time buyer programs that put veterans and new buyers in homes without draining savings.",
   },
   {
-    icon: Shield,
-    title: "Secure Transaction",
-    description: "Expert guidance through every step of the home buying process with complete transparency and protection",
+    value: "$0",
+    title: "Closing Costs",
+    detail: "Negotiated with builders deal after deal — money that stays in your pocket at the table.",
   },
   {
-    icon: Headphones,
-    title: "Personalized Support",
-    description: "Dedicated service for first-time buyers and veterans with support available whenever you need it",
+    value: "1.99%+",
+    title: "Buydown Rates",
+    detail: "Builder rate buydowns most buyers never hear about — recent clients locked 1.99%–3.99% fixed.",
   },
   {
-    icon: Award,
-    title: "Industry Expert",
-    description: "Retired veteran with proven expertise in finding the best new construction homes and negotiating great deals",
-  },
-  {
-    icon: GraduationCap,
-    title: "VA Home Loan Expert",
-    description: "Specializes in VA loans, educating and guiding clients through the entire home buying process",
+    value: "FREE",
+    title: "Appliances",
+    detail: "Fridge, washer, and dryer thrown in — negotiated as part of the deal, not bought after.",
   },
 ]
 
 export function WhyChooseUs() {
   return (
-    <section id="about" className="py-32 bg-muted/30">
+    <section id="about" className="py-32 bg-[#faf8f4]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-5xl md:text-6xl font-light tracking-tight mb-6 text-balance">
-            Why Choose <span className="font-semibold">Rami</span>
+          <div className="text-[11px] uppercase tracking-[0.22em] text-[#1f6b63] font-semibold mb-3">Why Rami</div>
+          <h2 className="text-5xl md:text-6xl font-light tracking-tight mb-6 text-balance text-[#15211f]">
+            What clients <span className="font-semibold">actually got</span>
           </h2>
-          <p className="text-lg text-muted-foreground text-balance leading-relaxed">
-            First-time homebuyers, veterans, and military families across San Antonio trust Rami to find the right home
-            for their needs.
+          <p className="text-lg text-[#5d6f6c] text-balance leading-relaxed">
+            Not promises — terms from real closings. You saw the photo wall; these are the deals behind it.
           </p>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {features.map((feature, index) => (
-            <div key={index} className="text-center space-y-4">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 text-primary mb-2">
-                <feature.icon className="h-8 w-8" />
+        {/* Outcome cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {wins.map((win) => (
+            <div
+              key={win.title}
+              className="rounded-2xl border border-[#e8e4da] bg-white p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="text-5xl font-semibold tracking-tight bg-gradient-to-r from-[#1f6b63] to-[#15211f] bg-clip-text text-transparent">
+                {win.value}
               </div>
-              <h3 className="text-xl font-semibold">{feature.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
+              <div className="mt-2 text-sm font-semibold uppercase tracking-[0.14em] text-[#c9a227]">{win.title}</div>
+              <div className="mt-4 h-px w-10 mx-auto bg-[#e8e4da]" />
+              <p className="mt-4 text-sm text-[#5d6f6c] leading-relaxed">{win.detail}</p>
             </div>
           ))}
+        </div>
+
+        <p className="mt-8 text-center text-xs text-[#8aa09c]">
+          Examples from actual 2025–2026 closings. Terms vary by builder, lender, and buyer qualification.
+        </p>
+
+        {/* CTA */}
+        <div className="text-center mt-12">
+          <ContactFormModal>
+            <Button
+              size="lg"
+              className="w-full max-w-md h-12 bg-[#15211f] text-white hover:bg-[#15211f]/90 rounded-full text-base font-semibold shadow-[0_10px_28px_-10px_rgba(21,33,31,0.4)]"
+            >
+              See What I Qualify For
+            </Button>
+          </ContactFormModal>
         </div>
       </div>
     </section>

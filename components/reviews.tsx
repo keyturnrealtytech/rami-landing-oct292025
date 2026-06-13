@@ -1,3 +1,4 @@
+import type React from "react"
 import { Star } from "lucide-react"
 
 const reviews = [
@@ -63,35 +64,52 @@ const reviews = [
   },
 ]
 
+// Display names as first name + last initial ("Christopher Jones" → "Christopher J.").
+// Single-word names and existing initials pass through unchanged.
+function displayName(full: string): string {
+  const parts = full.trim().split(/\s+/)
+  if (parts.length < 2) return full
+  // Handles like "K thePsalmist" aren't real first/last names — leave them alone.
+  if (parts[0].length === 1) return full
+  const last = parts[parts.length - 1]
+  if (last.length <= 2 || last.includes(".")) return full
+  return `${parts.slice(0, -1).join(" ")} ${last[0]}.`
+}
+
+function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
+  return (
+    <div className="w-[320px] md:w-[360px] shrink-0 mr-5 rounded-2xl border border-[#e8e4da] bg-white p-6 shadow-sm">
+      <div className="flex gap-1 mb-3 text-[#c9a227]" aria-label="5 out of 5 stars">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star key={i} className="h-4 w-4 fill-current" />
+        ))}
+      </div>
+      <p className="text-sm text-[#3d4f4c] leading-relaxed mb-4 line-clamp-6">{review.text}</p>
+      <div className="flex items-center justify-between">
+        <span className="font-semibold text-sm text-[#15211f]">{displayName(review.name)}</span>
+        <span className="text-xs text-[#8aa09c]">{review.source}</span>
+      </div>
+    </div>
+  )
+}
+
 export function Reviews() {
   return (
-    <section id="reviews" className="py-32 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-5xl md:text-6xl font-light tracking-tight mb-6 text-balance">
-            What Clients <span className="font-semibold">Say</span>
-          </h2>
-          <p className="text-lg text-muted-foreground text-balance leading-relaxed">
-            A 5.0 average across Google, Zillow, and Realtor.com — from first-time buyers, veterans, and military
-            families across San Antonio.
-          </p>
-        </div>
+    <section id="reviews" className="py-14 bg-gradient-to-b from-[#eef7f5] to-[#faf8f4] overflow-hidden">
+      <div className="text-center mb-8 px-6">
+        <span className="text-[11px] uppercase tracking-[0.22em] text-[#1f6b63] font-semibold">
+          What clients say · <span className="text-[#c9a227]">★★★★★</span> 5.0 across Google, Zillow &amp; Realtor.com
+        </span>
+      </div>
 
-        {/* Reviews (masonry) */}
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-8">
-          {reviews.map((review, index) => (
-            <div key={index} className="break-inside-avoid mb-8 rounded-xl border bg-card p-6 shadow-sm">
-              <div className="flex gap-1 mb-4 text-primary" aria-label="5 out of 5 stars">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-current" />
-                ))}
-              </div>
-              <p className="text-muted-foreground leading-relaxed mb-4">{review.text}</p>
-              <div className="flex items-center justify-between">
-                <span className="font-semibold text-sm">{review.name}</span>
-                <span className="text-xs text-muted-foreground">{review.source}</span>
-              </div>
+      {/* Scrolling marquee — pure CSS, pauses on hover (see globals.css) */}
+      <div className="marquee" style={{ "--marquee-duration": "80s" } as React.CSSProperties}>
+        <div className="marquee-track items-stretch">
+          {[0, 1].map((dup) => (
+            <div key={dup} className="flex" aria-hidden={dup === 1}>
+              {reviews.map((review) => (
+                <ReviewCard key={review.name} review={review} />
+              ))}
             </div>
           ))}
         </div>
