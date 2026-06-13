@@ -9,7 +9,8 @@ const PROPERTY_TAX_RATE = 0.022 // annual, % of price
 const INSURANCE_MONTHLY = 150
 const TERM_YEARS = 30
 const MARKET_RATE = 6.9
-const BUYDOWN_RATE = 3.99 // conservative end of recent client buydowns (1.99%–3.99%)
+// Real builder buydown rates Rami works with — visitor picks one.
+const RATE_OPTIONS = [3.5, 3.99, 4.5, 4.75, 4.99]
 
 function monthlyPayment(price: number, downPct: number, ratePct: number): number {
   const principal = price * (1 - downPct / 100)
@@ -37,12 +38,11 @@ const SLIDER_CLASS =
 export function PaymentCalculator() {
   const [price, setPrice] = React.useState(330000)
   const [downPct, setDownPct] = React.useState(0)
-  const [withBuydown, setWithBuydown] = React.useState(true)
+  const [rate, setRate] = React.useState(3.99)
 
   const market = monthlyPayment(price, downPct, MARKET_RATE)
-  const buydown = monthlyPayment(price, downPct, BUYDOWN_RATE)
-  const shown = withBuydown ? buydown : market
-  const savings = market - buydown
+  const shown = monthlyPayment(price, downPct, rate)
+  const savings = market - shown
 
   return (
     <div className="rounded-3xl border border-[#e8e4da] bg-white p-8 shadow-sm flex flex-col">
@@ -87,34 +87,37 @@ export function PaymentCalculator() {
           </button>
         </div>
 
-        <div className="flex items-center justify-between rounded-2xl border border-[#e6efee] px-4 py-3">
-          <div>
-            <div className="text-sm font-medium text-[#15211f]">Builder rate buydown</div>
-            <div className="text-xs text-[#8aa09c]">recent clients locked 1.99%–3.99%</div>
+        <div>
+          <div className="text-sm font-medium text-[#15211f] mb-1">Builder buydown rate</div>
+          <div className="text-xs text-[#8aa09c] mb-2.5">real rates Rami's clients have locked</div>
+          <div className="flex flex-wrap gap-2">
+            {RATE_OPTIONS.map((r) => (
+              <button
+                key={r}
+                type="button"
+                onClick={() => setRate(r)}
+                className={`rounded-full px-4 py-2 text-sm font-semibold border-2 transition-all ${
+                  rate === r
+                    ? "border-[#81D8D0] bg-[#81D8D0]/15 text-[#1f6b63]"
+                    : "border-[#e6efee] text-[#5d6f6c] hover:border-[#81D8D0]/60"
+                }`}
+              >
+                {r}%
+              </button>
+            ))}
           </div>
-          <button
-            type="button"
-            role="switch"
-            aria-checked={withBuydown}
-            onClick={() => setWithBuydown((v) => !v)}
-            className={`relative h-7 w-12 rounded-full transition-colors ${withBuydown ? "bg-[#81D8D0]" : "bg-[#e6efee]"}`}
-          >
-            <span
-              className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow transition-all ${withBuydown ? "left-6" : "left-1"}`}
-            />
-          </button>
         </div>
 
         <div className="rounded-2xl bg-gradient-to-b from-[#eef7f5] to-[#faf8f4] border border-[#dbe7e3] p-6 text-center">
           <div className="text-xs uppercase tracking-[0.18em] text-[#8aa09c]">
-            Estimated monthly · {withBuydown ? `${BUYDOWN_RATE}% buydown` : `${MARKET_RATE}% market rate`}
+            Estimated monthly · {rate}% buydown rate
           </div>
           <div className="mt-2 text-5xl font-semibold tracking-tight bg-gradient-to-r from-[#1f6b63] to-[#15211f] bg-clip-text text-transparent">
             {fmt(shown)}
           </div>
-          {withBuydown && (
-            <div className="mt-2 text-sm font-semibold text-[#1f6b63]">{fmt(savings)}/mo less than market rate</div>
-          )}
+          <div className="mt-2 text-sm font-semibold text-[#1f6b63]">
+            {fmt(savings)}/mo less than the {MARKET_RATE}% market rate
+          </div>
         </div>
       </div>
 

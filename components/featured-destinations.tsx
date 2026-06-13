@@ -35,10 +35,10 @@ const homes = [
     video: "/listing-northwest-2.mp4",
   },
   {
-    alt: "Video tour of a Northeast San Antonio home listed by Rami Rafeh, Key Turn Realty Group",
-    caption: "San Antonio · Northeast Side",
-    poster: "/posters-listing-northeast-crosby.jpg",
-    video: "/listing-northeast-crosby.mp4",
+    alt: "Walkthrough of a new San Antonio home with Rami Rafeh, Key Turn Realty Group",
+    caption: "San Antonio · Walkthrough with Rami",
+    poster: "/posters-listing-walkthrough-dec25.jpg",
+    video: "/listing-walkthrough-dec25.mp4",
   },
 ]
 

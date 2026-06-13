@@ -2,6 +2,7 @@ import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { AccomplishmentsStrip } from "@/components/accomplishments-strip"
 import { Tools } from "@/components/tools"
+import { FreeGuide } from "@/components/free-guide"
 import { About } from "@/components/about"
 import { InformativeVideos } from "@/components/informative-videos"
 import { FeaturedDestinations } from "@/components/featured-destinations"
@@ -22,6 +23,7 @@ export default function Home() {
       <FeaturedDestinations />
       <Tools />
       <InformativeVideos />
+      <FreeGuide />
       <About />
       <TestimonialVideo />
       <WhyChooseUs />

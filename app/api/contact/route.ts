@@ -7,6 +7,7 @@ interface ContactPayload {
   fullName?: string
   phoneNumber?: string
   email?: string
+  requestType?: string
   eventId?: string
   fbp?: string
   fbc?: string
@@ -70,8 +71,13 @@ export async function POST(req: Request) {
   const phoneNumber = clean(data.phoneNumber, 40)
   const email = clean(data.email, 200)
   const eventId = data.eventId
+  const isGuideRequest = data.requestType === "guide"
 
-  if (!fullName || !phoneNumber) {
+  if (isGuideRequest) {
+    if (!fullName || !email) {
+      return NextResponse.json({ error: "Name and email are required." }, { status: 400 })
+    }
+  } else if (!fullName || !phoneNumber) {
     return NextResponse.json({ error: "Name and phone are required." }, { status: 400 })
   }
 
@@ -108,12 +114,14 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         source: "Key Turn Realty Website",
         type: "General Inquiry",
-        message: `New contact form submission from ${fullName}.${qualifierSummary}${noteSummary}`,
+        message: isGuideRequest
+          ? `${fullName} downloaded the First-Time Home Buyer Handbook from the website.`
+          : `New contact form submission from ${fullName}.${qualifierSummary}${noteSummary}`,
         person: {
           firstName: firstName || fullName,
           lastName,
           emails: email ? [{ value: email }] : [],
-          phones: [{ value: phoneNumber }],
+          phones: phoneNumber ? [{ value: phoneNumber }] : [],
         },
       }),
     })
@@ -181,8 +189,10 @@ export async function POST(req: Request) {
         body: JSON.stringify({
           from: process.env.CONTACT_FROM_EMAIL ?? "leads@keyturnrealty.com",
           to: process.env.CONTACT_TO_EMAIL ?? "admin@keyturnrealty.com",
-          subject: `New website lead: ${fullName}`,
-          text: `Name: ${fullName}\nPhone: ${phoneNumber}\nEmail: ${email || "(not provided)"}${qualifierSummary}${noteSummary}\n\nSource: keyturnrealty.com contact form`,
+          subject: isGuideRequest ? `New guide download: ${fullName}` : `New website lead: ${fullName}`,
+          text: isGuideRequest
+            ? `Name: ${fullName}\nEmail: ${email}\nDownloaded: First-Time Home Buyer Handbook\n\nSource: keyturnrealty.com free resources`
+            : `Name: ${fullName}\nPhone: ${phoneNumber}\nEmail: ${email || "(not provided)"}${qualifierSummary}${noteSummary}\n\nSource: keyturnrealty.com contact form`,
         }),
       })
     } catch (err) {
