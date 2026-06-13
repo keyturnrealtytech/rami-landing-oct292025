@@ -5,19 +5,18 @@ import { Button } from "@/components/ui/button"
 import { ContactFormModal } from "@/components/contact-form-modal"
 
 // Bexar-area rough estimates — clearly labeled as estimates in the UI.
-const PROPERTY_TAX_RATE = 0.022 // annual, % of price
 const INSURANCE_MONTHLY = 150
 const TERM_YEARS = 30
 const MARKET_RATE = 6.9
 // Real builder buydown rates Rami works with — visitor picks one.
 const RATE_OPTIONS = [3.5, 3.99, 4.5, 4.75, 4.99]
 
-function monthlyPayment(price: number, downPct: number, ratePct: number): number {
+function monthlyPayment(price: number, downPct: number, ratePct: number, taxPct: number): number {
   const principal = price * (1 - downPct / 100)
   const r = ratePct / 100 / 12
   const n = TERM_YEARS * 12
   const pi = (principal * r) / (1 - Math.pow(1 + r, -n))
-  return pi + (price * PROPERTY_TAX_RATE) / 12 + INSURANCE_MONTHLY
+  return pi + (price * (taxPct / 100)) / 12 + INSURANCE_MONTHLY
 }
 
 function fmt(n: number): string {
@@ -39,9 +38,10 @@ export function PaymentCalculator() {
   const [price, setPrice] = React.useState(330000)
   const [downPct, setDownPct] = React.useState(0)
   const [rate, setRate] = React.useState(3.99)
+  const [taxPct, setTaxPct] = React.useState(2.2)
 
-  const market = monthlyPayment(price, downPct, MARKET_RATE)
-  const shown = monthlyPayment(price, downPct, rate)
+  const market = monthlyPayment(price, downPct, MARKET_RATE, taxPct)
+  const shown = monthlyPayment(price, downPct, rate, taxPct)
   const savings = market - shown
 
   return (
@@ -88,6 +88,19 @@ export function PaymentCalculator() {
         </div>
 
         <div>
+          <div className="flex justify-between text-sm mb-2">
+            <span className="font-medium text-[#15211f]">Property tax rate</span>
+            <span className="font-semibold text-[#1f6b63]">{taxPct.toFixed(1)}%</span>
+          </div>
+          <input
+            type="range" min={1.5} max={2.9} step={0.1} value={taxPct}
+            onChange={(e) => setTaxPct(Number(e.target.value))}
+            className={SLIDER_CLASS} aria-label="Property tax rate"
+          />
+          <div className="mt-1 text-xs text-[#8aa09c]">varies by neighborhood &amp; MUD/PID — San Antonio area runs ~1.5%–2.9%</div>
+        </div>
+
+        <div>
           <div className="text-sm font-medium text-[#15211f] mb-1">Builder buydown rate</div>
           <div className="text-xs text-[#8aa09c] mb-2.5">real rates Rami's clients have locked</div>
           <div className="flex flex-wrap gap-2">
@@ -127,7 +140,7 @@ export function PaymentCalculator() {
         </Button>
       </ContactFormModal>
       <p className="mt-3 text-[11px] leading-relaxed text-[#8aa09c] text-center">
-        Estimates only (30-yr fixed, ~2.2% property tax, typical insurance) — not a loan offer or quote. Buydown
+        Estimates only (30-yr fixed, your selected tax rate, typical insurance) — not a loan offer or quote. Buydown
         availability varies by builder, lender &amp; qualification.
       </p>
     </div>
