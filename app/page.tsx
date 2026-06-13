@@ -18,10 +18,10 @@ export default function Home() {
       <Hero />
       <AccomplishmentsStrip />
       <Reviews />
+      <FeaturedDestinations />
       <About />
       <TestimonialVideo />
       <InformativeVideos />
-      <FeaturedDestinations />
       <WhyChooseUs />
       <Newsletter />
       <Footer />

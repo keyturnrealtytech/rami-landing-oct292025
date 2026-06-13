@@ -98,7 +98,7 @@ const structuredData = {
         jobTitle: "Real Estate Agent",
         image: "https://keyturnrealty.com/rami-rafeh-headshot.png",
         description:
-          "Retired U.S. Air Force veteran and licensed Texas REALTOR® (TREC License #724566).",
+          "Retired U.S. Air Force veteran, licensed Texas REALTOR® (TREC License #724566), and Military Relocation Professional (MRP). Member of the National Association of REALTORS®, Texas REALTORS®, SABOR, and HAR.",
         sameAs: [
           "https://onereal.com/Keyturnrealty",
           "https://www.linkedin.com/in/rrafeh",
