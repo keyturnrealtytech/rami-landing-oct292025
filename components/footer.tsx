@@ -1,4 +1,5 @@
 import { Instagram, Facebook, Phone, Mail } from "lucide-react"
+import { CalendlyLink } from "@/components/calendly-link"
 
 export function Footer() {
   return (
@@ -46,14 +47,9 @@ export function Footer() {
             >
               <Mail className="h-4 w-4" /> admin@keyturnrealty.com
             </a>
-            <a
-              href="https://calendly.com/real_estate_rami/homeconsult"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block text-sm font-medium text-[#81D8D0] hover:underline"
-            >
+            <CalendlyLink className="inline-block text-sm font-medium text-[#81D8D0] hover:underline">
               Book a free consultation →
-            </a>
+            </CalendlyLink>
           </div>
 
           {/* Areas served */}

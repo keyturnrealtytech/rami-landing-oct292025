@@ -26,7 +26,7 @@ const videos = [
 
 export function InformativeVideos() {
   return (
-    <section className="py-32 bg-[#faf8f4]">
+    <section className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mb-20">

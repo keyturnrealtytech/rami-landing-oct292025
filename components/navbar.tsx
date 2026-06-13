@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
+import { CalendlyLink } from "@/components/calendly-link"
 import { Menu, X } from "lucide-react"
 
 export function Navbar() {
@@ -57,13 +58,7 @@ export function Navbar() {
               asChild
               className="bg-[#15211f] text-white hover:bg-[#15211f]/90 rounded-full px-6"
             >
-              <a
-                href="https://calendly.com/real_estate_rami/homeconsult"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Consultation
-              </a>
+              <CalendlyLink>Consultation</CalendlyLink>
             </Button>
           </div>
 
@@ -94,13 +89,7 @@ export function Navbar() {
               asChild
               className="w-full bg-[#15211f] text-white hover:bg-[#15211f]/90 rounded-full"
             >
-              <a
-                href="https://calendly.com/real_estate_rami/homeconsult"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Consultation
-              </a>
+              <CalendlyLink>Consultation</CalendlyLink>
             </Button>
           </div>
         </div>

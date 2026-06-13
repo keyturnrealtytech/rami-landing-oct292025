@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { AccomplishmentsStrip } from "@/components/accomplishments-strip"
+import { Tools } from "@/components/tools"
 import { About } from "@/components/about"
 import { InformativeVideos } from "@/components/informative-videos"
 import { FeaturedDestinations } from "@/components/featured-destinations"
@@ -19,6 +20,7 @@ export default function Home() {
       <AccomplishmentsStrip />
       <Reviews />
       <FeaturedDestinations />
+      <Tools />
       <InformativeVideos />
       <About />
       <TestimonialVideo />

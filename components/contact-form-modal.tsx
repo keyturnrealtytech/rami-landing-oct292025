@@ -33,6 +33,7 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
 import { PIXEL_ID } from './meta-pixel'
+import { CalendlyLink } from './calendly-link'
 
 // Read a browser cookie (used for Meta's _fbp / _fbc match keys).
 function getCookie(name: string): string | undefined {
@@ -65,8 +66,6 @@ function optionCardClass(selected: boolean) {
       : 'border-[#e6efee] hover:border-[#81D8D0]/60 hover:bg-[#81D8D0]/5'
   }`
 }
-
-const CALENDLY_URL = 'https://calendly.com/real_estate_rami/homeconsult'
 
 const formSchema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
@@ -102,9 +101,11 @@ const LAST_STEP = STEPS.length - 1
 
 interface ContactFormModalProps {
   children: React.ReactNode
+  /** Pre-fill answers (e.g. from the calculator or VA checker) so the lead doesn't repeat themselves. */
+  prefill?: Partial<FormData>
 }
 
-export function ContactFormModal({ children }: ContactFormModalProps) {
+export function ContactFormModal({ children, prefill }: ContactFormModalProps) {
   const [open, setOpen] = React.useState(false)
   const [step, setStep] = React.useState(0)
   const [isSubmitting, setIsSubmitting] = React.useState(false)
@@ -125,6 +126,7 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
       monthlyPayment: '',
       veteranStatus: '',
       additionalInfo: '',
+      ...prefill,
     },
   })
 
@@ -136,6 +138,8 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
 
   const handleOpenChange = (next: boolean) => {
     setOpen(next)
+    // Re-apply prefill on open so live tool values (e.g. calculator payment) carry in.
+    if (next && prefill) form.reset({ ...form.getValues(), ...prefill })
     if (!next) resetWizard()
   }
 
@@ -241,14 +245,11 @@ export function ContactFormModal({ children }: ContactFormModalProps) {
               </DialogDescription>
             </DialogHeader>
             <p className="text-[15px] font-semibold">Want to skip the wait?</p>
-            <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <CalendlyLink
               className="inline-flex h-12 items-center justify-center rounded-2xl bg-[#81D8D0] px-7 text-base font-bold text-[#0b3b37] shadow-[0_4px_0_0_#57bdb4] transition-all hover:translate-y-[2px] hover:bg-[#74cdc5] hover:shadow-[0_2px_0_0_#57bdb4] active:translate-y-[4px] active:shadow-none"
             >
               📅 Book your free consult now
-            </a>
+            </CalendlyLink>
             <Button
               type="button"
               variant="ghost"

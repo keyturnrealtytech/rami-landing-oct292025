@@ -1,9 +1,10 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { CalendlyLink } from "@/components/calendly-link"
 
 export function About() {
   return (
-    <section id="meet-rami" className="py-32 bg-white">
+    <section id="meet-rami" className="py-32 bg-[#faf8f4]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Headshot */}
@@ -66,9 +67,7 @@ export function About() {
                 size="lg"
                 className="bg-[#15211f] text-white hover:bg-[#15211f]/90 rounded-full px-8 h-14 text-base shadow-[0_10px_28px_-10px_rgba(21,33,31,0.4)]"
               >
-                <a href="https://calendly.com/real_estate_rami/homeconsult" target="_blank" rel="noopener noreferrer">
-                  Book a free consultation
-                </a>
+                <CalendlyLink>Book a free consultation</CalendlyLink>
               </Button>
             </div>
           </div>
