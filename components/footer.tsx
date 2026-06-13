@@ -2,13 +2,13 @@ import { Instagram, Facebook, Phone, Mail } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer id="contact" className="bg-background border-t border-border">
+    <footer id="contact" className="bg-[#0f1a18] border-t border-[#1f2e2b] text-[#f2f4f3]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
         <div className="grid md:grid-cols-3 gap-12">
           {/* Brand */}
           <div className="space-y-4">
-            <div className="text-2xl font-semibold tracking-tight">Key Turn Realty Group</div>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <div className="text-2xl font-semibold tracking-tight text-[#f2f4f3]">Key Turn Realty Group</div>
+            <p className="text-sm text-[#9fb2af] leading-relaxed">
               Rami Rafeh, REALTOR® — a retired U.S. Air Force veteran helping San Antonio veterans, military families,
               and first-time buyers find home. VA loans · first-time buyers · new construction.
             </p>
@@ -18,7 +18,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-[#9fb2af] hover:text-[#81D8D0] transition-colors"
               >
                 <Instagram className="h-5 w-5" />
               </a>
@@ -27,7 +27,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-[#9fb2af] hover:text-[#81D8D0] transition-colors"
               >
                 <Facebook className="h-5 w-5" />
               </a>
@@ -36,13 +36,13 @@ export function Footer() {
 
           {/* Contact */}
           <div className="space-y-4">
-            <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Get in touch</div>
-            <a href="tel:+17134409407" className="flex items-center gap-2 text-sm hover:text-primary transition-colors">
+            <div className="text-sm font-semibold uppercase tracking-wide text-[#81D8D0]">Get in touch</div>
+            <a href="tel:+17134409407" className="flex items-center gap-2 text-sm text-[#e8ece9] hover:text-[#81D8D0] transition-colors">
               <Phone className="h-4 w-4" /> (713) 440-9407
             </a>
             <a
               href="mailto:admin@keyturnrealty.com"
-              className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
+              className="flex items-center gap-2 text-sm text-[#e8ece9] hover:text-[#81D8D0] transition-colors"
             >
               <Mail className="h-4 w-4" /> admin@keyturnrealty.com
             </a>
@@ -50,7 +50,7 @@ export function Footer() {
               href="https://calendly.com/real_estate_rami/homeconsult"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block text-sm font-medium text-primary hover:underline"
+              className="inline-block text-sm font-medium text-[#81D8D0] hover:underline"
             >
               Book a free consultation →
             </a>
@@ -58,8 +58,8 @@ export function Footer() {
 
           {/* Areas served */}
           <div className="space-y-4">
-            <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Areas served</div>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <div className="text-sm font-semibold uppercase tracking-wide text-[#81D8D0]">Areas served</div>
+            <p className="text-sm text-[#9fb2af] leading-relaxed">
               San Antonio &amp; the surrounding Hill Country — Boerne, New Braunfels, Schertz, Cibolo, Universal City,
               Alamo Ranch, and Stone Oak — across Bexar, Comal, Guadalupe &amp; Kendall counties.
             </p>
@@ -67,7 +67,7 @@ export function Footer() {
         </div>
 
         {/* Compliance + copyright */}
-        <div className="mt-16 pt-8 border-t border-border/50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs text-muted-foreground">
+        <div className="mt-16 pt-8 border-t border-[#1f2e2b] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs text-[#67807c]">
           <p>
             © {new Date().getFullYear()} Key Turn Realty Group. Brokered by Real Broker, LLC. TREC License #724566.
           </p>
