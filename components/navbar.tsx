@@ -19,7 +19,7 @@ export function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/80 backdrop-blur-xl border-b border-border" : "bg-transparent"
+        isScrolled ? "bg-[#eef7f5]/85 backdrop-blur-xl border-b border-[#e4ece8]" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -55,7 +55,7 @@ export function Navbar() {
           <div className="hidden md:block">
             <Button
               asChild
-              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6"
+              className="bg-[#15211f] text-white hover:bg-[#15211f]/90 rounded-full px-6"
             >
               <a
                 href="https://calendly.com/real_estate_rami/homeconsult"
@@ -92,7 +92,7 @@ export function Navbar() {
             </a>
             <Button
               asChild
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full"
+              className="w-full bg-[#15211f] text-white hover:bg-[#15211f]/90 rounded-full"
             >
               <a
                 href="https://calendly.com/real_estate_rami/homeconsult"

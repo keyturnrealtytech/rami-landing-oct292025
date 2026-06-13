@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
+import { AccomplishmentsStrip } from "@/components/accomplishments-strip"
 import { About } from "@/components/about"
 import { InformativeVideos } from "@/components/informative-videos"
 import { FeaturedDestinations } from "@/components/featured-destinations"
@@ -15,6 +16,7 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar />
       <Hero />
+      <AccomplishmentsStrip />
       <About />
       <InformativeVideos />
       <FeaturedDestinations />

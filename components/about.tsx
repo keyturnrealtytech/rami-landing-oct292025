@@ -3,12 +3,12 @@ import { Button } from "@/components/ui/button"
 
 export function About() {
   return (
-    <section id="meet-rami" className="py-32">
+    <section id="meet-rami" className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Headshot */}
           <div className="relative">
-            <div className="overflow-hidden rounded-3xl bg-muted">
+            <div className="overflow-hidden rounded-3xl bg-muted border border-[#e8e4da]">
               <Image
                 src="/rami-rafeh-headshot.png"
                 alt="Rami Rafeh, San Antonio realtor and retired Air Force veteran, Key Turn Realty Group"
@@ -22,9 +22,11 @@ export function About() {
 
           {/* Bio */}
           <div className="space-y-6">
-            <h2 className="text-5xl md:text-6xl font-light tracking-tight text-balance">
+            <div className="text-[11px] uppercase tracking-[0.22em] text-[#1f6b63] font-semibold">About</div>
+            <h2 className="text-5xl md:text-6xl font-light tracking-tight text-balance text-[#15211f]">
               Meet <span className="font-semibold">Rami Rafeh</span>
             </h2>
+            <div className="w-14 h-0.5 rounded-full bg-gradient-to-r from-[#c9a227] to-[#e2cb7a]" />
             <p className="text-lg text-muted-foreground leading-relaxed">
               Buying or selling a home is one of the biggest decisions you'll make — and you deserve someone in your
               corner who listens, knows the market, and puts you first. That's how I work.
@@ -62,7 +64,7 @@ export function About() {
               <Button
                 asChild
                 size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 h-14 text-base"
+                className="bg-[#15211f] text-white hover:bg-[#15211f]/90 rounded-full px-8 h-14 text-base shadow-[0_10px_28px_-10px_rgba(21,33,31,0.4)]"
               >
                 <a href="https://calendly.com/real_estate_rami/homeconsult" target="_blank" rel="noopener noreferrer">
                   Book a free consultation
