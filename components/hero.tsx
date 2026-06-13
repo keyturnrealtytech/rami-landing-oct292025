@@ -26,9 +26,12 @@ export function Hero() {
           </div>
 
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-tight leading-tight text-[#15211f]">
-            Discover Your New Home in
-            <span className="block font-semibold mt-2 bg-gradient-to-r from-[#1f6b63] to-[#15211f] bg-clip-text text-transparent">
-              San Antonio
+            Discover Your New Home
+            <span className="block mt-2">
+              in{" "}
+              <span className="font-semibold bg-gradient-to-r from-[#1f6b63] to-[#15211f] bg-clip-text text-transparent">
+                San Antonio
+              </span>
             </span>
           </h1>
 

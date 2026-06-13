@@ -90,7 +90,7 @@ export function TestimonialVideo() {
             ))}
           </div>
 
-          <div className="relative w-full max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-[#e8e4da]">
+          <div className="relative w-full max-w-xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-[#e8e4da]">
             <LazyVideo
               src="/testimonial-rami-hd.mp4"
               poster="/testimonial-rami-poster.jpg"

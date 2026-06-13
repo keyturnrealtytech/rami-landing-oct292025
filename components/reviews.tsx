@@ -69,6 +69,8 @@ const reviews = [
 function displayName(full: string): string {
   const parts = full.trim().split(/\s+/)
   if (parts.length < 2) return full
+  // Handles like "K thePsalmist" aren't real first/last names — leave them alone.
+  if (parts[0].length === 1) return full
   const last = parts[parts.length - 1]
   if (last.length <= 2 || last.includes(".")) return full
   return `${parts.slice(0, -1).join(" ")} ${last[0]}.`
