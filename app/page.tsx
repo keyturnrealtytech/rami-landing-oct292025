@@ -19,9 +19,9 @@ export default function Home() {
       <AccomplishmentsStrip />
       <Reviews />
       <FeaturedDestinations />
+      <InformativeVideos />
       <About />
       <TestimonialVideo />
-      <InformativeVideos />
       <WhyChooseUs />
       <Newsletter />
       <Footer />

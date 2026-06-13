@@ -2,26 +2,29 @@ import type React from "react"
 
 const GOLD_STARS = "★★★★★"
 
-// Stat: big gold numeral + small label. Mark: logo-style wordmark chip.
+// Stat: big gold numeral + label. Logo: official mark on a white chip
+// (heights normalized to 80px source, displayed at h-7/h-8). Text: styled chip
+// for credentials without a fetchable official mark.
 const ITEMS: (
   | { kind: "stat"; value: string; label: string }
-  | { kind: "mark"; name: string; sub: string }
+  | { kind: "logo"; src: string; alt: string; sub?: string; wide?: boolean }
+  | { kind: "text"; name: string; sub: string }
 )[] = [
   { kind: "stat", value: "TOP 1.5%", label: "of Realtors Nationwide" },
-  { kind: "mark", name: "REALTRENDS", sub: "VERIFIED ✓" },
+  { kind: "logo", src: "/logos/realtrends.png", alt: "RealTrends Verified", wide: true },
   { kind: "stat", value: "TOP 1%", label: "in Texas" },
-  { kind: "mark", name: "Google", sub: `${GOLD_STARS} 5.0` },
+  { kind: "logo", src: "/logos/google.png", alt: "Google reviews", sub: `${GOLD_STARS} 5.0` },
   { kind: "stat", value: "TOP 25", label: "U.S. Small Team by Units · Q4 2024" },
-  { kind: "mark", name: "MRP", sub: "MILITARY RELOCATION PROFESSIONAL" },
+  { kind: "logo", src: "/logos/nar.png", alt: "National Association of REALTORS member", wide: true },
   { kind: "stat", value: "55+", label: "Deals Closed Last Year" },
-  { kind: "mark", name: "Zillow", sub: `${GOLD_STARS} 5.0` },
+  { kind: "logo", src: "/logos/zillow.png", alt: "Zillow reviews", sub: `${GOLD_STARS} 5.0` },
   { kind: "stat", value: "$50M+", label: "in Closed Deals" },
-  { kind: "mark", name: "REALTOR®", sub: "NAR MEMBER" },
-  { kind: "mark", name: "TEXAS REALTORS", sub: "MEMBER" },
-  { kind: "mark", name: "realtor.com", sub: `${GOLD_STARS} 5.0` },
-  { kind: "mark", name: "SABOR", sub: "SAN ANTONIO BOARD OF REALTORS" },
-  { kind: "mark", name: "HAR", sub: "HOUSTON ASSOCIATION OF REALTORS" },
-  { kind: "mark", name: "U.S. AIR FORCE", sub: "VETERAN ★" },
+  { kind: "logo", src: "/logos/texas-realtors.png", alt: "Texas REALTORS member", wide: true },
+  { kind: "text", name: "MRP", sub: "MILITARY RELOCATION PROFESSIONAL" },
+  { kind: "logo", src: "/logos/realtorcom.png", alt: "Realtor.com reviews", sub: `${GOLD_STARS} 5.0`, wide: true },
+  { kind: "logo", src: "/logos/sabor.png", alt: "San Antonio Board of REALTORS member" },
+  { kind: "logo", src: "/logos/har.png", alt: "Houston Association of REALTORS member" },
+  { kind: "text", name: "U.S. AIR FORCE", sub: "VETERAN ★" },
 ]
 
 // Dark accomplishments band under the hero. Pure CSS marquee (see globals.css);
@@ -45,6 +48,12 @@ export function AccomplishmentsStrip() {
                         {item.value}
                       </div>
                       <div className="mt-2 text-[11px] tracking-[0.18em] uppercase text-[#9fb2af]">{item.label}</div>
+                    </div>
+                  ) : item.kind === "logo" ? (
+                    <div className="flex flex-col items-center justify-center gap-1.5 rounded-xl bg-white px-5 py-2.5">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={item.src} alt={item.alt} className={item.wide ? "h-7 w-auto" : "h-8 w-auto"} loading="lazy" />
+                      {item.sub && <div className="text-[11px] tracking-[0.14em] text-[#c9a227] leading-none">{item.sub}</div>}
                     </div>
                   ) : (
                     <div className="flex flex-col items-center justify-center rounded-xl border border-[#2c3c3a] bg-[#15211f] px-6 py-3">
