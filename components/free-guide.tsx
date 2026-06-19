@@ -4,6 +4,7 @@ import * as React from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { trackEvent } from "@/lib/analytics"
 
 const GUIDE_PATH = "/guides/first-time-home-buyer-handbook.pdf"
 
@@ -26,6 +27,7 @@ export function FreeGuide() {
         body: JSON.stringify({ requestType: "guide", fullName, email }),
       })
       if (!res.ok) throw new Error("request failed")
+      trackEvent("guide_download", { method: "free_guide" })
       setState("done")
       // Open the handbook immediately — the gate already did its job.
       window.open(GUIDE_PATH, "_blank")

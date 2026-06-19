@@ -31,6 +31,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
 import { PIXEL_ID } from './meta-pixel'
 import { CalendlyLink } from './calendly-link'
+import { trackEvent } from '@/lib/analytics'
 
 // Read a browser cookie (used for Meta's _fbp / _fbc match keys).
 function getCookie(name: string): string | undefined {
@@ -186,6 +187,8 @@ export function ContactFormBody({ prefill, onClose }: ContactFormBodyProps) {
           })
           fbq?.('track', 'Lead', {}, { eventID: eventId })
         }
+        // GA4 lead conversion.
+        trackEvent('generate_lead', { method: 'contact_form' })
         // Show the in-modal success step (with the Calendly booking offer)
         // instead of closing — this is the highest-intent moment to book.
         setSubmittedName(firstName || null)

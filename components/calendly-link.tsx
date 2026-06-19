@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import { trackEvent } from "@/lib/analytics"
 
 export const CALENDLY_URL = "https://calendly.com/real_estate_rami/homeconsult"
 
@@ -34,6 +35,7 @@ function loadCalendly(): Promise<void> {
 export function CalendlyLink({ children, className }: { children: React.ReactNode; className?: string }) {
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault()
+    trackEvent("book_appointment", { method: "calendly" })
     try {
       await loadCalendly()
       window.Calendly!.initPopupWidget({ url: CALENDLY_URL })
