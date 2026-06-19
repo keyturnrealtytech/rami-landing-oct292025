@@ -1,5 +1,4 @@
-import { PaymentCalculator } from "@/components/payment-calculator"
-import { VaChecker } from "@/components/va-checker"
+import { ToolsWidgets } from "@/components/tools-widgets"
 
 export function Tools() {
   return (
@@ -18,10 +17,7 @@ export function Tools() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto">
-          <PaymentCalculator />
-          <VaChecker />
-        </div>
+        <ToolsWidgets />
       </div>
     </section>
   )
