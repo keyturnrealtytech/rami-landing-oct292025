@@ -2,7 +2,7 @@
 
 import Script from "next/script"
 
-export const GA_MEASUREMENT_ID = "G-SGSPHTHEP9"
+export const GA_MEASUREMENT_ID = "G-279LG2PE95"
 
 /**
  * Google Analytics 4 (gtag.js). Loads the base tag and configures the property.
