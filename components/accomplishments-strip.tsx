@@ -7,23 +7,23 @@ const GOLD_STARS = "★★★★★"
 // for credentials without a fetchable official mark.
 const ITEMS: (
   | { kind: "stat"; value: string; label: string }
-  | { kind: "logo"; src: string; alt: string; sub?: string; wide?: boolean }
+  | { kind: "logo"; src: string; alt: string; sub?: string; wide?: boolean; w: number; h: number }
   | { kind: "text"; name: string; sub: string }
 )[] = [
   { kind: "stat", value: "TOP 1.5%", label: "of Realtors Nationwide" },
-  { kind: "logo", src: "/logos/realtrends.png", alt: "RealTrends Verified", wide: true },
+  { kind: "logo", src: "/logos/realtrends.png", alt: "RealTrends Verified", wide: true, w: 239, h: 80 },
   { kind: "stat", value: "TOP 1%", label: "in Texas" },
-  { kind: "logo", src: "/logos/google.png", alt: "Google reviews", sub: `${GOLD_STARS} 5.0` },
+  { kind: "logo", src: "/logos/google.png", alt: "Google reviews", sub: `${GOLD_STARS} 5.0`, w: 242, h: 80 },
   { kind: "stat", value: "TOP 25", label: "U.S. Small Team by Units · Q4 2024" },
-  { kind: "logo", src: "/logos/nar.png", alt: "National Association of REALTORS member", wide: true },
+  { kind: "logo", src: "/logos/nar.png", alt: "National Association of REALTORS member", wide: true, w: 326, h: 80 },
   { kind: "stat", value: "55+", label: "Deals Closed Last Year" },
-  { kind: "logo", src: "/logos/zillow.png", alt: "Zillow reviews", sub: `${GOLD_STARS} 5.0` },
+  { kind: "logo", src: "/logos/zillow.png", alt: "Zillow reviews", sub: `${GOLD_STARS} 5.0`, w: 359, h: 80 },
   { kind: "stat", value: "$50M+", label: "in Closed Deals" },
-  { kind: "logo", src: "/logos/texas-realtors.png", alt: "Texas REALTORS member", wide: true },
+  { kind: "logo", src: "/logos/texas-realtors.png", alt: "Texas REALTORS member", wide: true, w: 277, h: 80 },
   { kind: "text", name: "MRP", sub: "MILITARY RELOCATION PROFESSIONAL" },
-  { kind: "logo", src: "/logos/realtorcom.png", alt: "Realtor.com reviews", sub: `${GOLD_STARS} 5.0`, wide: true },
-  { kind: "logo", src: "/logos/sabor.png", alt: "San Antonio Board of REALTORS member" },
-  { kind: "logo", src: "/logos/har.png", alt: "Houston Association of REALTORS member" },
+  { kind: "logo", src: "/logos/realtorcom.png", alt: "Realtor.com reviews", sub: `${GOLD_STARS} 5.0`, wide: true, w: 443, h: 80 },
+  { kind: "logo", src: "/logos/sabor.png", alt: "San Antonio Board of REALTORS member", w: 160, h: 80 },
+  { kind: "logo", src: "/logos/har.png", alt: "Houston Association of REALTORS member", w: 80, h: 80 },
   { kind: "text", name: "U.S. AIR FORCE", sub: "VETERAN ★" },
 ]
 
@@ -53,7 +53,7 @@ export function AccomplishmentsStrip() {
                   ) : item.kind === "logo" ? (
                     <div className="flex flex-col items-center justify-center gap-1.5 rounded-xl bg-white px-5 py-2.5">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={item.src} alt={item.alt} className={item.wide ? "h-7 w-auto" : "h-8 w-auto"} loading="lazy" />
+                      <img src={item.src} alt={item.alt} width={item.w} height={item.h} className={item.wide ? "h-7 w-auto" : "h-8 w-auto"} loading="lazy" />
                       {item.sub && <div className="text-[11px] tracking-[0.14em] text-[#c9a227] leading-none">{item.sub}</div>}
                     </div>
                   ) : (
