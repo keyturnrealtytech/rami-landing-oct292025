@@ -79,9 +79,13 @@ export function FeaturedDestinations() {
 
                 {/* Contact Badge */}
                 <ContactFormModal>
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center justify-center px-6 py-2 rounded-full cursor-pointer transition-colors z-10 bg-[#81D8D0] hover:bg-[#74cdc5]">
+                  <button
+                    type="button"
+                    aria-label="Contact Rami about this home"
+                    className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center justify-center px-6 py-2 rounded-full cursor-pointer transition-colors z-10 bg-[#81D8D0] hover:bg-[#74cdc5]"
+                  >
                     <span className="text-sm font-semibold text-[#0b3b37]">Contact</span>
-                  </div>
+                  </button>
                 </ContactFormModal>
               </div>
               <div className="px-4 py-3">

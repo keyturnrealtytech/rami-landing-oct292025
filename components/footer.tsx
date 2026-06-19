@@ -68,14 +68,14 @@ export function Footer() {
             © {new Date().getFullYear()} Key Turn Realty Group. Brokered by Real Broker, LLC. TREC License #724566.
           </p>
           <div className="flex flex-wrap gap-x-4 gap-y-1">
-            <a href="/iabs.pdf" target="_blank" rel="noopener noreferrer" className="hover:underline">
+            <a href="/iabs.pdf" target="_blank" rel="noopener noreferrer" className="inline-block py-1.5 hover:underline">
               Information About Brokerage Services
             </a>
             <a
               href="/consumer-protection-notice.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="inline-block py-1.5 hover:underline"
             >
               TREC Consumer Protection Notice
             </a>
