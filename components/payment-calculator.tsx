@@ -97,12 +97,12 @@ export function PaymentCalculator() {
             onChange={(e) => setTaxPct(Number(e.target.value))}
             className={SLIDER_CLASS} aria-label="Property tax rate"
           />
-          <div className="mt-1 text-xs text-[#8aa09c]">varies by neighborhood &amp; MUD/PID — San Antonio area runs ~1.5%–2.9%</div>
+          <div className="mt-1 text-xs text-[#5f736f]">varies by neighborhood &amp; MUD/PID — San Antonio area runs ~1.5%–2.9%</div>
         </div>
 
         <div>
           <div className="text-sm font-medium text-[#15211f] mb-1">Builder buydown rate</div>
-          <div className="text-xs text-[#8aa09c] mb-2.5">real rates Rami's clients have locked</div>
+          <div className="text-xs text-[#5f736f] mb-2.5">real rates Rami's clients have locked</div>
           <div className="flex flex-wrap gap-2">
             {RATE_OPTIONS.map((r) => (
               <button
@@ -122,7 +122,7 @@ export function PaymentCalculator() {
         </div>
 
         <div className="rounded-2xl bg-gradient-to-b from-[#eef7f5] to-[#faf8f4] border border-[#dbe7e3] p-6 text-center">
-          <div className="text-xs uppercase tracking-[0.18em] text-[#8aa09c]">
+          <div className="text-xs uppercase tracking-[0.18em] text-[#5f736f]">
             Estimated monthly · {rate}% buydown rate
           </div>
           <div className="mt-2 text-5xl font-semibold tracking-tight bg-gradient-to-r from-[#1f6b63] to-[#15211f] bg-clip-text text-transparent">
@@ -139,7 +139,7 @@ export function PaymentCalculator() {
           Get My Real Numbers
         </Button>
       </ContactFormModal>
-      <p className="mt-3 text-[11px] leading-relaxed text-[#8aa09c] text-center">
+      <p className="mt-3 text-[11px] leading-relaxed text-[#5f736f] text-center">
         Estimates only (30-yr fixed, your selected tax rate, typical insurance) — not a loan offer or quote. Buydown
         availability varies by builder, lender &amp; qualification.
       </p>

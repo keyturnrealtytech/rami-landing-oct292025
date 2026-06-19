@@ -56,7 +56,7 @@ export function WhyChooseUs() {
           ))}
         </div>
 
-        <p className="mt-8 text-center text-xs text-[#8aa09c]">
+        <p className="mt-8 text-center text-xs text-[#5f736f]">
           Examples from actual 2025–2026 closings. Terms vary by builder, lender, and buyer qualification.
         </p>
 

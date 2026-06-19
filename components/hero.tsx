@@ -69,15 +69,15 @@ export function Hero() {
         <div className="grid grid-cols-3 gap-8 md:gap-16 max-w-3xl mx-auto mt-24 pt-16 border-t border-[#e4e0d4]">
           <div className="space-y-2">
             <div className="text-4xl md:text-5xl font-light text-[#15211f]">200+</div>
-            <div className="text-xs uppercase tracking-[0.12em] text-[#8aa09c]">Transactions</div>
+            <div className="text-xs uppercase tracking-[0.12em] text-[#5f736f]">Transactions</div>
           </div>
           <div className="space-y-2">
             <div className="text-4xl md:text-5xl font-light text-[#15211f]">$50M+</div>
-            <div className="text-xs uppercase tracking-[0.12em] text-[#8aa09c]">In Home Sales</div>
+            <div className="text-xs uppercase tracking-[0.12em] text-[#5f736f]">In Home Sales</div>
           </div>
           <div className="space-y-2">
             <div className="text-4xl md:text-5xl font-light text-[#15211f]">5.0 ★</div>
-            <div className="text-xs uppercase tracking-[0.12em] text-[#8aa09c]">Average Rating</div>
+            <div className="text-xs uppercase tracking-[0.12em] text-[#5f736f]">Average Rating</div>
           </div>
         </div>
       </div>

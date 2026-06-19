@@ -106,7 +106,7 @@ export function FreeGuide() {
                 {state === "error" && (
                   <p className="text-sm text-red-600">Enter your first name and a valid email, then try again.</p>
                 )}
-                <p className="text-[11px] text-[#8aa09c]">No spam — Rami may follow up personally, once.</p>
+                <p className="text-[11px] text-[#5f736f]">No spam — Rami may follow up personally, once.</p>
               </form>
             )}
           </div>

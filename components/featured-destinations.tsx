@@ -86,7 +86,7 @@ export function FeaturedDestinations() {
               </div>
               <div className="px-4 py-3">
                 <span className="text-sm font-semibold text-[#15211f]">{home.caption}</span>
-                <div className="text-xs text-[#8aa09c] mt-0.5">Video tour</div>
+                <div className="text-xs text-[#5f736f] mt-0.5">Video tour</div>
               </div>
             </Card>
           ))}

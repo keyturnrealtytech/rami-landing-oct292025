@@ -79,7 +79,7 @@ function displayName(full: string): string {
 function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
   return (
     <div className="w-[320px] md:w-[360px] shrink-0 mr-5 rounded-2xl border border-[#e8e4da] bg-white p-6 shadow-sm">
-      <div className="flex gap-1 mb-3 text-[#c9a227]" aria-label="5 out of 5 stars">
+      <div className="flex gap-1 mb-3 text-[#c9a227]" role="img" aria-label="5 out of 5 stars">
         {Array.from({ length: 5 }).map((_, i) => (
           <Star key={i} className="h-4 w-4 fill-current" />
         ))}
@@ -87,7 +87,7 @@ function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
       <p className="text-sm text-[#3d4f4c] leading-relaxed mb-4 line-clamp-6">{review.text}</p>
       <div className="flex items-center justify-between">
         <span className="font-semibold text-sm text-[#15211f]">{displayName(review.name)}</span>
-        <span className="text-xs text-[#8aa09c]">{review.source}</span>
+        <span className="text-xs text-[#5f736f]">{review.source}</span>
       </div>
     </div>
   )

@@ -62,7 +62,7 @@ export function InformativeVideos() {
               </div>
               <div className="px-4 py-3 flex items-center justify-between">
                 <span className="text-sm font-semibold text-[#15211f]">{item.title}</span>
-                <span className="text-xs text-[#8aa09c]">▶ {item.duration}</span>
+                <span className="text-xs text-[#5f736f]">▶ {item.duration}</span>
               </div>
             </Card>
           ))}

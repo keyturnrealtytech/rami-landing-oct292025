@@ -33,6 +33,7 @@ export function AccomplishmentsStrip() {
   return (
     <div
       className="marquee overflow-hidden bg-[#0f1a18] border-y border-[#c9a227]/30"
+      role="group"
       aria-label="Rami Rafeh's accomplishments and memberships"
       style={{ "--marquee-duration": "110s" } as React.CSSProperties}
     >

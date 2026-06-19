@@ -138,7 +138,7 @@ export function VaChecker() {
                 See What I Qualify For
               </Button>
             </ContactFormModal>
-            <button type="button" onClick={restart} className="mt-3 text-xs text-[#8aa09c] underline">
+            <button type="button" onClick={restart} className="mt-3 text-xs text-[#5f736f] underline">
               Start over
             </button>
           </div>
@@ -162,14 +162,14 @@ export function VaChecker() {
                 Confirm My Eligibility With Rami
               </Button>
             </ContactFormModal>
-            <button type="button" onClick={restart} className="mt-3 w-full text-center text-xs text-[#8aa09c] underline">
+            <button type="button" onClick={restart} className="mt-3 w-full text-center text-xs text-[#5f736f] underline">
               Start over
             </button>
           </div>
         )}
       </div>
 
-      <p className="mt-4 text-[11px] leading-relaxed text-[#8aa09c] text-center">
+      <p className="mt-4 text-[11px] leading-relaxed text-[#5f736f] text-center">
         Educational estimate based on public VA guidelines — final eligibility is determined by your Certificate of
         Eligibility and lender.
       </p>

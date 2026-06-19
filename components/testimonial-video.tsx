@@ -84,7 +84,7 @@ export function TestimonialVideo() {
                 </div>
                 <div className="px-4 py-3">
                   <div className="text-sm font-semibold text-[#15211f]">{t.name}</div>
-                  <div className="text-xs text-[#8aa09c] mt-0.5">{t.caption}</div>
+                  <div className="text-xs text-[#5f736f] mt-0.5">{t.caption}</div>
                 </div>
               </Card>
             ))}

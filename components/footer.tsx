@@ -19,7 +19,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="text-[#9fb2af] hover:text-[#81D8D0] transition-colors"
+                className="inline-flex items-center justify-center p-2 -m-2 text-[#9fb2af] hover:text-[#81D8D0] transition-colors"
               >
                 <Instagram className="h-5 w-5" />
               </a>
@@ -28,7 +28,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="text-[#9fb2af] hover:text-[#81D8D0] transition-colors"
+                className="inline-flex items-center justify-center p-2 -m-2 text-[#9fb2af] hover:text-[#81D8D0] transition-colors"
               >
                 <Facebook className="h-5 w-5" />
               </a>
