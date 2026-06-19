@@ -98,7 +98,7 @@ export function Reviews() {
     <section id="reviews" className="py-14 bg-gradient-to-b from-[#eef7f5] to-[#faf8f4] overflow-hidden">
       <div className="text-center mb-8 px-6">
         <span className="text-[11px] uppercase tracking-[0.22em] text-[#1f6b63] font-semibold">
-          What clients say · <span className="text-[#c9a227]">★★★★★</span> 5.0 across Google, Zillow &amp; Realtor.com
+          What clients say · <span className="text-[#7a610f]">★★★★★</span> 5.0 across Google, Zillow &amp; Realtor.com
         </span>
       </div>
 

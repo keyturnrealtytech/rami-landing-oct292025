@@ -29,7 +29,7 @@ export function Newsletter() {
             </ContactFormModal>
           </div>
 
-          <p className="text-xs text-[#67807c]">No spam, no pressure — Rami reaches out personally.</p>
+          <p className="text-xs text-[#8a9d97]">No spam, no pressure — Rami reaches out personally.</p>
         </div>
       </div>
     </section>

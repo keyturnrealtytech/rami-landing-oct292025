@@ -63,7 +63,7 @@ export function Footer() {
         </div>
 
         {/* Compliance + copyright */}
-        <div className="mt-16 pt-8 border-t border-[#1f2e2b] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs text-[#67807c]">
+        <div className="mt-16 pt-8 border-t border-[#1f2e2b] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs text-[#8a9d97]">
           <p>
             © {new Date().getFullYear()} Key Turn Realty Group. Brokered by Real Broker, LLC. TREC License #724566.
           </p>

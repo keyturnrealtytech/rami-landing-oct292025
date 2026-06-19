@@ -54,7 +54,7 @@ export function AccomplishmentsStrip() {
                     <div className="flex flex-col items-center justify-center gap-1.5 rounded-xl bg-white px-5 py-2.5">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={item.src} alt={item.alt} width={item.w} height={item.h} className={item.wide ? "h-7 w-auto" : "h-8 w-auto"} loading="lazy" />
-                      {item.sub && <div className="text-[11px] tracking-[0.14em] text-[#c9a227] leading-none">{item.sub}</div>}
+                      {item.sub && <div className="text-[11px] tracking-[0.14em] text-[#7a610f] leading-none">{item.sub}</div>}
                     </div>
                   ) : (
                     <div className="flex flex-col items-center justify-center rounded-xl border border-[#2c3c3a] bg-[#15211f] px-6 py-3">

@@ -49,7 +49,7 @@ export function WhyChooseUs() {
               <div className="text-5xl font-semibold tracking-tight bg-gradient-to-r from-[#1f6b63] to-[#15211f] bg-clip-text text-transparent">
                 {win.value}
               </div>
-              <div className="mt-2 text-sm font-semibold uppercase tracking-[0.14em] text-[#c9a227]">{win.title}</div>
+              <div className="mt-2 text-sm font-semibold uppercase tracking-[0.14em] text-[#7a610f]">{win.title}</div>
               <div className="mt-4 h-px w-10 mx-auto bg-[#e8e4da]" />
               <p className="mt-4 text-sm text-[#5d6f6c] leading-relaxed">{win.detail}</p>
             </div>
