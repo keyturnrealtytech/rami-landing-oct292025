@@ -6,7 +6,9 @@ import { LazyVideo } from "@/components/lazy-video"
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#eef7f5] to-[#faf8f4]">
-      {/* Background Video */}
+      {/* Preload the hero poster so it paints immediately (LCP) — React 19 hoists this to <head>. */}
+      <link rel="preload" as="image" href="/posters-hero.jpg" fetchPriority="high" />
+      {/* Background Video — decorative; deferred off the critical path so it doesn't compete with LCP. */}
       <div className="absolute inset-0 z-0">
         <LazyVideo
           src="/HERO-VIDEO.mp4"
@@ -14,6 +16,7 @@ export function Hero() {
           autoPlay
           loop
           muted
+          deferUntilIdle
           className="w-full h-full object-cover opacity-15"
         />
       </div>
