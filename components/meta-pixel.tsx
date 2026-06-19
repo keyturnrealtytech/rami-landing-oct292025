@@ -1,17 +1,23 @@
 "use client"
 
 import Script from "next/script"
+import { useInteraction } from "@/lib/use-interaction"
 
 export const PIXEL_ID = "1541113180463878"
 
 /**
  * Meta (Facebook/Instagram) Pixel. Loads the base code and tracks PageView on
  * every page. The contact form fires a separate `Lead` event on submit.
+ * Loaded on first interaction (~55 KiB) so it stays off the initial load — by
+ * the time a visitor opens the contact form they've already interacted, so fbq
+ * is ready for the Lead event.
  */
 export function MetaPixel() {
+  const interacted = useInteraction()
   return (
     <>
-      <Script id="meta-pixel" strategy="lazyOnload">
+      {interacted && (
+      <Script id="meta-pixel" strategy="afterInteractive">
         {`
           !function(f,b,e,v,n,t,s)
           {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -25,6 +31,7 @@ export function MetaPixel() {
           fbq('track', 'PageView');
         `}
       </Script>
+      )}
       <noscript>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
