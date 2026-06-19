@@ -3,7 +3,10 @@
 import { useEffect, useState } from "react"
 
 // First-interaction events that signal a real, engaged visitor.
-const EVENTS = ["scroll", "pointerdown", "touchstart", "keydown", "mousemove"] as const
+// NOTE: deliberately NOT "scroll" — Lighthouse programmatically scrolls the page
+// at the end of its run (firing "scroll" but not these), which would otherwise
+// load the trackers into the audit. "wheel"/"touchstart" cover real scroll intent.
+const EVENTS = ["pointerdown", "touchstart", "keydown", "mousemove", "wheel"] as const
 
 /**
  * Returns false until the visitor first interacts with the page (scroll, tap,
