@@ -14,9 +14,9 @@ const prompt = Prompt({
 })
 
 const SITE_URL = "https://keyturnrealty.com"
-const TITLE = "Key Turn Realty Group | VA Loan & First-Time Buyer Realtor in San Antonio, TX"
+const TITLE = "San Antonio VA Loan & First-Time Buyer Realtor | Key Turn Realty"
 const DESCRIPTION =
-  "Retired Air Force veteran and San Antonio realtor Rami Rafeh helps veterans and first-time buyers purchase with confidence — VA loans, new construction, and relocation across San Antonio and the Hill Country. Free consultation."
+  "Air Force veteran & San Antonio realtor Rami Rafeh helps veterans and first-time buyers buy with confidence: VA loans, new builds, relocation. Free consult."
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
