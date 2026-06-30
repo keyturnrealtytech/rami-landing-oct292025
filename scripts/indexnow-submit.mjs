@@ -6,8 +6,11 @@ const HOST = "keyturnrealty.com"
 const KEY = "d967638bd6850abe646d5cbed5989ba0"
 const KEY_LOCATION = `https://${HOST}/${KEY}.txt`
 
-// Every indexable URL. This is a single-page site, so just the canonical homepage.
-const URLS = [`https://${HOST}/`]
+// Every indexable URL on the site.
+const URLS = [
+  `https://${HOST}/`,
+  `https://${HOST}/va-loan-new-construction-san-antonio`,
+]
 
 const payload = {
   host: HOST,
