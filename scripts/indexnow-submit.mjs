@@ -10,6 +10,7 @@ const KEY_LOCATION = `https://${HOST}/${KEY}.txt`
 const URLS = [
   `https://${HOST}/`,
   `https://${HOST}/va-loan-new-construction-san-antonio`,
+  `https://${HOST}/first-time-home-buyer-san-antonio`,
 ]
 
 const payload = {
