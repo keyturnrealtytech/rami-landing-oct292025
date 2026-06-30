@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { MobileCtaBar } from "@/components/mobile-cta-bar"
@@ -6,12 +7,12 @@ import { Reviews } from "@/components/reviews"
 import { Button } from "@/components/ui/button"
 import { CalendlyLink } from "@/components/calendly-link"
 import { ContactFormModal } from "@/components/contact-form-modal"
-import { CheckCircle2, ShieldCheck, Hammer, Award } from "lucide-react"
+import { Check, X, ShieldCheck, Handshake, Search, KeyRound, Star } from "lucide-react"
 
 const PAGE_URL = "https://keyturnrealty.com/va-loan-new-construction-san-antonio"
 const TITLE = "VA Loan New Construction Homes in San Antonio | Key Turn"
 const DESCRIPTION =
-  "Buy a new-construction home in San Antonio with your VA loan. Service-disabled Air Force & Army veteran Rami Rafeh — $0 down, builder incentives. Free consult."
+  "Buy a brand-new San Antonio home with your VA loan — $0 down, no PMI. Disabled Air Force & Army veteran Rami Rafeh negotiates builder perks for you. Free chat."
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -41,36 +42,32 @@ export const metadata: Metadata = {
   },
 }
 
-// Visible FAQ content — mirrored exactly in the FAQPage JSON-LD below so search
-// engines and AI answer engines can cite the same answers shown on the page.
+// Visible FAQ — mirrored exactly in the FAQPage JSON-LD so search engines and AI
+// assistants quote the same plain-English answers shown on the page.
 const FAQS: { q: string; a: string }[] = [
   {
-    q: "Can you use a VA loan for new construction in San Antonio?",
-    a: "Yes. You can use a VA loan to buy a newly built home in San Antonio as long as the builder and community are registered with the VA and the home meets the VA's Minimum Property Requirements. Most production builders in the San Antonio area already build VA-eligible homes — the key is verifying VA approval before you sign a builder contract, which is one of the first things Rami checks for you.",
+    q: "Can I really use a VA loan to buy a brand-new house?",
+    a: "Yes! You can use your VA loan on a brand-new home in San Antonio, just like on an older one. The only catch is that the builder has to be set up to accept VA loans — and most big San Antonio builders already are. Checking that before you sign anything is one of the first things I do for you.",
   },
   {
-    q: "Do I still get $0 down and no PMI on a new-construction VA purchase?",
-    a: "Yes. The core VA benefits apply to new construction exactly as they do to a resale home: no down payment for eligible buyers, no private mortgage insurance, and competitive interest rates. On a brand-new home that often means moving in with little to no cash out of pocket beyond your earnest money and inspections.",
+    q: "Do I still get $0 down and no monthly mortgage insurance?",
+    a: "Yes. Those are the two best parts of a VA loan, and they work on new construction too. No down payment if you qualify, and no PMI — that's the extra monthly insurance fee almost every other loan adds on. On a new home that often means moving in with very little out of pocket.",
   },
   {
-    q: "Is the VA funding fee waived for disabled veterans?",
-    a: "Yes. Veterans who receive VA disability compensation are exempt from the VA funding fee, which can save thousands of dollars at closing. Rami is a 100% disabled Air Force and Army veteran himself and makes sure your exemption is applied correctly on a new build.",
+    q: "I'm a disabled veteran — do I save even more?",
+    a: "You do. Veterans who get VA disability pay skip the VA funding fee completely, which saves thousands at closing. And in Texas, veterans rated 100% disabled can have their home's property taxes wiped out entirely. I'm a 100% disabled veteran myself, so I make sure you actually get every benefit you've earned.",
   },
   {
-    q: "Can I negotiate builder incentives with a VA loan?",
-    a: "Absolutely — and this is where a buyer's agent earns their keep. San Antonio builders routinely offer closing-cost credits, rate buydowns, design-center upgrades, and appliance packages, but they're easiest to capture when you have your own representation from the first visit. Rami negotiates these incentives on your behalf; past clients have had thousands knocked off price plus upgrades thrown in.",
+    q: "Can you get the builder to give me extras?",
+    a: "That's where I earn my keep. Builders often pay your closing costs, lower your monthly payment, or throw in free upgrades like better floors or appliances — but you get the most when you have your own agent from your very first visit. The salesperson in the model home works for the builder. I work for you, and it costs you nothing.",
   },
   {
-    q: "What about the VA appraisal on a home that isn't finished yet?",
-    a: "New construction is appraised against the contract price and the builder's plans and specs. If the appraisal comes in below contract, you have options — including the VA's amendatory escape clause, which lets a VA buyer walk away or renegotiate without losing their earnest money if the home doesn't appraise. Rami walks you through exactly how this protects you on a new build.",
+    q: "What if the house isn't even built yet — how does that work?",
+    a: "We can lock in a home that's still being built. The VA checks that the price matches the home's value, and you're protected: if it comes up short, you can walk away and keep your deposit. I walk you through every step so a months-long build never feels scary.",
   },
   {
-    q: "Do disabled veterans get a property tax break in Texas on a new home?",
-    a: "Texas offers a property-tax exemption for veterans with a service-connected disability, and veterans rated 100% disabled (or with individual unemployability) can qualify for a total homestead property-tax exemption. The exact amount depends on your disability rating, so confirm details with your county appraisal district — but for many disabled veterans this is one of the largest ongoing savings of buying in Texas.",
-  },
-  {
-    q: "Which San Antonio areas do you cover for new construction?",
-    a: "All of San Antonio and the surrounding communities — including Alamo Ranch and the northwest, Stone Oak, Boerne, New Braunfels, Schertz, Cibolo, and Universal City across Bexar, Comal, Guadalupe, and Kendall counties. Rami helps you compare new-construction communities area-wide rather than steering you to any single builder.",
+    q: "Which parts of San Antonio do you cover?",
+    a: "All of it — and the suburbs and Hill Country too. That includes the fast-growing northwest, Stone Oak, Alamo Ranch, Boerne, New Braunfels, Schertz, Cibolo, and Universal City. I help you compare new-home communities all over the area instead of pushing you toward any one builder.",
   },
 ]
 
@@ -93,7 +90,7 @@ const jsonLd = {
       name: "VA Loan New Construction Home Buying in San Antonio",
       serviceType: "VA loan new construction real estate representation",
       description:
-        "Buyer's-agent representation for veterans and active-duty service members purchasing new-construction homes in San Antonio with a VA loan — builder VA-approval verification, incentive negotiation, and new-build appraisal guidance.",
+        "Buyer's-agent representation for veterans and active-duty service members buying new-construction homes in San Antonio with a VA loan — builder VA-approval checks, perk negotiation, and new-build guidance, in plain English.",
       provider: { "@id": "https://keyturnrealty.com/#agent" },
       areaServed: [
         { "@type": "City", name: "San Antonio, TX" },
@@ -128,12 +125,23 @@ const jsonLd = {
   ],
 }
 
-// Eyebrow label used across sections (matches the homepage section pattern).
-function Eyebrow({ children }: { children: React.ReactNode }) {
+function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   return (
-    <div className="text-[11px] uppercase tracking-[0.22em] text-[#1f6b63] font-semibold">{children}</div>
+    <div
+      className={`text-[11px] uppercase tracking-[0.22em] font-semibold ${dark ? "text-[#81D8D0]" : "text-[#1f6b63]"}`}
+    >
+      {children}
+    </div>
   )
 }
+
+// Real new-construction homes Rami has worked — the overlays are authentic deal
+// wins (closing costs paid, price drops, rate buydowns) that prove the value prop.
+const HOMES = [
+  { src: "/posters-listing-1.jpg", alt: "New-construction home in Northeast San Antonio — price reduced, all closing costs paid", tag: "All closing costs paid" },
+  { src: "/posters-listing-2.jpg", alt: "New-construction home in Northeast San Antonio — lowered rate, all closing costs paid", tag: "Payment lowered" },
+  { src: "/posters-listing-northwest-1.jpg", alt: "New-construction home in Northwest San Antonio", tag: "Northwest San Antonio" },
+]
 
 export default function VANewConstructionPage() {
   return (
@@ -141,88 +149,101 @@ export default function VANewConstructionPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
 
-      {/* Hero */}
-      <section className="relative bg-gradient-to-b from-[#eef7f5] to-[#faf8f4] pt-36 pb-24">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center space-y-7">
-          <Eyebrow>VA Loan · New Construction · San Antonio</Eyebrow>
-          <h1 className="text-4xl md:text-6xl font-light tracking-tight text-balance text-[#15211f]">
-            Build new in San Antonio with your <span className="font-semibold">VA loan</span>
-          </h1>
-          <div className="mx-auto w-14 h-0.5 rounded-full bg-gradient-to-r from-[#c9a227] to-[#e2cb7a]" />
-          <p className="text-lg md:text-xl text-[#5d6f6c] leading-relaxed text-balance">
-            Rami Rafeh is a service-disabled U.S. Air Force and Army veteran and a San Antonio new-construction
-            specialist. He helps veterans and first-time buyers use the VA loan to buy brand-new homes — $0 down,
-            no PMI, and builder incentives negotiated in your corner — across San Antonio and the surrounding Hill
-            Country.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-            <Button
-              asChild
-              size="lg"
-              className="bg-[#15211f] text-white hover:bg-[#15211f]/90 rounded-full px-8 h-14 text-base shadow-[0_10px_28px_-10px_rgba(21,33,31,0.4)]"
-            >
-              <CalendlyLink>Book a free consultation</CalendlyLink>
-            </Button>
-            <ContactFormModal>
-              <Button
-                size="lg"
-                variant="outline"
-                className="rounded-full px-8 h-14 text-base border-[#15211f]/20 text-[#15211f] hover:bg-[#15211f]/5"
-              >
-                Ask Rami a question
-              </Button>
-            </ContactFormModal>
+      {/* Hero — text + real home interior */}
+      <section className="relative bg-gradient-to-b from-[#eef7f5] to-[#faf8f4] pt-32 pb-20 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <Eyebrow>Brand-new homes · VA loan · San Antonio</Eyebrow>
+              <h1 className="text-4xl md:text-6xl font-light tracking-tight text-balance text-[#15211f]">
+                Buy a <span className="font-semibold">brand-new home</span> with your VA loan
+              </h1>
+              <div className="w-14 h-0.5 rounded-full bg-gradient-to-r from-[#c9a227] to-[#e2cb7a]" />
+              <p className="text-lg md:text-xl text-[#5d6f6c] leading-relaxed">
+                No down payment. No monthly mortgage insurance. And a veteran in your corner who gets the builder to
+                throw in extras. I'm Rami — a 100% disabled Air Force and Army veteran who helps first-time buyers and
+                fellow veterans buy new homes all over San Antonio.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 pt-1">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-[#15211f] text-white hover:bg-[#15211f]/90 rounded-full px-8 h-14 text-base shadow-[0_10px_28px_-10px_rgba(21,33,31,0.4)]"
+                >
+                  <CalendlyLink>Talk to Rami — it's free</CalendlyLink>
+                </Button>
+                <ContactFormModal>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="rounded-full px-8 h-14 text-base border-[#15211f]/20 text-[#15211f] hover:bg-[#15211f]/5 bg-transparent"
+                  >
+                    Ask a quick question
+                  </Button>
+                </ContactFormModal>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="relative aspect-[4/5] sm:aspect-[4/3] lg:aspect-[4/5] overflow-hidden rounded-3xl border border-[#e8e4da] shadow-[0_30px_80px_-30px_rgba(21,33,31,0.4)]">
+                <Image
+                  src="/posters-hero.jpg"
+                  alt="Inside a brand-new San Antonio home — custom built-ins and finishes"
+                  fill
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* VA + new construction basics */}
-      <section className="py-28 bg-white">
+      {/* Friendly stat band */}
+      <section className="bg-[#15211f]">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          {[
+            ["$0", "down payment"],
+            ["$0", "monthly mortgage insurance"],
+            ["100%", "disabled-veteran owned"],
+            ["5.0 ★", "client rating"],
+          ].map(([big, small]) => (
+            <div key={small}>
+              <div className="text-3xl md:text-4xl font-light text-[#81D8D0]">{big}</div>
+              <div className="text-sm text-[#9fb2af] mt-1 leading-snug">{small}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* The short answer — plain English cards */}
+      <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-5">
-            <Eyebrow>The short answer</Eyebrow>
+          <div className="text-center max-w-2xl mx-auto mb-14 space-y-4">
+            <Eyebrow>The quick version</Eyebrow>
             <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#15211f]">
-              Yes — you <span className="font-semibold">can</span> use a VA loan on a new build
+              Yes — your VA loan works on a <span className="font-semibold">new build</span>
             </h2>
             <p className="text-lg text-[#5d6f6c] leading-relaxed">
-              A VA loan works on new construction the same way it does on a resale home, with a few extra steps
-              around the builder and the appraisal. Here's what carries over — and what's different.
+              Here's what that actually means for you, in plain English.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 gap-5">
             {[
-              {
-                title: "$0 down payment",
-                body: "Eligible veterans and service members buy with no down payment — even on a brand-new home.",
-              },
-              {
-                title: "No PMI, ever",
-                body: "VA loans never require private mortgage insurance, saving you hundreds a month versus conventional.",
-              },
-              {
-                title: "Builder must be VA-registered",
-                body: "The builder and community need to be set up with the VA. Rami verifies this before you sign anything.",
-              },
-              {
-                title: "Appraised to plans & price",
-                body: "A new build is appraised against the contract and the builder's specs, with VA escape-clause protection if it comes in low.",
-              },
-              {
-                title: "One-year builder warranty",
-                body: "The VA requires a one-year builder warranty on new construction — a protection that's built into the process.",
-              },
-              {
-                title: "Funding fee waived if disabled",
-                body: "Veterans receiving VA disability compensation pay no funding fee — thousands saved at closing.",
-              },
-            ].map((c) => (
-              <div key={c.title} className="rounded-2xl border border-[#e8e4da] bg-[#faf8f4] p-7">
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-[#1f6b63] mt-0.5 shrink-0" />
-                  <div>
-                    <h3 className="text-lg font-semibold text-[#15211f] mb-1.5">{c.title}</h3>
-                    <p className="text-[#5d6f6c] leading-relaxed">{c.body}</p>
-                  </div>
+              ["No money down", "If you qualify, you can buy a brand-new home without a down payment."],
+              ["No PMI", "Other loans add an insurance fee to your monthly payment. VA loans never do — so your payment stays lower."],
+              ["Builder has to take VA", "The community just needs to accept VA loans. Most San Antonio builders already do — I confirm it before you sign."],
+              ["You're protected on price", "If the home doesn't appraise for what you're paying, you can walk away and keep your deposit."],
+              ["A 1-year warranty", "New homes come with a builder warranty, so you're covered after you move in."],
+              ["Disabled vets save more", "Get VA disability pay? You skip the VA funding fee — thousands saved at closing."],
+            ].map(([title, body]) => (
+              <div key={title} className="rounded-2xl border border-[#e8e4da] bg-[#faf8f4] p-6 flex items-start gap-3">
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1f6b63]">
+                  <Check className="h-4 w-4 text-white" />
+                </span>
+                <div>
+                  <h3 className="text-base font-semibold text-[#15211f] mb-1">{title}</h3>
+                  <p className="text-[#5d6f6c] leading-relaxed text-[15px]">{body}</p>
                 </div>
               </div>
             ))}
@@ -230,117 +251,180 @@ export default function VANewConstructionPage() {
         </div>
       </section>
 
-      {/* How Rami helps — the differentiators competitors miss */}
-      <section className="py-28 bg-[#eef7f5]">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-5">
-            <Eyebrow>Where most buyers leave money on the table</Eyebrow>
+      {/* Real homes gallery — visual proof of incentive wins */}
+      <section className="py-24 bg-[#eef7f5]">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-12 space-y-4">
+            <Eyebrow>Real homes, real wins</Eyebrow>
             <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#15211f]">
-              What a builder's sales office <span className="font-semibold">won't</span> tell you
+              New-construction homes I've helped buyers <span className="font-semibold">land</span>
             </h2>
             <p className="text-lg text-[#5d6f6c] leading-relaxed">
-              The agent in the model home works for the builder — not for you. Bringing your own representation from
-              the very first visit costs you nothing and changes how the deal goes.
+              Closing costs covered. Prices dropped. Payments lowered. This is what having your own agent looks like.
             </p>
           </div>
-          <div className="space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {HOMES.map((h) => (
+              <figure key={h.src} className="group">
+                <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-[#d8e6e2] shadow-[0_18px_50px_-22px_rgba(21,33,31,0.45)]">
+                  <Image
+                    src={h.src}
+                    alt={h.alt}
+                    fill
+                    sizes="(min-width: 640px) 30vw, 100vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
+                <figcaption className="mt-3 text-sm font-medium text-[#1f6b63] text-center">{h.tag}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What the builder's salesperson won't tell you — relatable, plain */}
+      <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-14 space-y-4">
+            <Eyebrow>Read this before you visit a model home</Eyebrow>
+            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#15211f]">
+              The model-home salesperson <span className="font-semibold">works for the builder</span>
+            </h2>
+            <p className="text-lg text-[#5d6f6c] leading-relaxed">
+              Not for you. Bringing me along from your very first visit costs you nothing and changes the whole deal.
+            </p>
+          </div>
+          <div className="space-y-5">
             {[
-              {
-                icon: ShieldCheck,
-                title: "Verify VA approval before you sign",
-                body: "Not every community is set up for VA financing, and a contract signed before that's confirmed can trap your earnest money. Rami confirms the builder and community are VA-eligible up front so there are no surprises in underwriting.",
-              },
-              {
-                icon: Hammer,
-                title: "Negotiate builder incentives & upgrades",
-                body: "Closing-cost credits, interest-rate buydowns, design-center upgrades, appliance packages — these are negotiable, and builders expect a represented buyer to ask. One past client had $8,000 taken off the price and a refrigerator thrown in; another was shown builder incentives she didn't know she qualified for.",
-              },
-              {
-                icon: Award,
-                title: "Stack down-payment & tax assistance on a new build",
-                body: "A VA loan can pair with San Antonio and Texas assistance programs (HIP, TSAHC, MCC tax credits) on new construction, not just resale. Rami helps you see what you actually qualify for and combine it with your VA benefit.",
-              },
-              {
-                icon: CheckCircle2,
-                title: "Protect yourself on appraisal, inspection & timeline",
-                body: "An independent inspection on a new build (yes, you still want one), the VA appraisal and escape clause, and realistic build-timeline and rate-lock planning — Rami manages all of it so a months-long build doesn't derail your financing.",
-              },
-            ].map((c) => (
-              <div key={c.title} className="rounded-2xl bg-white border border-[#e4ece8] p-7 sm:p-8">
-                <div className="flex items-start gap-4">
-                  <div className="rounded-xl bg-[#eef7f5] p-2.5 shrink-0">
-                    <c.icon className="h-6 w-6 text-[#1f6b63]" />
+              [ShieldCheck, "I make sure it's a real VA-friendly deal", "Some communities aren't set up for VA loans, and signing before you know that can cost you your deposit. I check first, so there are no nasty surprises later."],
+              [Handshake, "I squeeze the builder for extras", "Paid closing costs, a lower monthly payment, free upgrades — builders expect a buyer with an agent to ask. One of my clients got $8,000 off and a free fridge; another got perks she didn't even know existed."],
+              [Search, "I find every dollar of help you qualify for", "There are San Antonio and Texas programs that help with your down payment and taxes — and they can stack on top of your VA loan, even on a new build. I'll show you what you actually qualify for."],
+              [KeyRound, "I've got your back to the finish line", "Inspection, appraisal, build delays, closing day — I handle the moving parts so a months-long build never derails your loan or your nerves."],
+            ].map(([Icon, title, body]) => {
+              const I = Icon as typeof ShieldCheck
+              return (
+                <div key={title as string} className="rounded-2xl bg-[#faf8f4] border border-[#e8e4da] p-6 sm:p-7 flex items-start gap-4">
+                  <div className="rounded-xl bg-[#eef7f5] p-3 shrink-0">
+                    <I className="h-6 w-6 text-[#1f6b63]" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-[#15211f] mb-2">{c.title}</h3>
-                    <p className="text-[#5d6f6c] leading-relaxed">{c.body}</p>
+                    <h3 className="text-lg font-semibold text-[#15211f] mb-1.5">{title as string}</h3>
+                    <p className="text-[#5d6f6c] leading-relaxed">{body as string}</p>
                   </div>
                 </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* How it works — friendly numbered steps */}
+      <section className="py-24 bg-[#faf8f4]">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-14 space-y-4">
+            <Eyebrow>How it works</Eyebrow>
+            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#15211f]">
+              Four simple <span className="font-semibold">steps</span>
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              ["1", "We talk — free", "A quick, no-pressure chat about what you want and what you can qualify for."],
+              ["2", "I check the home & builder", "I confirm the community takes VA loans and that the deal is fair — before you sign a thing."],
+              ["3", "I negotiate your perks", "I push the builder for paid closing costs, a lower payment, or free upgrades."],
+              ["4", "You get the keys", "I'm with you through inspection, appraisal, and closing day."],
+            ].map(([n, title, body]) => (
+              <div key={n} className="rounded-2xl bg-white border border-[#e8e4da] p-6 text-center">
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#15211f] text-xl font-semibold text-[#81D8D0]">
+                  {n}
+                </div>
+                <h3 className="text-lg font-semibold text-[#15211f] mb-1.5">{title}</h3>
+                <p className="text-[#5d6f6c] leading-relaxed text-[15px]">{body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Dual-service / disabled-vet differentiator */}
-      <section className="py-28 bg-[#0f1a18]">
-        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center space-y-6">
-          <div className="text-[11px] uppercase tracking-[0.22em] text-[#81D8D0] font-semibold">
-            Why veterans choose Rami
+      {/* Veteran block — with headshot */}
+      <section className="py-24 bg-[#0f1a18]">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-[#1f2e2b] max-w-sm mx-auto lg:mx-0 w-full">
+              <Image
+                src="/rami-rafeh-headshot.png"
+                alt="Rami Rafeh — 100% disabled Air Force and Army veteran and San Antonio realtor"
+                fill
+                sizes="(min-width: 1024px) 35vw, 80vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="space-y-5">
+              <Eyebrow dark>Why veterans pick Rami</Eyebrow>
+              <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#f2f4f3]">
+                A veteran who's <span className="font-semibold text-[#81D8D0]">been there</span>
+              </h2>
+              <p className="text-lg text-[#9fb2af] leading-relaxed">
+                I served in both the Air Force and the Army, and I'm a 100% disabled veteran. I've used the VA loan, the
+                disabled-vet fee waiver, and Texas's property-tax break myself — so I know them inside out, not from a
+                brochure. When you're buying a new home, that means someone in your corner who knows exactly what to ask
+                the builder and which benefits you've earned.
+              </p>
+              <div className="pt-1">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-[#81D8D0] text-[#0f1a18] hover:bg-[#74cdc5] rounded-full px-8 h-14 text-base font-semibold"
+                >
+                  <CalendlyLink>Book a free consultation</CalendlyLink>
+                </Button>
+              </div>
+            </div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#f2f4f3]">
-            A veteran who's <span className="font-semibold text-[#81D8D0]">used these benefits himself</span>
-          </h2>
-          <p className="text-lg text-[#9fb2af] leading-relaxed text-balance">
-            Rami Rafeh served in both the U.S. Air Force and the U.S. Army and is a 100% service-disabled veteran and
-            certified Military Relocation Professional (MRP). He understands the VA loan, the disability funding-fee
-            exemption, and Texas's total property-tax exemption for 100%-disabled veterans from the inside — because
-            he qualifies for them himself. When you're buying a new build, that means someone in your corner who
-            knows exactly which questions to ask the builder and which protections and benefits you're entitled to.
-          </p>
         </div>
       </section>
 
-      {/* Comparison: VA vs Conventional vs FHA for new construction */}
-      <section className="py-28 bg-white">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-14 space-y-5">
-            <Eyebrow>How the loans compare</Eyebrow>
+      {/* Loan comparison — friendly, icon-based */}
+      <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-12 space-y-4">
+            <Eyebrow>How the VA loan stacks up</Eyebrow>
             <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#15211f]">
-              VA vs. conventional vs. FHA on a <span className="font-semibold">new build</span>
+              Why the <span className="font-semibold">VA loan</span> usually wins
             </h2>
           </div>
           <div className="overflow-x-auto rounded-2xl border border-[#e8e4da]">
-            <table className="w-full text-left border-collapse min-w-[640px]">
+            <table className="w-full text-left border-collapse min-w-[560px]">
               <thead>
-                <tr className="bg-[#faf8f4] text-[#15211f]">
-                  <th className="p-4 font-semibold text-sm"> </th>
-                  <th className="p-4 font-semibold text-sm">VA loan</th>
-                  <th className="p-4 font-semibold text-sm">Conventional</th>
-                  <th className="p-4 font-semibold text-sm">FHA</th>
+                <tr className="text-[#15211f]">
+                  <th className="p-4 text-sm font-semibold"> </th>
+                  <th className="p-4 text-sm font-semibold bg-[#eef7f5] text-[#1f6b63] rounded-t-xl">VA loan</th>
+                  <th className="p-4 text-sm font-semibold">Regular loan</th>
+                  <th className="p-4 text-sm font-semibold">FHA loan</th>
                 </tr>
               </thead>
-              <tbody className="text-[#5d6f6c]">
+              <tbody className="text-[#5d6f6c] text-[15px]">
                 {[
-                  ["Down payment", "$0", "3%–20%", "3.5%"],
-                  ["Mortgage insurance", "None", "Until 20% equity", "For the life of the loan"],
-                  ["Funding/MI fee", "Waived if disabled", "N/A", "Upfront + monthly MIP"],
-                  ["Low-appraisal protection", "VA escape clause", "Negotiated", "Negotiated"],
-                  ["Best for", "Eligible veterans", "Strong-credit buyers", "Lower-credit buyers"],
-                ].map((row) => (
-                  <tr key={row[0]} className="border-t border-[#e8e4da]">
-                    <td className="p-4 font-medium text-[#15211f]">{row[0]}</td>
-                    <td className="p-4 font-semibold text-[#1f6b63]">{row[1]}</td>
-                    <td className="p-4">{row[2]}</td>
-                    <td className="p-4">{row[3]}</td>
+                  ["Money down", "$0", "3%–20%", "3.5%"],
+                  ["Monthly insurance fee", "Never", "Until you owe less", "For the whole loan"],
+                  ["Walk-away protection if it's overpriced", "yes", "maybe", "maybe"],
+                  ["Best fit for", "Veterans", "Strong credit", "Lower credit"],
+                ].map(([label, va, conv, fha]) => (
+                  <tr key={label} className="border-t border-[#e8e4da]">
+                    <td className="p-4 font-medium text-[#15211f]">{label}</td>
+                    <td className="p-4 font-semibold text-[#1f6b63] bg-[#eef7f5]/60">
+                      {va === "yes" ? <Check className="h-5 w-5 text-[#1f6b63]" /> : va}
+                    </td>
+                    <td className="p-4">{conv === "maybe" ? <span className="text-[#9aa6a3]">Sometimes</span> : conv}</td>
+                    <td className="p-4">{fha === "maybe" ? <span className="text-[#9aa6a3]">Sometimes</span> : fha}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
           <p className="text-sm text-[#8a9d97] mt-4">
-            For most eligible veterans buying new construction, the VA loan is the strongest option. Program details
-            and figures change — Rami and your lender confirm what applies to your situation.
+            For most veterans buying new construction, the VA loan is the strongest choice. We'll confirm what fits your
+            situation together — no jargon, no pressure.
           </p>
         </div>
       </section>
@@ -349,18 +433,18 @@ export default function VANewConstructionPage() {
       <Reviews />
 
       {/* FAQ */}
-      <section className="py-28 bg-[#faf8f4]">
+      <section className="py-24 bg-[#faf8f4]">
         <div className="max-w-3xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-14 space-y-5">
-            <Eyebrow>VA new construction — answered</Eyebrow>
+          <div className="text-center mb-12 space-y-4">
+            <Eyebrow>Real questions, straight answers</Eyebrow>
             <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#15211f]">
-              Frequently asked <span className="font-semibold">questions</span>
+              Common <span className="font-semibold">questions</span>
             </h2>
           </div>
-          <div className="space-y-5">
+          <div className="space-y-4">
             {FAQS.map((f) => (
-              <div key={f.q} className="rounded-2xl bg-white border border-[#e8e4da] p-7">
-                <h3 className="text-lg font-semibold text-[#15211f] mb-2.5">{f.q}</h3>
+              <div key={f.q} className="rounded-2xl bg-white border border-[#e8e4da] p-6">
+                <h3 className="text-lg font-semibold text-[#15211f] mb-2">{f.q}</h3>
                 <p className="text-[#5d6f6c] leading-relaxed">{f.a}</p>
               </div>
             ))}
@@ -369,15 +453,19 @@ export default function VANewConstructionPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-28 bg-[#0f1a18]">
-        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center space-y-7">
-          <div className="text-[11px] uppercase tracking-[0.22em] text-[#81D8D0] font-semibold">Let&apos;s talk</div>
+      <section className="py-24 bg-[#0f1a18]">
+        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center space-y-6">
+          <div className="flex justify-center gap-1 text-[#81D8D0]">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <Star key={i} className="h-5 w-5 fill-current" />
+            ))}
+          </div>
           <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#f2f4f3]">
-            Thinking about a <span className="font-semibold text-[#81D8D0]">new build?</span>
+            Thinking about a <span className="font-semibold text-[#81D8D0]">new home?</span>
           </h2>
           <p className="text-lg text-[#9fb2af] text-balance leading-relaxed">
-            Talk to Rami before you walk into a model home — it's free, there's no obligation, and it's the single
-            best way to keep the builder honest and the incentives in your pocket.
+            Talk to me before you walk into a model home. It's free, there's zero pressure, and it's the best way to
+            keep the builder honest and the perks in your pocket.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center pt-1">
             <Button
