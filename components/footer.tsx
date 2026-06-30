@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Instagram, Facebook, Phone, Mail } from "lucide-react"
 import { CalendlyLink } from "@/components/calendly-link"
 
@@ -5,7 +6,7 @@ export function Footer() {
   return (
     <footer id="contact" className="bg-[#0f1a18] border-t border-[#1f2e2b] text-[#f2f4f3]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-        <div className="grid md:grid-cols-3 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="space-y-4">
             <div className="text-2xl font-semibold tracking-tight text-[#f2f4f3]">Key Turn Realty Group</div>
@@ -50,6 +51,17 @@ export function Footer() {
             <CalendlyLink className="inline-block text-sm font-medium text-[#81D8D0] hover:underline">
               Book a free consultation →
             </CalendlyLink>
+          </div>
+
+          {/* Buyer guides */}
+          <div className="space-y-4">
+            <div className="text-sm font-semibold uppercase tracking-wide text-[#81D8D0]">Buyer guides</div>
+            <Link href="/first-time-home-buyer-san-antonio" className="block text-sm text-[#e8ece9] hover:text-[#81D8D0] transition-colors">
+              First-time home buyers
+            </Link>
+            <Link href="/va-loan-new-construction-san-antonio" className="block text-sm text-[#e8ece9] hover:text-[#81D8D0] transition-colors">
+              VA loan &amp; new construction
+            </Link>
           </div>
 
           {/* Areas served */}

@@ -9,6 +9,7 @@ import { FeaturedDestinations } from "@/components/featured-destinations"
 import { WhyChooseUs } from "@/components/why-choose-us"
 import { TestimonialVideo } from "@/components/testimonial-video"
 import { Reviews } from "@/components/reviews"
+import { BuyerGuides } from "@/components/buyer-guides"
 import { Newsletter } from "@/components/newsletter"
 import { Footer } from "@/components/footer"
 import { MobileCtaBar } from "@/components/mobile-cta-bar"
@@ -27,6 +28,7 @@ export default function Home() {
       <About />
       <TestimonialVideo />
       <WhyChooseUs />
+      <BuyerGuides />
       <Newsletter />
       <Footer />
       <MobileCtaBar />
