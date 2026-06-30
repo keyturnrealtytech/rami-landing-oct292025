@@ -12,7 +12,7 @@ import { Reveal } from "@/components/reveal"
 import { CountUp } from "@/components/count-up"
 import { VaFaq } from "@/components/va-faq"
 import { FloatingCta } from "@/components/floating-cta"
-import { Check, PiggyBank, HandCoins, GraduationCap, KeyRound, Star, Quote, Medal, BadgeCheck, ShieldCheck } from "lucide-react"
+import { PiggyBank, HandCoins, KeyRound, Star, Quote, Medal, BadgeCheck, ShieldCheck, Wallet, Gift, CreditCard, Scale, MessageCircle, FileCheck, Home } from "lucide-react"
 
 const PAGE_URL = "https://keyturnrealty.com/first-time-home-buyer-san-antonio"
 const TITLE = "First-Time Home Buyer in San Antonio | Key Turn Realty"
@@ -122,12 +122,13 @@ function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?:
   )
 }
 
+// Myth (what people believe) → Truth (what's actually true).
 const MYTHS = [
-  ["You don't need 20% down", "It's the #1 myth that keeps people renting. Many first-time buyers get in with 3–5% — or even $0 with the right program."],
-  ["Help with the down payment exists", "San Antonio and Texas have real programs that put money toward your down payment and closing costs. Most people don't know they qualify."],
-  ["Your credit is probably fine", "You don't need perfect credit to buy your first home. A quick check tells you where you stand — often it's better than you feared."],
-  ["Renting may cost more", "In a lot of San Antonio neighborhoods, a monthly payment on your own home is close to — or less than — what you're paying in rent."],
-]
+  [Wallet, "“I need 20% down.”", "Nope. Plenty of first-time buyers get in with 3–5% — or even $0 with the right program."],
+  [Gift, "“There's no help out there.”", "There is. San Antonio and Texas have real programs that hand you money toward your down payment."],
+  [CreditCard, "“My credit isn't good enough.”", "Probably is. You don't need perfect credit — a quick check usually surprises people."],
+  [Scale, "“Renting is cheaper.”", "Often it's not. In many San Antonio areas, owning costs about the same as your rent."],
+] as const
 
 const PROGRAMS = [
   [HandCoins, "City of San Antonio HIP", "The Homeownership Incentive Program helps with your down payment and closing costs, with assistance that can be forgiven over time if you stay in the home."],
@@ -137,11 +138,11 @@ const PROGRAMS = [
 ] as const
 
 const STEPS = [
-  ["1", "We talk — free", "A relaxed, no-pressure chat about what you want, your budget, and your timeline."],
-  ["2", "Get pre-approved", "I point you to a trusted lender so you know your real number — and which programs you qualify for."],
-  ["3", "We find your home", "I line up showings, spot red flags, and help you make a smart, winning offer."],
-  ["4", "You get the keys", "I handle inspection, appraisal, and closing day, and I'm there when you walk in the door."],
-]
+  [MessageCircle, "1", "We talk — free", "A relaxed, no-pressure chat about what you want, your budget, and your timeline."],
+  [FileCheck, "2", "Get pre-approved", "I point you to a trusted lender so you know your real number — and which programs you qualify for."],
+  [Home, "3", "We find your home", "I line up showings, spot red flags, and help you make a smart, winning offer."],
+  [KeyRound, "4", "You get the keys", "I handle inspection, appraisal, and closing day, and I'm there when you walk in the door."],
+] as const
 
 export default function FirstTimeBuyerPage() {
   return (
@@ -231,30 +232,56 @@ export default function FirstTimeBuyerPage() {
         </div>
       </section>
 
-      {/* Myths */}
-      <section className="py-24 bg-white">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <Reveal className="text-center max-w-2xl mx-auto mb-14 space-y-4">
-            <Eyebrow>Take a breath</Eyebrow>
-            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#15211f]">
-              Buying your first home isn't as <span className="font-semibold">scary</span> as it sounds
-            </h2>
-            <p className="text-lg text-[#5d6f6c] leading-relaxed">Let's clear up the four things that hold most people back.</p>
-          </Reveal>
-          <div className="grid sm:grid-cols-2 gap-5">
-            {MYTHS.map(([title, body], i) => (
-              <Reveal key={title} delay={(i % 2) * 90}>
-                <div className="h-full rounded-2xl border border-[#e8e4da] bg-[#faf8f4] p-6 flex items-start gap-3 transition-all duration-300 hover:-translate-y-1 hover:border-[#bfe0db] hover:shadow-[0_20px_50px_-26px_rgba(21,33,31,0.45)]">
-                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1f6b63]">
-                    <Check className="h-4 w-4 text-white" />
-                  </span>
-                  <div>
-                    <h3 className="text-base font-semibold text-[#15211f] mb-1">{title}</h3>
-                    <p className="text-[#5d6f6c] leading-relaxed text-[15px]">{body}</p>
-                  </div>
+      {/* Myths vs truth — with lifestyle image */}
+      <section className="py-24 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            {/* Image */}
+            <Reveal className="lg:col-span-5">
+              <div className="relative aspect-[4/5] sm:aspect-[3/2] lg:aspect-[4/5] overflow-hidden rounded-3xl border border-[#e8e4da] shadow-[0_30px_70px_-30px_rgba(21,33,31,0.4)]">
+                <Image
+                  src="/first-home-living.jpg"
+                  alt="A bright, welcoming living room in a San Antonio first home"
+                  fill
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/85 backdrop-blur px-5 py-3 text-center">
+                  <span className="text-sm font-semibold text-[#15211f]">Picture yourself home.</span>
                 </div>
+              </div>
+            </Reveal>
+            {/* Myth → truth cards */}
+            <div className="lg:col-span-7">
+              <Reveal className="mb-8 space-y-3">
+                <Eyebrow>Let's bust 4 myths</Eyebrow>
+                <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#15211f]">
+                  Most of what's stopping you <span className="font-semibold">isn't even true</span>
+                </h2>
               </Reveal>
-            ))}
+              <div className="space-y-4">
+                {MYTHS.map(([Icon, myth, truth], i) => {
+                  const I = Icon as typeof Wallet
+                  return (
+                    <Reveal key={myth as string} delay={i * 90}>
+                      <div className="rounded-2xl border border-[#e8e4da] bg-[#faf8f4] p-5 sm:p-6 flex items-start gap-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#bfe0db] hover:shadow-[0_20px_50px_-26px_rgba(21,33,31,0.45)]">
+                        <div className="rounded-xl bg-white border border-[#e8e4da] p-2.5 shrink-0">
+                          <I className="h-5 w-5 text-[#1f6b63]" />
+                        </div>
+                        <div>
+                          <div className="text-[15px] text-[#9aa6a3] mb-1">
+                            <span className="myth-strike bg-gradient-to-r from-[#c46a6a] to-[#c46a6a] bg-no-repeat bg-[center_60%]">
+                              {myth as string}
+                            </span>
+                          </div>
+                          <p className="text-[#15211f] font-medium leading-relaxed">{truth as string}</p>
+                        </div>
+                      </div>
+                    </Reveal>
+                  )
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -276,9 +303,9 @@ export default function FirstTimeBuyerPage() {
               const I = Icon as typeof HandCoins
               return (
                 <Reveal key={title as string} delay={i * 80}>
-                  <div className="rounded-2xl bg-white border border-[#e4ece8] p-6 sm:p-7 flex items-start gap-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#bfe0db] hover:shadow-[0_22px_55px_-28px_rgba(21,33,31,0.45)]">
-                    <div className="rounded-xl bg-[#eef7f5] p-3 shrink-0">
-                      <I className="h-6 w-6 text-[#1f6b63]" />
+                  <div className="rounded-2xl bg-white border border-[#e4ece8] p-6 sm:p-7 flex items-start gap-5 transition-all duration-300 hover:-translate-y-1 hover:border-[#bfe0db] hover:shadow-[0_22px_55px_-28px_rgba(21,33,31,0.45)]">
+                    <div className="rounded-2xl bg-gradient-to-br from-[#81D8D0] to-[#1f6b63] p-3.5 shrink-0 shadow-[0_10px_24px_-10px_rgba(31,107,99,0.6)]">
+                      <I className="h-6 w-6 text-white" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-[#15211f] mb-1.5">{title as string}</h3>
@@ -304,18 +331,27 @@ export default function FirstTimeBuyerPage() {
               From "maybe someday" to <span className="font-semibold">keys in hand</span>
             </h2>
           </Reveal>
-          <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="hidden lg:block absolute top-12 left-[12%] right-[12%] h-px bg-gradient-to-r from-transparent via-[#cfe3df] to-transparent" />
-            {STEPS.map(([n, title, body], i) => (
-              <Reveal key={n} delay={i * 120}>
-                <div className="relative rounded-2xl bg-[#faf8f4] border border-[#e8e4da] p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_-26px_rgba(21,33,31,0.45)]">
-                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#15211f] text-xl font-semibold text-[#81D8D0]">{n}</div>
-                  <h3 className="text-lg font-semibold text-[#15211f] mb-1.5">{title}</h3>
-                  <p className="text-[#5d6f6c] leading-relaxed text-[15px]">{body}</p>
+          <Reveal as="div" className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="step-line hidden lg:block absolute top-12 left-[12%] right-[12%] h-0.5 bg-gradient-to-r from-[#cfe3df] via-[#81D8D0] to-[#cfe3df]" />
+            {STEPS.map(([Icon, n, title, body], i) => {
+              const I = Icon as typeof MessageCircle
+              return (
+                <div
+                  key={n as string}
+                  className="relative rounded-2xl bg-[#faf8f4] border border-[#e8e4da] p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_-26px_rgba(21,33,31,0.45)]"
+                >
+                  <div className="mx-auto mb-4 relative flex h-14 w-14 items-center justify-center rounded-full bg-[#15211f]">
+                    <I className="h-6 w-6 text-[#81D8D0]" />
+                    <span className="absolute -top-1.5 -right-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#81D8D0] text-xs font-bold text-[#0f1a18]">
+                      {n as string}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-[#15211f] mb-1.5">{title as string}</h3>
+                  <p className="text-[#5d6f6c] leading-relaxed text-[15px]">{body as string}</p>
                 </div>
-              </Reveal>
-            ))}
-          </div>
+              )
+            })}
+          </Reveal>
         </div>
       </section>
 
