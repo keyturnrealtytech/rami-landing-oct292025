@@ -12,7 +12,7 @@ import { Reveal } from "@/components/reveal"
 import { CountUp } from "@/components/count-up"
 import { VaFaq } from "@/components/va-faq"
 import { FloatingCta } from "@/components/floating-cta"
-import { PiggyBank, HandCoins, KeyRound, Star, Quote, Medal, BadgeCheck, ShieldCheck, Wallet, Gift, CreditCard, Scale, MessageCircle, FileCheck, Home } from "lucide-react"
+import { Handshake, KeyRound, Star, Quote, Medal, BadgeCheck, ShieldCheck, Wallet, Gift, CreditCard, Scale, MessageCircle, FileCheck, Home } from "lucide-react"
 
 const PAGE_URL = "https://keyturnrealty.com/first-time-home-buyer-san-antonio"
 const TITLE = "First-Time Home Buyer in San Antonio | Key Turn Realty"
@@ -43,8 +43,8 @@ const FAQS: { q: string; a: string }[] = [
     a: "Way less than the 20% most people assume. Plenty of first-time buyers in San Antonio get in with 3–5% down, and several local and Texas programs can cover part or all of that. If you served in the military, a VA loan can mean $0 down. We'll figure out your real number on a quick call — it's usually a pleasant surprise.",
   },
   {
-    q: "What assistance programs can help me?",
-    a: "San Antonio and Texas have several: the City's Homeownership Incentive Program (HIP) helps with down payment and closing costs; TSAHC and TDHCA offer down-payment grants and a mortgage tax credit (MCC); and there are special perks for teachers, first responders, and veterans. Amounts and rules change, so I'll walk you through exactly what you qualify for — no guessing.",
+    q: "How much will I actually need up front?",
+    a: "Less than you'd guess. I only work with builders who pay your closing costs, so the main thing you bring is your down payment — often around 3.5%, or $0 if you're a veteran. Everyone's situation is a little different, so the fastest way to learn your real number is a quick message or call.",
   },
   {
     q: "My credit isn't perfect — can I still buy?",
@@ -130,11 +130,13 @@ const MYTHS = [
   [Scale, "“Renting is cheaper.”", "Often it's not. In many San Antonio areas, owning costs about the same as your rent."],
 ] as const
 
-const PROGRAMS = [
-  [HandCoins, "City of San Antonio HIP", "The Homeownership Incentive Program helps with your down payment and closing costs, with assistance that can be forgiven over time if you stay in the home."],
-  [PiggyBank, "TSAHC & TDHCA grants", "Statewide programs offer down-payment grants and a mortgage tax credit (MCC) that can save you money every year you own the home."],
-  [Medal, "Heroes & veteran perks", "Extra help for teachers, first responders, and military — including $0-down VA loans if you've served. I'll match you to what fits."],
-  [ShieldCheck, "I find what you qualify for", "Programs change constantly and most lenders won't dig for them. I help you stack the right ones so you keep the most money in your pocket."],
+// How Rami actually gets first-time buyers in the door (from his real consults):
+// builder pays closing costs, low/zero down, and he frames the trade-off. Teaser
+// only — enough to make them reach out, not the whole playbook.
+const GETTING_IN = [
+  [Handshake, "The builder covers your closing costs", "I only take you to builders who pay your closing costs in full. That's thousands you never have to bring to the table."],
+  [Wallet, "Your down payment is smaller than you think", "On a lot of homes it lands around 3.5% — and if you've served, it can be $0 down. Most people are shocked how low their real number is."],
+  [Scale, "Less down or a lower payment — your call", "There's usually a trade-off: little to nothing down, or a lower monthly payment. I lay both out so you choose what actually fits your life."],
 ] as const
 
 const STEPS = [
@@ -197,15 +199,15 @@ export default function FirstTimeBuyerPage() {
       <section className="bg-[#15211f]">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 py-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
-            <CountUp key="s1" value={3} suffix="%" />,
-            <CountUp key="s2" value={6} suffix="+" />,
+            <CountUp key="s1" value={3.5} decimals={1} suffix="%" />,
+            <>$0</>,
             <CountUp key="s3" value={55} />,
             <CountUp key="s4" value={5} decimals={1} suffix="★" />,
           ].map((node, i) => (
             <Reveal key={i} delay={i * 90}>
               <div className="text-4xl md:text-5xl font-light text-[#81D8D0]">{node}</div>
               <div className="text-sm text-[#9fb2af] mt-2 leading-snug">
-                {["down can be enough", "help programs available", "homes closed last year", "client rating"][i]}
+                {["down can be enough", "down for veterans", "homes closed last year", "client rating"][i]}
               </div>
             </Reveal>
           ))}
@@ -286,21 +288,21 @@ export default function FirstTimeBuyerPage() {
         </div>
       </section>
 
-      {/* Assistance programs */}
+      {/* How you get in — Rami's real method, teaser */}
       <section className="py-24 bg-[#eef7f5]">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <Reveal className="text-center max-w-2xl mx-auto mb-14 space-y-4">
-            <Eyebrow>Free money you might be leaving on the table</Eyebrow>
+            <Eyebrow>The part most people get wrong</Eyebrow>
             <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#15211f]">
-              Programs that help with your <span className="font-semibold">down payment</span>
+              You need way less to get in than you <span className="font-semibold">think</span>
             </h2>
             <p className="text-lg text-[#5d6f6c] leading-relaxed">
-              San Antonio and Texas want to help you buy. Most first-time buyers qualify for something — and don't know it.
+              Forget the pile of cash you've been picturing. Here's how it actually works when you buy with me.
             </p>
           </Reveal>
           <div className="space-y-5">
-            {PROGRAMS.map(([Icon, title, body], i) => {
-              const I = Icon as typeof HandCoins
+            {GETTING_IN.map(([Icon, title, body], i) => {
+              const I = Icon as typeof Handshake
               return (
                 <Reveal key={title as string} delay={i * 80}>
                   <div className="rounded-2xl bg-white border border-[#e4ece8] p-6 sm:p-7 flex items-start gap-5 transition-all duration-300 hover:-translate-y-1 hover:border-[#bfe0db] hover:shadow-[0_22px_55px_-28px_rgba(21,33,31,0.45)]">
@@ -316,9 +318,28 @@ export default function FirstTimeBuyerPage() {
               )
             })}
           </div>
-          <p className="text-sm text-[#8a9d97] mt-6 text-center">
-            Program amounts and rules change often — I'll confirm exactly what you qualify for, no guessing.
-          </p>
+
+          {/* Teaser CTA — get them to message, not the whole plan */}
+          <Reveal delay={120}>
+            <div className="mt-10 rounded-3xl bg-[#15211f] p-8 sm:p-10 text-center">
+              <p className="text-xl md:text-2xl font-light text-[#f2f4f3] text-balance leading-relaxed">
+                "If I could get you into a home with little to nothing out of pocket — would you start looking?"
+              </p>
+              <p className="text-[#9fb2af] mt-4 max-w-lg mx-auto">
+                Everyone's number is different. Most of my buyers find out theirs in one quick conversation. Let's find yours.
+              </p>
+              <div className="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
+                <ContactFormModal>
+                  <Button size="lg" className="bg-[#81D8D0] text-[#0f1a18] hover:bg-[#74cdc5] rounded-full px-8 h-14 text-base font-semibold transition-transform hover:-translate-y-0.5">
+                    Message Rami — find your number
+                  </Button>
+                </ContactFormModal>
+                <Button asChild size="lg" variant="outline" className="rounded-full px-8 h-14 text-base border-[#81D8D0]/40 text-[#81D8D0] hover:bg-[#81D8D0]/10 bg-transparent">
+                  <CalendlyLink>Book a free call</CalendlyLink>
+                </Button>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
