@@ -10,7 +10,9 @@ import { ContactFormModal } from "@/components/contact-form-modal"
 import { Reveal } from "@/components/reveal"
 import { CountUp } from "@/components/count-up"
 import { VaFaq } from "@/components/va-faq"
-import { Check, ShieldCheck, Handshake, GraduationCap, KeyRound, Star } from "lucide-react"
+import { LazyVideo } from "@/components/lazy-video"
+import { FloatingCta } from "@/components/floating-cta"
+import { Check, ShieldCheck, Handshake, GraduationCap, KeyRound, Star, Quote, Medal, BadgeCheck } from "lucide-react"
 
 const PAGE_URL = "https://keyturnrealty.com/va-loan-new-construction-san-antonio"
 const TITLE = "VA Loan New Construction Homes in San Antonio | Key Turn"
@@ -147,11 +149,11 @@ const QUICK = [
   ["Disabled vets save more", "Get VA disability pay? You skip the VA funding fee — thousands saved at closing."],
 ]
 
-// Real new-construction homes Rami has worked — overlays are authentic deal wins.
+// Real new-construction homes Rami has worked — actual listing video tours.
 const HOMES = [
-  { src: "/posters-listing-1.jpg", alt: "New-construction home in Northeast San Antonio — price reduced, all closing costs paid", tag: "All closing costs paid" },
-  { src: "/posters-listing-2.jpg", alt: "New-construction home in Northeast San Antonio — lowered rate, all closing costs paid", tag: "Payment lowered" },
-  { src: "/posters-listing-northwest-1.jpg", alt: "New-construction home in Northwest San Antonio", tag: "Northwest San Antonio" },
+  { poster: "/posters-listing-1.jpg", video: "/RAMI-1ST-LISTINGROW.mp4", alt: "Video tour of a new-construction home in Northeast San Antonio", tag: "All closing costs paid" },
+  { poster: "/posters-listing-2.jpg", video: "/RAMI-2ND-LIST-ROW.mp4", alt: "Video tour of a new-construction home in Northeast San Antonio", tag: "Payment lowered" },
+  { poster: "/posters-listing-northwest-1.jpg", video: "/listing-northwest-1.mp4", alt: "Video tour of a new-construction home in Northwest San Antonio", tag: "Northwest San Antonio" },
 ]
 
 const BUILDER = [
@@ -186,6 +188,33 @@ export default function VANewConstructionPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0b1413] via-[#0b1413]/70 to-[#0b1413]/15" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0b1413]/60 to-transparent" />
+
+        {/* Floating glass benefit chips (desktop) */}
+        <div className="hidden lg:flex flex-col gap-4 absolute right-10 top-1/3 z-10">
+          {[
+            ["$0", "down payment"],
+            ["$0", "monthly PMI"],
+            ["Perks", "negotiated for you"],
+          ].map(([big, small], i) => (
+            <div
+              key={small}
+              className="float-bob rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 px-5 py-3 shadow-xl"
+              style={{ animationDelay: `${i * 0.6}s` }}
+            >
+              <div className="text-2xl font-semibold text-[#81D8D0] leading-none">{big}</div>
+              <div className="text-xs text-white/80 mt-1">{small}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Scroll cue */}
+        <div className="scroll-cue absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden sm:flex flex-col items-center gap-1 text-white/70">
+          <span className="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pb-16 pt-36 w-full">
           <Reveal className="max-w-2xl space-y-6">
             <div className="text-[11px] uppercase tracking-[0.22em] font-semibold text-[#81D8D0]">
@@ -240,6 +269,26 @@ export default function VANewConstructionPage() {
         </div>
       </section>
 
+      {/* Credentials trust bar */}
+      <section className="bg-white border-b border-[#eef0ec]">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8 py-7 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#5d6f6c]">
+          {[
+            [Medal, "U.S. Air Force & Army Veteran · 100% Disabled"],
+            [BadgeCheck, "Military Relocation Professional (MRP)"],
+            [ShieldCheck, "Real Broker · TREC #724566"],
+            [Star, "5.0★ on Google, Zillow & Realtor.com"],
+          ].map(([Icon, label]) => {
+            const I = Icon as typeof Medal
+            return (
+              <span key={label as string} className="inline-flex items-center gap-2 font-medium">
+                <I className="h-4 w-4 text-[#1f6b63]" />
+                {label as string}
+              </span>
+            )
+          })}
+        </div>
+      </section>
+
       {/* The short answer — plain-English cards */}
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
@@ -282,18 +331,22 @@ export default function VANewConstructionPage() {
           </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {HOMES.map((h, i) => (
-              <Reveal key={h.src} delay={i * 120}>
+              <Reveal key={h.video} delay={i * 120}>
                 <figure className="group">
                   <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-[#d8e6e2] shadow-[0_18px_50px_-22px_rgba(21,33,31,0.45)]">
-                    <Image
-                      src={h.src}
-                      alt={h.alt}
-                      fill
-                      sizes="(min-width: 640px) 30vw, 100vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    <LazyVideo
+                      src={h.video}
+                      poster={h.poster}
+                      autoPlay
+                      loop
+                      muted
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+                    <figcaption className="absolute bottom-3 left-3 right-3 rounded-full bg-white/90 backdrop-blur px-4 py-1.5 text-sm font-semibold text-[#1f6b63] text-center">
+                      {h.tag}
+                    </figcaption>
                   </div>
-                  <figcaption className="mt-3 text-sm font-medium text-[#1f6b63] text-center">{h.tag}</figcaption>
                 </figure>
               </Reveal>
             ))}
@@ -443,6 +496,24 @@ export default function VANewConstructionPage() {
         </div>
       </section>
 
+      {/* Testimonial spotlight — real review */}
+      <section className="py-24 bg-[#eef7f5]">
+        <Reveal className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
+          <Quote className="h-10 w-10 text-[#81D8D0] mx-auto mb-6" />
+          <blockquote className="text-2xl md:text-3xl font-light leading-relaxed text-[#15211f] text-balance">
+            "Rami was a tough negotiator — he worked our price down by 8 grand and even got them to throw in a fridge.
+            We're a military couple buying from out of state, and he made it his mission to get us the home we wanted.
+            He even picked up the keys for us after closing."
+          </blockquote>
+          <div className="mt-6 flex items-center justify-center gap-1 text-[#1f6b63]">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <Star key={i} className="h-5 w-5 fill-current" />
+            ))}
+          </div>
+          <div className="mt-3 text-sm font-medium text-[#5d6f6c]">Trevor R. · Military couple, relocated to San Antonio</div>
+        </Reveal>
+      </section>
+
       {/* Reviews (reused) */}
       <Reviews />
 
@@ -500,6 +571,7 @@ export default function VANewConstructionPage() {
 
       <Footer />
       <MobileCtaBar />
+      <FloatingCta />
     </main>
   )
 }
