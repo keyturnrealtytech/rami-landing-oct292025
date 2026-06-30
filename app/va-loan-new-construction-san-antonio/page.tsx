@@ -149,51 +149,49 @@ export default function VANewConstructionPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
 
-      {/* Hero — text + real home interior */}
-      <section className="relative bg-gradient-to-b from-[#eef7f5] to-[#faf8f4] pt-32 pb-20 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <Eyebrow>Brand-new homes · VA loan · San Antonio</Eyebrow>
-              <h1 className="text-4xl md:text-6xl font-light tracking-tight text-balance text-[#15211f]">
-                Buy a <span className="font-semibold">brand-new home</span> with your VA loan
-              </h1>
-              <div className="w-14 h-0.5 rounded-full bg-gradient-to-r from-[#c9a227] to-[#e2cb7a]" />
-              <p className="text-lg md:text-xl text-[#5d6f6c] leading-relaxed">
-                No down payment. No monthly mortgage insurance. And a veteran in your corner who gets the builder to
-                throw in extras. I'm Rami — a 100% disabled Air Force and Army veteran who helps first-time buyers and
-                fellow veterans buy new homes all over San Antonio.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 pt-1">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-[#15211f] text-white hover:bg-[#15211f]/90 rounded-full px-8 h-14 text-base shadow-[0_10px_28px_-10px_rgba(21,33,31,0.4)]"
-                >
-                  <CalendlyLink>Talk to Rami — it's free</CalendlyLink>
-                </Button>
-                <ContactFormModal>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="rounded-full px-8 h-14 text-base border-[#15211f]/20 text-[#15211f] hover:bg-[#15211f]/5 bg-transparent"
-                  >
-                    Ask a quick question
-                  </Button>
-                </ContactFormModal>
-              </div>
+      {/* Hero — full-width home photo with overlay */}
+      <section className="relative min-h-[88vh] flex items-end overflow-hidden">
+        <Image
+          src="/new-home-hero.jpg"
+          alt="A brand-new two-story home in a San Antonio suburb under a bright blue sky"
+          fill
+          sizes="100vw"
+          className="object-cover"
+          priority
+        />
+        {/* Dark gradient so the white text stays readable over the photo */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0b1413] via-[#0b1413]/70 to-[#0b1413]/15" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0b1413]/60 to-transparent" />
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pb-16 pt-36 w-full">
+          <div className="max-w-2xl space-y-6">
+            <div className="text-[11px] uppercase tracking-[0.22em] font-semibold text-[#81D8D0]">
+              Brand-new homes · VA loan · San Antonio
             </div>
-            <div className="relative">
-              <div className="relative aspect-[4/5] sm:aspect-[4/3] lg:aspect-[4/5] overflow-hidden rounded-3xl border border-[#e8e4da] shadow-[0_30px_80px_-30px_rgba(21,33,31,0.4)]">
-                <Image
-                  src="/posters-hero.jpg"
-                  alt="Inside a brand-new San Antonio home — custom built-ins and finishes"
-                  fill
-                  sizes="(min-width: 1024px) 40vw, 100vw"
-                  className="object-cover"
-                  priority
-                />
-              </div>
+            <h1 className="text-4xl md:text-6xl font-light tracking-tight text-balance text-white drop-shadow-sm">
+              Buy a <span className="font-semibold text-[#81D8D0]">brand-new home</span> with your VA loan
+            </h1>
+            <p className="text-lg md:text-xl text-[#e6ece9] leading-relaxed max-w-xl">
+              No down payment. No monthly mortgage insurance. And a veteran in your corner who gets the builder to
+              throw in extras. I'm Rami — a 100% disabled Air Force and Army veteran who helps first-time buyers and
+              fellow veterans buy new homes all over San Antonio.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 pt-1">
+              <Button
+                asChild
+                size="lg"
+                className="bg-[#81D8D0] text-[#0f1a18] hover:bg-[#74cdc5] rounded-full px-8 h-14 text-base font-semibold shadow-[0_12px_36px_-10px_rgba(129,216,208,0.5)]"
+              >
+                <CalendlyLink>Talk to Rami — it's free</CalendlyLink>
+              </Button>
+              <ContactFormModal>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full px-8 h-14 text-base border-white/30 text-white hover:bg-white/10 bg-transparent"
+                >
+                  Ask a quick question
+                </Button>
+              </ContactFormModal>
             </div>
           </div>
         </div>
