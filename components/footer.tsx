@@ -10,8 +10,8 @@ export function Footer() {
           <div className="space-y-4">
             <div className="text-2xl font-semibold tracking-tight text-[#f2f4f3]">Key Turn Realty Group</div>
             <p className="text-sm text-[#9fb2af] leading-relaxed">
-              Rami Rafeh, REALTOR® — a retired U.S. Air Force veteran helping San Antonio veterans, military families,
-              and first-time buyers find home. VA loans · first-time buyers · new construction.
+              Rami Rafeh, REALTOR® — a service-disabled U.S. Air Force and Army veteran helping San Antonio veterans,
+              military families, and first-time buyers find home. VA loans · first-time buyers · new construction.
             </p>
             <div className="flex gap-4 pt-2">
               <a
