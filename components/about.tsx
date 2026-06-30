@@ -12,7 +12,7 @@ export function About() {
             <div className="overflow-hidden rounded-3xl bg-muted border border-[#e8e4da]">
               <Image
                 src="/rami-rafeh-headshot.png"
-                alt="Rami Rafeh, San Antonio realtor and retired Air Force veteran, Key Turn Realty Group"
+                alt="Rami Rafeh, San Antonio realtor and service-disabled Air Force and Army veteran, Key Turn Realty Group"
                 width={1154}
                 height={1104}
                 sizes="(min-width: 1024px) 50vw, 100vw"
@@ -33,10 +33,10 @@ export function About() {
               corner who listens, knows the market, and puts you first. That's how I work.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              I'm a San Antonio real estate agent and a retired U.S. Air Force veteran, so I understand firsthand how
-              stressful a move can be — especially a PCS into a new city or buying your very first home. I specialize in
-              VA loans, first-time home buyers, and new construction, and a big part of my work is helping fellow
-              veterans and military families use their benefits to buy with confidence.
+              I'm a San Antonio real estate agent and a 100% service-disabled U.S. Air Force and Army veteran, so I
+              understand firsthand how stressful a move can be — especially a PCS into a new city or buying your very
+              first home. I specialize in VA loans, first-time home buyers, and new construction, and a big part of my
+              work is helping fellow veterans and military families use their benefits to buy with confidence.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               Last year alone I helped more than 50 families find their homes across San Antonio and the surrounding

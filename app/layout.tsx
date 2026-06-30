@@ -16,7 +16,7 @@ const prompt = Prompt({
 const SITE_URL = "https://keyturnrealty.com"
 const TITLE = "San Antonio VA Loan & First-Time Buyer Realtor | Key Turn Realty"
 const DESCRIPTION =
-  "Air Force veteran & San Antonio realtor Rami Rafeh helps veterans and first-time buyers buy with confidence: VA loans, new builds, relocation. Free consult."
+  "Air Force & Army veteran, San Antonio realtor Rami Rafeh helps veterans & first-time buyers buy with confidence: VA loans, new builds, relocation. Free consult."
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -58,7 +58,7 @@ const structuredData = {
       name: "Key Turn Realty Group",
       alternateName: "Rami Rafeh — Key Turn Realty Group",
       description:
-        "Retired Air Force veteran and San Antonio real estate agent specializing in VA loans, first-time home buyers, and new construction across San Antonio and the surrounding Hill Country.",
+        "Service-disabled U.S. Air Force and Army veteran and San Antonio real estate agent specializing in VA loans, first-time home buyers, and new construction across San Antonio and the surrounding Hill Country.",
       url: "https://keyturnrealty.com",
       image: "https://keyturnrealty.com/rami-rafeh-headshot.png",
       telephone: "713-440-9407",
@@ -99,7 +99,7 @@ const structuredData = {
         jobTitle: "Real Estate Agent",
         image: "https://keyturnrealty.com/rami-rafeh-headshot.png",
         description:
-          "Retired U.S. Air Force veteran, licensed Texas REALTOR® (TREC License #724566), and Military Relocation Professional (MRP). Member of the National Association of REALTORS®, Texas REALTORS®, SABOR, and HAR.",
+          "100% service-disabled U.S. Air Force and Army veteran, licensed Texas REALTOR® (TREC License #724566), and Military Relocation Professional (MRP). Member of the National Association of REALTORS®, Texas REALTORS®, SABOR, and HAR.",
         sameAs: [
           "https://onereal.com/Keyturnrealty",
           "https://www.linkedin.com/in/rrafeh",
