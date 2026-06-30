@@ -7,7 +7,10 @@ import { Reviews } from "@/components/reviews"
 import { Button } from "@/components/ui/button"
 import { CalendlyLink } from "@/components/calendly-link"
 import { ContactFormModal } from "@/components/contact-form-modal"
-import { Check, X, ShieldCheck, Handshake, Search, KeyRound, Star } from "lucide-react"
+import { Reveal } from "@/components/reveal"
+import { CountUp } from "@/components/count-up"
+import { VaFaq } from "@/components/va-faq"
+import { Check, ShieldCheck, Handshake, GraduationCap, KeyRound, Star } from "lucide-react"
 
 const PAGE_URL = "https://keyturnrealty.com/va-loan-new-construction-san-antonio"
 const TITLE = "VA Loan New Construction Homes in San Antonio | Key Turn"
@@ -135,12 +138,34 @@ function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?:
   )
 }
 
-// Real new-construction homes Rami has worked — the overlays are authentic deal
-// wins (closing costs paid, price drops, rate buydowns) that prove the value prop.
+const QUICK = [
+  ["No money down", "If you qualify, you can buy a brand-new home without a down payment."],
+  ["No PMI", "Other loans add an insurance fee to your monthly payment. VA loans never do — so your payment stays lower."],
+  ["Builder has to take VA", "The community just needs to accept VA loans. Most San Antonio builders already do — I confirm it before you sign."],
+  ["You're protected on price", "If the home doesn't appraise for what you're paying, you can walk away and keep your deposit."],
+  ["A 1-year warranty", "New homes come with a builder warranty, so you're covered after you move in."],
+  ["Disabled vets save more", "Get VA disability pay? You skip the VA funding fee — thousands saved at closing."],
+]
+
+// Real new-construction homes Rami has worked — overlays are authentic deal wins.
 const HOMES = [
   { src: "/posters-listing-1.jpg", alt: "New-construction home in Northeast San Antonio — price reduced, all closing costs paid", tag: "All closing costs paid" },
   { src: "/posters-listing-2.jpg", alt: "New-construction home in Northeast San Antonio — lowered rate, all closing costs paid", tag: "Payment lowered" },
   { src: "/posters-listing-northwest-1.jpg", alt: "New-construction home in Northwest San Antonio", tag: "Northwest San Antonio" },
+]
+
+const BUILDER = [
+  [ShieldCheck, "I make sure your VA loan will actually work there", "Some communities aren't set up for VA loans, and signing before you know that can cost you your deposit. I check first, so there are no nasty surprises later."],
+  [Handshake, "I squeeze the builder for extras", "Free appliances, zero closing costs, price reductions, a lower monthly payment, free upgrades — builders expect a buyer with an agent to ask, and I push for every perk I can get you. My clients regularly walk away with thousands in savings and extras they didn't know were on the table."],
+  [GraduationCap, "I educate you on the whole process", "New construction has a lot of moving parts. I break every step down in plain English — financing, builder contracts, timelines, and the assistance programs you may qualify for — so you always know what's happening and why."],
+  [KeyRound, "I've got your back to the finish line", "Inspection, appraisal, build delays, closing day — I handle the moving parts so a months-long build never derails your loan or your nerves."],
+] as const
+
+const STEPS = [
+  ["1", "We talk — free", "A quick, no-pressure chat about what you want and what you can qualify for."],
+  ["2", "I check the home & builder", "I confirm the community takes VA loans and that the deal is fair — before you sign a thing."],
+  ["3", "I negotiate your perks", "I push the builder for paid closing costs, a lower payment, or free upgrades."],
+  ["4", "You get the keys", "I'm with you through inspection, appraisal, and closing day."],
 ]
 
 export default function VANewConstructionPage() {
@@ -149,21 +174,20 @@ export default function VANewConstructionPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
 
-      {/* Hero — full-width home photo with overlay */}
+      {/* Hero — full-width home photo, slow Ken Burns drift */}
       <section className="relative min-h-[88vh] flex items-end overflow-hidden">
         <Image
           src="/new-home-hero.jpg"
           alt="A brand-new two-story home in a San Antonio suburb under a bright blue sky"
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-cover hero-kenburns"
           priority
         />
-        {/* Dark gradient so the white text stays readable over the photo */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0b1413] via-[#0b1413]/70 to-[#0b1413]/15" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0b1413]/60 to-transparent" />
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pb-16 pt-36 w-full">
-          <div className="max-w-2xl space-y-6">
+          <Reveal className="max-w-2xl space-y-6">
             <div className="text-[11px] uppercase tracking-[0.22em] font-semibold text-[#81D8D0]">
               Brand-new homes · VA loan · San Antonio
             </div>
@@ -179,7 +203,7 @@ export default function VANewConstructionPage() {
               <Button
                 asChild
                 size="lg"
-                className="bg-[#81D8D0] text-[#0f1a18] hover:bg-[#74cdc5] rounded-full px-8 h-14 text-base font-semibold shadow-[0_12px_36px_-10px_rgba(129,216,208,0.5)]"
+                className="bg-[#81D8D0] text-[#0f1a18] hover:bg-[#74cdc5] rounded-full px-8 h-14 text-base font-semibold shadow-[0_12px_36px_-10px_rgba(129,216,208,0.5)] transition-transform hover:-translate-y-0.5"
               >
                 <CalendlyLink>Talk to Rami — it's free</CalendlyLink>
               </Button>
@@ -193,66 +217,61 @@ export default function VANewConstructionPage() {
                 </Button>
               </ContactFormModal>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Friendly stat band */}
+      {/* Stat band — animated count-up */}
       <section className="bg-[#15211f]">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8 py-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
-            ["$0", "down payment"],
-            ["$0", "monthly mortgage insurance"],
-            ["100%", "disabled-veteran owned"],
-            ["5.0 ★", "client rating"],
-          ].map(([big, small]) => (
-            <div key={small}>
-              <div className="text-3xl md:text-4xl font-light text-[#81D8D0]">{big}</div>
-              <div className="text-sm text-[#9fb2af] mt-1 leading-snug">{small}</div>
-            </div>
+            <>$0</>,
+            <>$0</>,
+            <CountUp key="c1" value={100} suffix="%" />,
+            <CountUp key="c2" value={5} decimals={1} suffix=" ★" />,
+          ].map((node, i) => (
+            <Reveal key={i} delay={i * 90}>
+              <div className="text-4xl md:text-5xl font-light text-[#81D8D0]">{node}</div>
+              <div className="text-sm text-[#9fb2af] mt-2 leading-snug">
+                {["down payment", "monthly mortgage insurance", "disabled-veteran owned", "client rating"][i]}
+              </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      {/* The short answer — plain English cards */}
+      {/* The short answer — plain-English cards */}
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14 space-y-4">
+          <Reveal className="text-center max-w-2xl mx-auto mb-14 space-y-4">
             <Eyebrow>The quick version</Eyebrow>
             <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#15211f]">
               Yes — your VA loan works on a <span className="font-semibold">new build</span>
             </h2>
-            <p className="text-lg text-[#5d6f6c] leading-relaxed">
-              Here's what that actually means for you, in plain English.
-            </p>
-          </div>
+            <p className="text-lg text-[#5d6f6c] leading-relaxed">Here's what that means for you, in plain English.</p>
+          </Reveal>
           <div className="grid sm:grid-cols-2 gap-5">
-            {[
-              ["No money down", "If you qualify, you can buy a brand-new home without a down payment."],
-              ["No PMI", "Other loans add an insurance fee to your monthly payment. VA loans never do — so your payment stays lower."],
-              ["Builder has to take VA", "The community just needs to accept VA loans. Most San Antonio builders already do — I confirm it before you sign."],
-              ["You're protected on price", "If the home doesn't appraise for what you're paying, you can walk away and keep your deposit."],
-              ["A 1-year warranty", "New homes come with a builder warranty, so you're covered after you move in."],
-              ["Disabled vets save more", "Get VA disability pay? You skip the VA funding fee — thousands saved at closing."],
-            ].map(([title, body]) => (
-              <div key={title} className="rounded-2xl border border-[#e8e4da] bg-[#faf8f4] p-6 flex items-start gap-3">
-                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1f6b63]">
-                  <Check className="h-4 w-4 text-white" />
-                </span>
-                <div>
-                  <h3 className="text-base font-semibold text-[#15211f] mb-1">{title}</h3>
-                  <p className="text-[#5d6f6c] leading-relaxed text-[15px]">{body}</p>
+            {QUICK.map(([title, body], i) => (
+              <Reveal key={title} delay={(i % 2) * 90}>
+                <div className="h-full rounded-2xl border border-[#e8e4da] bg-[#faf8f4] p-6 flex items-start gap-3 transition-all duration-300 hover:-translate-y-1 hover:border-[#bfe0db] hover:shadow-[0_20px_50px_-26px_rgba(21,33,31,0.45)]">
+                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1f6b63]">
+                    <Check className="h-4 w-4 text-white" />
+                  </span>
+                  <div>
+                    <h3 className="text-base font-semibold text-[#15211f] mb-1">{title}</h3>
+                    <p className="text-[#5d6f6c] leading-relaxed text-[15px]">{body}</p>
+                  </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Real homes gallery — visual proof of incentive wins */}
+      {/* Real homes gallery */}
       <section className="py-24 bg-[#eef7f5]">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12 space-y-4">
+          <Reveal className="text-center max-w-2xl mx-auto mb-12 space-y-4">
             <Eyebrow>Real homes, real wins</Eyebrow>
             <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#15211f]">
               New-construction homes I've helped buyers <span className="font-semibold">land</span>
@@ -260,30 +279,32 @@ export default function VANewConstructionPage() {
             <p className="text-lg text-[#5d6f6c] leading-relaxed">
               Closing costs covered. Prices dropped. Payments lowered. This is what having your own agent looks like.
             </p>
-          </div>
+          </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {HOMES.map((h) => (
-              <figure key={h.src} className="group">
-                <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-[#d8e6e2] shadow-[0_18px_50px_-22px_rgba(21,33,31,0.45)]">
-                  <Image
-                    src={h.src}
-                    alt={h.alt}
-                    fill
-                    sizes="(min-width: 640px) 30vw, 100vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                </div>
-                <figcaption className="mt-3 text-sm font-medium text-[#1f6b63] text-center">{h.tag}</figcaption>
-              </figure>
+            {HOMES.map((h, i) => (
+              <Reveal key={h.src} delay={i * 120}>
+                <figure className="group">
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-[#d8e6e2] shadow-[0_18px_50px_-22px_rgba(21,33,31,0.45)]">
+                    <Image
+                      src={h.src}
+                      alt={h.alt}
+                      fill
+                      sizes="(min-width: 640px) 30vw, 100vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <figcaption className="mt-3 text-sm font-medium text-[#1f6b63] text-center">{h.tag}</figcaption>
+                </figure>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* What the builder's salesperson won't tell you — relatable, plain */}
+      {/* What the builder's salesperson won't tell you */}
       <section className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14 space-y-4">
+          <Reveal className="text-center max-w-2xl mx-auto mb-14 space-y-4">
             <Eyebrow>Read this before you visit a model home</Eyebrow>
             <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#15211f]">
               The model-home salesperson <span className="font-semibold">works for the builder</span>
@@ -291,54 +312,49 @@ export default function VANewConstructionPage() {
             <p className="text-lg text-[#5d6f6c] leading-relaxed">
               Not for you. Bringing me along from your very first visit costs you nothing and changes the whole deal.
             </p>
-          </div>
+          </Reveal>
           <div className="space-y-5">
-            {[
-              [ShieldCheck, "I make sure your VA loan will actually work there", "Some communities aren't set up for VA loans, and signing before you know that can cost you your deposit. I check first, so there are no nasty surprises later."],
-              [Handshake, "I squeeze the builder for extras", "Free appliances, zero closing costs, price reductions, a lower monthly payment, free upgrades — builders expect a buyer with an agent to ask, and I push for every perk I can get you. My clients regularly walk away with thousands in savings and extras they didn't know were on the table."],
-              [Search, "I educate you on the whole process", "New construction has a lot of moving parts. I break every step down in plain English — financing, builder contracts, timelines, and the assistance programs you may qualify for — so you always know what's happening and why."],
-              [KeyRound, "I've got your back to the finish line", "Inspection, appraisal, build delays, closing day — I handle the moving parts so a months-long build never derails your loan or your nerves."],
-            ].map(([Icon, title, body]) => {
+            {BUILDER.map(([Icon, title, body], i) => {
               const I = Icon as typeof ShieldCheck
               return (
-                <div key={title as string} className="rounded-2xl bg-[#faf8f4] border border-[#e8e4da] p-6 sm:p-7 flex items-start gap-4">
-                  <div className="rounded-xl bg-[#eef7f5] p-3 shrink-0">
-                    <I className="h-6 w-6 text-[#1f6b63]" />
+                <Reveal key={title as string} delay={i * 80}>
+                  <div className="rounded-2xl bg-[#faf8f4] border border-[#e8e4da] p-6 sm:p-7 flex items-start gap-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#bfe0db] hover:shadow-[0_22px_55px_-28px_rgba(21,33,31,0.45)]">
+                    <div className="rounded-xl bg-[#eef7f5] p-3 shrink-0">
+                      <I className="h-6 w-6 text-[#1f6b63]" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-[#15211f] mb-1.5">{title as string}</h3>
+                      <p className="text-[#5d6f6c] leading-relaxed">{body as string}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-[#15211f] mb-1.5">{title as string}</h3>
-                    <p className="text-[#5d6f6c] leading-relaxed">{body as string}</p>
-                  </div>
-                </div>
+                </Reveal>
               )
             })}
           </div>
         </div>
       </section>
 
-      {/* How it works — friendly numbered steps */}
+      {/* How it works — numbered steps with a connecting line on desktop */}
       <section className="py-24 bg-[#faf8f4]">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14 space-y-4">
+          <Reveal className="text-center max-w-2xl mx-auto mb-14 space-y-4">
             <Eyebrow>How it works</Eyebrow>
             <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#15211f]">
               Four simple <span className="font-semibold">steps</span>
             </h2>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              ["1", "We talk — free", "A quick, no-pressure chat about what you want and what you can qualify for."],
-              ["2", "I check the home & builder", "I confirm the community takes VA loans and that the deal is fair — before you sign a thing."],
-              ["3", "I negotiate your perks", "I push the builder for paid closing costs, a lower payment, or free upgrades."],
-              ["4", "You get the keys", "I'm with you through inspection, appraisal, and closing day."],
-            ].map(([n, title, body]) => (
-              <div key={n} className="rounded-2xl bg-white border border-[#e8e4da] p-6 text-center">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#15211f] text-xl font-semibold text-[#81D8D0]">
-                  {n}
+          </Reveal>
+          <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="hidden lg:block absolute top-12 left-[12%] right-[12%] h-px bg-gradient-to-r from-transparent via-[#cfe3df] to-transparent" />
+            {STEPS.map(([n, title, body], i) => (
+              <Reveal key={n} delay={i * 120}>
+                <div className="relative rounded-2xl bg-white border border-[#e8e4da] p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_-26px_rgba(21,33,31,0.45)]">
+                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#15211f] text-xl font-semibold text-[#81D8D0]">
+                    {n}
+                  </div>
+                  <h3 className="text-lg font-semibold text-[#15211f] mb-1.5">{title}</h3>
+                  <p className="text-[#5d6f6c] leading-relaxed text-[15px]">{body}</p>
                 </div>
-                <h3 className="text-lg font-semibold text-[#15211f] mb-1.5">{title}</h3>
-                <p className="text-[#5d6f6c] leading-relaxed text-[15px]">{body}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -348,7 +364,7 @@ export default function VANewConstructionPage() {
       <section className="py-24 bg-[#0f1a18]">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-[#1f2e2b] max-w-sm mx-auto lg:mx-0 w-full">
+            <Reveal className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-[#1f2e2b] max-w-sm mx-auto lg:mx-0 w-full">
               <Image
                 src="/rami-rafeh-headshot.png"
                 alt="Rami Rafeh — 100% disabled Air Force and Army veteran and San Antonio realtor"
@@ -356,8 +372,8 @@ export default function VANewConstructionPage() {
                 sizes="(min-width: 1024px) 35vw, 80vw"
                 className="object-cover"
               />
-            </div>
-            <div className="space-y-5">
+            </Reveal>
+            <Reveal delay={120} className="space-y-5">
               <Eyebrow dark>Why veterans pick Rami</Eyebrow>
               <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#f2f4f3]">
                 A veteran who's <span className="font-semibold text-[#81D8D0]">been there</span>
@@ -372,31 +388,31 @@ export default function VANewConstructionPage() {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-[#81D8D0] text-[#0f1a18] hover:bg-[#74cdc5] rounded-full px-8 h-14 text-base font-semibold"
+                  className="bg-[#81D8D0] text-[#0f1a18] hover:bg-[#74cdc5] rounded-full px-8 h-14 text-base font-semibold transition-transform hover:-translate-y-0.5"
                 >
                   <CalendlyLink>Book a free consultation</CalendlyLink>
                 </Button>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Loan comparison — friendly, icon-based */}
+      {/* Loan comparison */}
       <section className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12 space-y-4">
+          <Reveal className="text-center max-w-2xl mx-auto mb-12 space-y-4">
             <Eyebrow>How the VA loan stacks up</Eyebrow>
             <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#15211f]">
               Why the <span className="font-semibold">VA loan</span> usually wins
             </h2>
-          </div>
-          <div className="overflow-x-auto rounded-2xl border border-[#e8e4da]">
+          </Reveal>
+          <Reveal className="overflow-x-auto rounded-2xl border border-[#e8e4da]">
             <table className="w-full text-left border-collapse min-w-[560px]">
               <thead>
                 <tr className="text-[#15211f]">
                   <th className="p-4 text-sm font-semibold"> </th>
-                  <th className="p-4 text-sm font-semibold bg-[#eef7f5] text-[#1f6b63] rounded-t-xl">VA loan</th>
+                  <th className="p-4 text-sm font-semibold bg-[#eef7f5] text-[#1f6b63]">VA loan</th>
                   <th className="p-4 text-sm font-semibold">Regular loan</th>
                   <th className="p-4 text-sm font-semibold">FHA loan</th>
                 </tr>
@@ -419,7 +435,7 @@ export default function VANewConstructionPage() {
                 ))}
               </tbody>
             </table>
-          </div>
+          </Reveal>
           <p className="text-sm text-[#8a9d97] mt-4">
             For most veterans buying new construction, the VA loan is the strongest choice. We'll confirm what fits your
             situation together — no jargon, no pressure.
@@ -430,29 +446,25 @@ export default function VANewConstructionPage() {
       {/* Reviews (reused) */}
       <Reviews />
 
-      {/* FAQ */}
+      {/* FAQ — interactive accordion */}
       <section className="py-24 bg-[#faf8f4]">
         <div className="max-w-3xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12 space-y-4">
+          <Reveal className="text-center mb-12 space-y-4">
             <Eyebrow>Real questions, straight answers</Eyebrow>
             <h2 className="text-4xl md:text-5xl font-light tracking-tight text-balance text-[#15211f]">
               Common <span className="font-semibold">questions</span>
             </h2>
-          </div>
-          <div className="space-y-4">
-            {FAQS.map((f) => (
-              <div key={f.q} className="rounded-2xl bg-white border border-[#e8e4da] p-6">
-                <h3 className="text-lg font-semibold text-[#15211f] mb-2">{f.q}</h3>
-                <p className="text-[#5d6f6c] leading-relaxed">{f.a}</p>
-              </div>
-            ))}
-          </div>
+            <p className="text-base text-[#8a9d97]">Tap a question to see the answer.</p>
+          </Reveal>
+          <Reveal>
+            <VaFaq items={FAQS} />
+          </Reveal>
         </div>
       </section>
 
       {/* CTA */}
       <section className="py-24 bg-[#0f1a18]">
-        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center space-y-6">
+        <Reveal className="max-w-3xl mx-auto px-6 lg:px-8 text-center space-y-6">
           <div className="flex justify-center gap-1 text-[#81D8D0]">
             {[0, 1, 2, 3, 4].map((i) => (
               <Star key={i} className="h-5 w-5 fill-current" />
@@ -469,7 +481,7 @@ export default function VANewConstructionPage() {
             <Button
               asChild
               size="lg"
-              className="bg-[#81D8D0] text-[#0f1a18] hover:bg-[#74cdc5] rounded-full px-8 h-14 text-base font-semibold shadow-[0_12px_36px_-10px_rgba(129,216,208,0.4)]"
+              className="bg-[#81D8D0] text-[#0f1a18] hover:bg-[#74cdc5] rounded-full px-8 h-14 text-base font-semibold shadow-[0_12px_36px_-10px_rgba(129,216,208,0.4)] transition-transform hover:-translate-y-0.5"
             >
               <CalendlyLink>Book a free consultation</CalendlyLink>
             </Button>
@@ -483,7 +495,7 @@ export default function VANewConstructionPage() {
               </Button>
             </ContactFormModal>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <Footer />
