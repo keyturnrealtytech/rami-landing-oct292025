@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Image from "next/image"
+import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { MobileCtaBar } from "@/components/mobile-cta-bar"
@@ -556,6 +557,12 @@ export default function VANewConstructionPage() {
           </Reveal>
           <Reveal>
             <VaFaq items={FAQS} />
+          </Reveal>
+          <Reveal className="mt-10 text-center text-[#5d6f6c]">
+            Buying your first home?{" "}
+            <Link href="/first-time-home-buyer-san-antonio" className="font-semibold text-[#1f6b63] underline underline-offset-4 hover:text-[#15211f]">
+              See my first-time buyer guide for San Antonio →
+            </Link>
           </Reveal>
         </div>
       </section>
