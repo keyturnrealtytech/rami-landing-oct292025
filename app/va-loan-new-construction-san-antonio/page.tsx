@@ -294,9 +294,9 @@ export default function VANewConstructionPage() {
           </div>
           <div className="space-y-5">
             {[
-              [ShieldCheck, "I make sure it's a real VA-friendly deal", "Some communities aren't set up for VA loans, and signing before you know that can cost you your deposit. I check first, so there are no nasty surprises later."],
-              [Handshake, "I squeeze the builder for extras", "Paid closing costs, a lower monthly payment, free upgrades — builders expect a buyer with an agent to ask. One of my clients got $8,000 off and a free fridge; another got perks she didn't even know existed."],
-              [Search, "I find every dollar of help you qualify for", "There are San Antonio and Texas programs that help with your down payment and taxes — and they can stack on top of your VA loan, even on a new build. I'll show you what you actually qualify for."],
+              [ShieldCheck, "I make sure your VA loan will actually work there", "Some communities aren't set up for VA loans, and signing before you know that can cost you your deposit. I check first, so there are no nasty surprises later."],
+              [Handshake, "I squeeze the builder for extras", "Free appliances, zero closing costs, price reductions, a lower monthly payment, free upgrades — builders expect a buyer with an agent to ask, and I push for every perk I can get you. My clients regularly walk away with thousands in savings and extras they didn't know were on the table."],
+              [Search, "I educate you on the whole process", "New construction has a lot of moving parts. I break every step down in plain English — financing, builder contracts, timelines, and the assistance programs you may qualify for — so you always know what's happening and why."],
               [KeyRound, "I've got your back to the finish line", "Inspection, appraisal, build delays, closing day — I handle the moving parts so a months-long build never derails your loan or your nerves."],
             ].map(([Icon, title, body]) => {
               const I = Icon as typeof ShieldCheck
