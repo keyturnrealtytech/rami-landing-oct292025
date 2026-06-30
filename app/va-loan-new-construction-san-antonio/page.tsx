@@ -354,6 +354,33 @@ export default function VANewConstructionPage() {
         </div>
       </section>
 
+      {/* Track record — real production numbers */}
+      <section className="py-20 bg-[#15211f]">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <Reveal className="text-center mb-12 space-y-3">
+            <Eyebrow dark>The track record</Eyebrow>
+            <h2 className="text-3xl md:text-4xl font-light tracking-tight text-balance text-[#f2f4f3]">
+              A realtor who <span className="font-semibold text-[#81D8D0]">closes</span>
+            </h2>
+            <p className="text-[#9fb2af]">Rami's production over the last 12 months across San Antonio.</p>
+          </Reveal>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+            {[
+              <CountUp key="t1" value={55} suffix="" />,
+              <CountUp key="t2" value={19} prefix="$" suffix="M" />,
+              <CountUp key="t3" value={5} decimals={1} suffix="★" />,
+            ].map((node, i) => (
+              <Reveal key={i} delay={i * 110}>
+                <div className="text-5xl md:text-6xl font-light text-[#81D8D0]">{node}</div>
+                <div className="text-sm text-[#9fb2af] mt-2">
+                  {["homes closed last year", "in home sales", "client rating"][i]}
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* What the builder's salesperson won't tell you */}
       <section className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">

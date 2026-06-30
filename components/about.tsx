@@ -39,25 +39,25 @@ export function About() {
               work is helping fellow veterans and military families use their benefits to buy with confidence.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Last year alone I helped more than 50 families find their homes across San Antonio and the surrounding
-              Hill Country — from Boerne and New Braunfels to Schertz, Cibolo, and the fast-growing northwest. Whether
-              you're buying your first home, selling, or relocating to Texas, I'd be glad to talk it through — no
-              pressure, no obligation.
+              Last year alone I closed 55 homes — more than $19 million in sales — for families across San Antonio and
+              the surrounding Hill Country, from Boerne and New Braunfels to Schertz, Cibolo, and the fast-growing
+              northwest. Whether you're buying your first home, selling, or relocating to Texas, I'd be glad to talk it
+              through — no pressure, no obligation.
             </p>
 
             {/* Trust row */}
             <div className="grid grid-cols-3 gap-6 pt-4">
               <div>
-                <div className="text-3xl font-light">50+</div>
-                <div className="text-sm text-muted-foreground">Families helped last year</div>
+                <div className="text-3xl font-light">55</div>
+                <div className="text-sm text-muted-foreground">Homes closed last year</div>
+              </div>
+              <div>
+                <div className="text-3xl font-light">$19M</div>
+                <div className="text-sm text-muted-foreground">In home sales last year</div>
               </div>
               <div>
                 <div className="text-3xl font-light">5.0 ★</div>
                 <div className="text-sm text-muted-foreground">Across Google, Zillow &amp; Realtor.com</div>
-              </div>
-              <div>
-                <div className="text-3xl font-light">VA</div>
-                <div className="text-sm text-muted-foreground">Loan &amp; military relocation expert</div>
               </div>
             </div>
 
