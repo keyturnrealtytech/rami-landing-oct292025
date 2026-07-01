@@ -1,0 +1,92 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<h2>Two scrolling banners — live preview</h2>
+<p class="subtitle">Both animate with pure CSS (no JavaScript, no speed cost). The accomplishments strip sits right under the hero; the review marquee lives in Client Stories. Hover either one — it pauses so people can read.</p>
+
+<style>
+  .demo { border-radius: 14px; overflow: hidden; border: 1px solid #e3e3e3; font-family: Prompt, sans-serif; color: #15211f; margin-bottom: 12px; }
+  .marquee { overflow: hidden; position: relative; }
+  .marquee-track { display: flex; gap: 0; width: max-content; animation: scroll 30s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* Accomplishments strip */
+  .acc-item { display: inline-flex; align-items: center; gap: 12px; padding: 16px 28px; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; color: #e8ece9; }
+  .acc-dot { color: #c9a227; font-size: 10px; }
+  .acc-hl { color: #81D8D0; font-weight: 600; }
+
+  /* Review marquee cards */
+  .rev-track { animation-duration: 55s; }
+  .rev-card { width: 330px; flex-shrink: 0; margin-right: 18px; background: #fff; border: 1px solid #e8e4da; border-radius: 16px; padding: 20px; }
+  .rev-stars { color: #c9a227; letter-spacing: 3px; font-size: 12px; margin-bottom: 10px; }
+  .rev-text { font-size: 12.5px; line-height: 1.65; color: #3d4f4c; }
+  .rev-name { font-weight: 600; font-size: 12px; margin-top: 12px; }
+  .rev-src { font-size: 10px; color: #8aa09c; }
+</style>
+
+<h3 style="margin-top:28px;">1 — Accomplishments strip (sits right below the hero)</h3>
+<div class="demo">
+  <div style="height:46px; background:linear-gradient(180deg,#faf8f4,#f6f3ec); display:flex; align-items:flex-end; justify-content:center; font-size:11px; color:#b9b4a6; padding-bottom:6px;">…bottom of hero…</div>
+  <div class="marquee" style="background:#0f1a18; border-top:1px solid #c9a22744; border-bottom:1px solid #c9a22744;">
+    <div class="marquee-track">
+      <!-- set A -->
+      <span class="acc-item"><span class="acc-hl">200+</span> Homes Closed <span class="acc-dot">◆</span></span>
+      <span class="acc-item"><span class="acc-hl">$50M+</span> In Home Sales <span class="acc-dot">◆</span></span>
+      <span class="acc-item"><span class="acc-hl">5.0 ★</span> Google · Zillow · Realtor.com <span class="acc-dot">◆</span></span>
+      <span class="acc-item">U.S. Air Force Veteran <span class="acc-dot">◆</span></span>
+      <span class="acc-item"><span class="acc-hl">50+</span> Families Helped Last Year <span class="acc-dot">◆</span></span>
+      <span class="acc-item">VA Loan Specialist <span class="acc-dot">◆</span></span>
+      <span class="acc-item">Licensed Texas REALTOR® <span class="acc-dot">◆</span></span>
+      <!-- duplicate for seamless loop -->
+      <span class="acc-item"><span class="acc-hl">200+</span> Homes Closed <span class="acc-dot">◆</span></span>
+      <span class="acc-item"><span class="acc-hl">$50M+</span> In Home Sales <span class="acc-dot">◆</span></span>
+      <span class="acc-item"><span class="acc-hl">5.0 ★</span> Google · Zillow · Realtor.com <span class="acc-dot">◆</span></span>
+      <span class="acc-item">U.S. Air Force Veteran <span class="acc-dot">◆</span></span>
+      <span class="acc-item"><span class="acc-hl">50+</span> Families Helped Last Year <span class="acc-dot">◆</span></span>
+      <span class="acc-item">VA Loan Specialist <span class="acc-dot">◆</span></span>
+      <span class="acc-item">Licensed Texas REALTOR® <span class="acc-dot">◆</span></span>
+    </div>
+  </div>
+  <div style="height:46px; background:#fff; display:flex; align-items:flex-start; justify-content:center; font-size:11px; color:#c9c4b6; padding-top:6px;">…Meet Rami section…</div>
+</div>
+<p class="pg-sub" style="font-size:13px; color:#5d6f6c; margin-bottom:34px;">Thin ink band with gold hairlines — a second tasteful use of the dark, bookending with the footer. I saw your RealTrends flyer on this Mac — if you have a RealTrends ranking or other awards, those belong in here too. What should I add?</p>
+
+<h3>2 — Scrolling review marquee (in Client Stories, replaces the static grid)</h3>
+<div class="demo" style="background:linear-gradient(180deg,#eef7f5,#faf8f4); padding:30px 0;">
+  <div style="text-align:center; margin-bottom:18px;">
+    <div style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#1f6b63; font-weight:600;">Client Stories</div>
+    <div style="font-size:24px; font-weight:300;">What clients <b style="font-weight:600;">say</b></div>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track rev-track">
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Really grateful I clicked on Rami's Instagram ad and decided to go with him. I was able to purchase my brand new home!"</div><div class="rev-name">Gaby Adame</div><div class="rev-src">Google Review</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Used my VA loan and Rami knew exactly how to make it work. Closed in 30 days."</div><div class="rev-name">Trevor Rice</div><div class="rev-src">Zillow Review</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"As first-time buyers we had a million questions and he answered every single one. Above and beyond."</div><div class="rev-name">Marissa Arras</div><div class="rev-src">Google Review</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Professional, patient, and honest. He treated us like family from day one."</div><div class="rev-name">Donna Wilson</div><div class="rev-src">Google Review</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Rami made our PCS to San Antonio completely painless. He knows the military side better than anyone."</div><div class="rev-name">Rayan Ani</div><div class="rev-src">Google Review</div></div>
+      <!-- duplicate for seamless loop -->
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Really grateful I clicked on Rami's Instagram ad and decided to go with him. I was able to purchase my brand new home!"</div><div class="rev-name">Gaby Adame</div><div class="rev-src">Google Review</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Used my VA loan and Rami knew exactly how to make it work. Closed in 30 days."</div><div class="rev-name">Trevor Rice</div><div class="rev-src">Zillow Review</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"As first-time buyers we had a million questions and he answered every single one. Above and beyond."</div><div class="rev-name">Marissa Arras</div><div class="rev-src">Google Review</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Professional, patient, and honest. He treated us like family from day one."</div><div class="rev-name">Donna Wilson</div><div class="rev-src">Google Review</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Rami made our PCS to San Antonio completely painless. He knows the military side better than anyone."</div><div class="rev-name">Rayan Ani</div><div class="rev-src">Google Review</div></div>
+    </div>
+  </div>
+</div>
+<p class="pg-sub" style="font-size:13px; color:#5d6f6c;">All 11 of your real reviews flow through it. On phones it scrolls the same way; people can also swipe it manually. Your 4 testimonial videos (once I have them) would sit as a row of video cards right above this marquee.</p>
+
+<div class="options" style="margin-top:24px;">
+  <div class="option" data-choice="both" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    <div class="content"><h3>Add both banners</h3><p>Accomplishments strip under hero + review marquee in Client Stories</p></div>
+  </div>
+  <div class="option" data-choice="reviews-only" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content"><h3>Just the review marquee</h3><p>Skip the accomplishments strip</p></div>
+  </div>
+  <div class="option" data-choice="acc-only" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content"><h3>Just the accomplishments strip</h3><p>Keep reviews as a static grid</p></div>
+  </div>
+</div>

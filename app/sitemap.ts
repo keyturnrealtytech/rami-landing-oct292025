@@ -14,7 +14,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: "https://keyturnrealty.com/va-loan-new-construction-san-antonio",
+      url: "https://keyturnrealty.com/new-construction-homes-san-antonio",
+      lastModified: LAST_CONTENT_CHANGE,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: "https://keyturnrealty.com/va-home-loans-san-antonio",
       lastModified: LAST_CONTENT_CHANGE,
       changeFrequency: "monthly",
       priority: 0.9,

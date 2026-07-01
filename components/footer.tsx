@@ -59,8 +59,11 @@ export function Footer() {
             <Link href="/first-time-home-buyer-san-antonio" className="block text-sm text-[#e8ece9] hover:text-[#81D8D0] transition-colors">
               First-time home buyers
             </Link>
-            <Link href="/va-loan-new-construction-san-antonio" className="block text-sm text-[#e8ece9] hover:text-[#81D8D0] transition-colors">
-              VA loan &amp; new construction
+            <Link href="/new-construction-homes-san-antonio" className="block text-sm text-[#e8ece9] hover:text-[#81D8D0] transition-colors">
+              New construction homes
+            </Link>
+            <Link href="/va-home-loans-san-antonio" className="block text-sm text-[#e8ece9] hover:text-[#81D8D0] transition-colors">
+              VA home loans
             </Link>
           </div>
 

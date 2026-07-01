@@ -467,8 +467,12 @@ export default function FirstTimeBuyerPage() {
           <Reveal><VaFaq items={FAQS} /></Reveal>
           <Reveal className="mt-10 text-center text-[#5d6f6c]">
             Buying a brand-new home?{" "}
-            <Link href="/va-loan-new-construction-san-antonio" className="font-semibold text-[#1f6b63] underline underline-offset-4 hover:text-[#15211f]">
-              See my guide to new construction with a VA loan →
+            <Link href="/new-construction-homes-san-antonio" className="font-semibold text-[#1f6b63] underline underline-offset-4 hover:text-[#15211f]">
+              See my new construction guide →
+            </Link>{" "}
+            Veteran?{" "}
+            <Link href="/va-home-loans-san-antonio" className="font-semibold text-[#1f6b63] underline underline-offset-4 hover:text-[#15211f]">
+              See my VA home loans guide →
             </Link>
           </Reveal>
         </div>

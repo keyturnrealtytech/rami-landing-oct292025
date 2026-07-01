@@ -3,6 +3,17 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  async redirects() {
+    return [
+      {
+        // Old combined page split into /new-construction-homes-... and
+        // /va-home-loans-...; preserve its earned SEO by 308-redirecting.
+        source: "/va-loan-new-construction-san-antonio",
+        destination: "/new-construction-homes-san-antonio",
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {

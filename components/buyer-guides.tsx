@@ -13,11 +13,18 @@ const GUIDES = [
     blurb: "Less down than you think, plain-English guidance, zero pressure.",
   },
   {
-    href: "/va-loan-new-construction-san-antonio",
+    href: "/new-construction-homes-san-antonio",
     img: "/new-home-hero.jpg",
-    label: "Veterans & new construction",
-    title: "VA loan + new construction",
-    blurb: "$0 down, builder perks negotiated for you, from a disabled veteran.",
+    label: "New construction",
+    title: "Buying a brand-new home",
+    blurb: "Builder incentives negotiated, closing costs covered, no surprises.",
+  },
+  {
+    href: "/va-home-loans-san-antonio",
+    img: "/va-loans-hero.jpg",
+    label: "Veterans",
+    title: "VA home loans",
+    blurb: "$0 down, no PMI, extra savings for disabled vets — from a fellow veteran.",
   },
 ]
 
@@ -37,7 +44,7 @@ export function BuyerGuides() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {GUIDES.map((g) => (
             <Link
               key={g.href}

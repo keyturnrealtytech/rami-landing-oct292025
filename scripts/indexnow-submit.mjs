@@ -9,7 +9,8 @@ const KEY_LOCATION = `https://${HOST}/${KEY}.txt`
 // Every indexable URL on the site.
 const URLS = [
   `https://${HOST}/`,
-  `https://${HOST}/va-loan-new-construction-san-antonio`,
+  `https://${HOST}/new-construction-homes-san-antonio`,
+  `https://${HOST}/va-home-loans-san-antonio`,
   `https://${HOST}/first-time-home-buyer-san-antonio`,
 ]
 

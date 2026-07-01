@@ -1,0 +1,64 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<h2>Client Stories — final, with real names</h2>
+<p class="subtitle">Your 4 new testimonial videos as a row above the scrolling review marquee. Poster frames are from the actual footage.</p>
+
+<style>
+  .demo { border-radius: 14px; overflow: hidden; border: 1px solid #e3e3e3; font-family: Prompt, sans-serif; color: #15211f; background: linear-gradient(180deg, #eef7f5, #faf8f4); padding: 44px 32px; }
+  .vrow { display: flex; gap: 16px; margin-bottom: 36px; }
+  .vtcard { flex: 1; border-radius: 18px; overflow: hidden; background: #fff; border: 1px solid #dbe7e3; box-shadow: 0 14px 36px -16px #15211f2e; }
+  .vtmedia { position: relative; height: 300px; overflow: hidden; }
+  .vtmedia img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .vtplay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .vtplay span { width: 46px; height: 46px; border-radius: 999px; background: #ffffffd9; display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 6px 18px -6px #15211f66; }
+  .vtcap { padding: 12px 14px; }
+  .vtname { font-size: 12px; font-weight: 600; }
+  .vtsub { font-size: 10px; color: #8aa09c; margin-top: 2px; }
+  .marquee { overflow: hidden; }
+  .marquee-track { display: flex; width: max-content; animation: scroll 55s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .rev-card { width: 320px; flex-shrink: 0; margin-right: 18px; background: #fff; border: 1px solid #e8e4da; border-radius: 16px; padding: 18px; }
+  .rev-stars { color: #c9a227; letter-spacing: 3px; font-size: 12px; margin-bottom: 8px; }
+  .rev-text { font-size: 12px; line-height: 1.6; color: #3d4f4c; }
+  .rev-name { font-weight: 600; font-size: 12px; margin-top: 10px; }
+</style>
+
+<div class="demo">
+  <div style="text-align:center; margin-bottom:28px;">
+    <div style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#1f6b63; font-weight:600; margin-bottom:8px;">Client Stories</div>
+    <div style="font-size:30px; font-weight:300; letter-spacing:-0.02em;">Don't take Rami's <b style="font-weight:600;">word for it</b></div>
+  </div>
+
+  <div class="vrow">
+    <div class="vtcard"><div class="vtmedia"><img src="posters-client-testimonial-1.jpg"><div class="vtplay"><span>▶</span></div></div><div class="vtcap"><div class="vtname">Blake Wuellner</div><div class="vtsub">Bought with Rami · San Antonio</div></div></div>
+    <div class="vtcard"><div class="vtmedia"><img src="posters-client-testimonial-2.jpg"><div class="vtplay"><span>▶</span></div></div><div class="vtcap"><div class="vtname">Alejandro Davalos</div><div class="vtsub">Bought with Rami · San Antonio</div></div></div>
+    <div class="vtcard"><div class="vtmedia"><img src="posters-client-testimonial-3.jpg"><div class="vtplay"><span>▶</span></div></div><div class="vtcap"><div class="vtname">Dawana Brickhouse</div><div class="vtsub">Closed 2026 · San Antonio</div></div></div>
+    <div class="vtcard"><div class="vtmedia"><img src="posters-client-testimonial-4.jpg" style="object-position:center;"><div class="vtplay"><span>▶</span></div></div><div class="vtcap"><div class="vtname">Delita S.</div><div class="vtsub">Closed 2026 · San Antonio</div></div></div>
+  </div>
+
+  <div class="marquee">
+    <div class="marquee-track">
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Really grateful I clicked on Rami's Instagram ad. I was able to purchase my brand new home!"</div><div class="rev-name">Gaby Adame</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Used my VA loan and Rami knew exactly how to make it work. Closed in 30 days."</div><div class="rev-name">Trevor Rice</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"As first-time buyers we had a million questions and he answered every single one."</div><div class="rev-name">Marissa Arras</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Professional, patient, and honest. He treated us like family from day one."</div><div class="rev-name">Donna Wilson</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Really grateful I clicked on Rami's Instagram ad. I was able to purchase my brand new home!"</div><div class="rev-name">Gaby Adame</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Used my VA loan and Rami knew exactly how to make it work. Closed in 30 days."</div><div class="rev-name">Trevor Rice</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"As first-time buyers we had a million questions and he answered every single one."</div><div class="rev-name">Marissa Arras</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Professional, patient, and honest. He treated us like family from day one."</div><div class="rev-name">Donna Wilson</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="options" style="margin-top:24px;">
+  <div class="option" data-choice="approve-all" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    <div class="content"><h3>Approve the full design — build it</h3><p>Hero + all sections + both banners + this Client Stories section</p></div>
+  </div>
+  <div class="option" data-choice="tweak" onclick="toggleSelect(this)">
+    <div class="letter">✎</div>
+    <div class="content"><h3>Still tweaks</h3><p>Tell me in the terminal</p></div>
+  </div>
+</div>

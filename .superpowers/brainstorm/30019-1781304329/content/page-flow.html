@@ -1,0 +1,92 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@275;300;400;500;600&display=swap" rel="stylesheet">
+
+<h2>How should the rest of the page feel?</h2>
+<p class="subtitle">Both use your ivory + Tiffany style for the video cards and section headers. The difference is the ending: does the page close light, or close on a dark premium band? Click one.</p>
+
+<style>
+  .flow-mock { border-radius: 14px; overflow: hidden; border: 1px solid #e3e3e3; margin-bottom: 10px; font-family: Prompt, sans-serif; color: #15211f; }
+  .fm-section { padding: 40px 32px; }
+  .fm-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #1f6b63; font-weight: 600; margin-bottom: 8px; }
+  .fm-h2 { font-size: 26px; font-weight: 275; letter-spacing: -0.02em; margin: 0 0 6px; }
+  .fm-h2 b { font-weight: 600; }
+  .fm-sub { font-size: 12px; color: #5d6f6c; margin-bottom: 24px; }
+  .fm-cards { display: flex; gap: 16px; }
+  .fm-card { flex: 1; border-radius: 16px; overflow: hidden; background: #fff; }
+  .fm-video { height: 120px; background: linear-gradient(135deg, #d8e8e4, #b9d8d2); position: relative; }
+  .fm-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .fm-play span { width: 34px; height: 34px; border-radius: 999px; background: #ffffffd9; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #15211f; box-shadow: 0 4px 14px -4px #15211f44; }
+  .fm-cap { padding: 12px 14px; }
+  .fm-cap-t { font-size: 12px; font-weight: 600; }
+  .fm-cap-s { font-size: 10px; color: #8aa09c; margin-top: 2px; }
+  .fm-quote { font-size: 13px; line-height: 1.65; color: #3d4f4c; max-width: 420px; margin: 0 auto 10px; }
+  .fm-stars { color: #c9a227; font-size: 12px; letter-spacing: 2px; margin-bottom: 10px; }
+</style>
+
+<div class="options" style="display:block">
+
+  <!-- OPTION A: ALL LIGHT -->
+  <div class="option" data-choice="all-light" onclick="toggleSelect(this)" style="display:block; margin-bottom:28px;">
+    <div class="content" style="margin-bottom:12px;">
+      <h3>A — Light all the way through</h3>
+      <p>Ivory and white alternate softly; the closing CTA stays on paper with Tiffany accents. Serene, gallery-like, consistent.</p>
+    </div>
+    <div class="flow-mock">
+      <div class="fm-section" style="background:#fff;">
+        <div class="fm-label">Featured Listings</div>
+        <div class="fm-h2">Homes Rami has <b>represented</b></div>
+        <div class="fm-sub">Real tours, real results across San Antonio</div>
+        <div class="fm-cards">
+          <div class="fm-card" style="border:1px solid #e8e4da;"><div class="fm-video"><div class="fm-play"><span>▶</span></div></div><div class="fm-cap"><div class="fm-cap-t">Stone Oak · 4 bd</div><div class="fm-cap-s">New construction</div></div></div>
+          <div class="fm-card" style="border:1px solid #e8e4da;"><div class="fm-video" style="background:linear-gradient(135deg,#e4ddd0,#cdc2ab);"><div class="fm-play"><span>▶</span></div></div><div class="fm-cap"><div class="fm-cap-t">Alamo Ranch · 3 bd</div><div class="fm-cap-s">First-time buyer</div></div></div>
+          <div class="fm-card" style="border:1px solid #e8e4da;"><div class="fm-video" style="background:linear-gradient(135deg,#d6e4e8,#aac6ce);"><div class="fm-play"><span>▶</span></div></div><div class="fm-cap"><div class="fm-cap-t">Schertz · 5 bd</div><div class="fm-cap-s">VA loan close</div></div></div>
+        </div>
+      </div>
+      <div class="fm-section" style="background:linear-gradient(180deg,#eef7f5,#faf8f4); text-align:center;">
+        <div class="fm-label">Client Stories</div>
+        <div class="fm-stars">★★★★★</div>
+        <p class="fm-quote">"Really grateful I clicked on Rami's Instagram ad. I was able to purchase my brand new home, and he made the buying process super easy!"</p>
+        <div style="font-size:11px; font-weight:600;">Gaby Adame</div>
+      </div>
+      <div class="fm-section" style="background:#faf8f4; text-align:center; border-top:1px solid #eeeae0;">
+        <div class="fm-h2">Ready to make San Antonio <b>home?</b></div>
+        <div class="fm-sub" style="margin-bottom:16px;">Tell Rami what you're looking for — it takes about a minute.</div>
+        <div style="display:inline-block; background:#15211f; color:#fff; padding:12px 30px; border-radius:999px; font-size:12px; font-weight:500;">Start My Home Search</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION B: DARK BOOKEND -->
+  <div class="option" data-choice="dark-bookend" onclick="toggleSelect(this)" style="display:block; margin-bottom:28px;">
+    <div class="content" style="margin-bottom:12px;">
+      <h3>B — Dark premium bookend</h3>
+      <p>Same light sections, but the final CTA + footer drop to deep ink with Tiffany and gold glowing — the page ends on its most confident, expensive note.</p>
+    </div>
+    <div class="flow-mock">
+      <div class="fm-section" style="background:#fff;">
+        <div class="fm-label">Featured Listings</div>
+        <div class="fm-h2">Homes Rami has <b>represented</b></div>
+        <div class="fm-sub">Real tours, real results across San Antonio</div>
+        <div class="fm-cards">
+          <div class="fm-card" style="border:1px solid #e8e4da;"><div class="fm-video"><div class="fm-play"><span>▶</span></div></div><div class="fm-cap"><div class="fm-cap-t">Stone Oak · 4 bd</div><div class="fm-cap-s">New construction</div></div></div>
+          <div class="fm-card" style="border:1px solid #e8e4da;"><div class="fm-video" style="background:linear-gradient(135deg,#e4ddd0,#cdc2ab);"><div class="fm-play"><span>▶</span></div></div><div class="fm-cap"><div class="fm-cap-t">Alamo Ranch · 3 bd</div><div class="fm-cap-s">First-time buyer</div></div></div>
+          <div class="fm-card" style="border:1px solid #e8e4da;"><div class="fm-video" style="background:linear-gradient(135deg,#d6e4e8,#aac6ce);"><div class="fm-play"><span>▶</span></div></div><div class="fm-cap"><div class="fm-cap-t">Schertz · 5 bd</div><div class="fm-cap-s">VA loan close</div></div></div>
+        </div>
+      </div>
+      <div class="fm-section" style="background:linear-gradient(180deg,#eef7f5,#faf8f4); text-align:center;">
+        <div class="fm-label">Client Stories</div>
+        <div class="fm-stars">★★★★★</div>
+        <p class="fm-quote">"Really grateful I clicked on Rami's Instagram ad. I was able to purchase my brand new home, and he made the buying process super easy!"</p>
+        <div style="font-size:11px; font-weight:600;">Gaby Adame</div>
+      </div>
+      <div class="fm-section" style="background:#0f1a18; text-align:center; color:#f2f4f3;">
+        <div class="fm-label" style="color:#81D8D0;">Let's Talk</div>
+        <div class="fm-h2" style="color:#f2f4f3;">Ready to make San Antonio <b style="color:#81D8D0;">home?</b></div>
+        <div class="fm-sub" style="color:#9fb2af; margin-bottom:16px;">Tell Rami what you're looking for — it takes about a minute.</div>
+        <div style="display:inline-block; background:#81D8D0; color:#0f1a18; padding:12px 30px; border-radius:999px; font-size:12px; font-weight:600; box-shadow:0 10px 30px -8px #81D8D066;">Start My Home Search</div>
+        <div style="margin-top:24px; padding-top:16px; border-top:1px solid #1f2e2b; font-size:10px; color:#67807c;">Key Turn Realty Group · Real Broker, LLC · TREC #724566 · <span style="color:#c9a227;">★★★★★</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>

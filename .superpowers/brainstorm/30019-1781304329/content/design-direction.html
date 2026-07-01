@@ -1,0 +1,112 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:wght@400;500&family=Inter:wght@300;400;500;600&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<h2>Which direction feels like YOUR brand at its most expensive?</h2>
+<p class="subtitle">Three takes on your actual hero section, real content, same Tiffany-blue brand. Click the one that makes you think "that's a top-producer's site."</p>
+
+<style>
+  .hero-mock { border-radius: 14px; overflow: hidden; border: 1px solid #e3e3e3; margin-bottom: 10px; }
+  .hm-nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 36px; font-size: 13px; }
+  .hm-links { display: flex; gap: 28px; font-size: 12px; }
+  .hm-body { text-align: center; padding: 60px 30px 70px; position: relative; }
+  .hm-kicker { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 22px; }
+  .hm-h1 { line-height: 1.08; margin: 0 0 18px; }
+  .hm-sub { font-size: 14px; max-width: 520px; margin: 0 auto 30px; line-height: 1.7; }
+  .hm-ctas { display: flex; gap: 14px; justify-content: center; }
+  .hm-btn { padding: 13px 30px; font-size: 13px; font-weight: 500; border-radius: 999px; }
+  .hm-stats { display: flex; gap: 60px; justify-content: center; margin-top: 48px; padding-top: 30px; }
+  .hm-stat-n { font-size: 26px; }
+  .hm-stat-l { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; }
+</style>
+
+<div class="options" style="display:block">
+
+  <!-- A: LUXURY EDITORIAL -->
+  <div class="option" data-choice="editorial" onclick="toggleSelect(this)" style="display:block; margin-bottom:28px;">
+    <div class="content" style="margin-bottom:12px;">
+      <h3>A — Luxury Editorial</h3>
+      <p>The Sotheby's / high-end brokerage language: serif headlines, ivory paper, hairline rules, Tiffany used sparingly like jewelry. Quietly expensive.</p>
+    </div>
+    <div class="hero-mock" style="background:#faf8f4; font-family:Inter,sans-serif; color:#1a1a18;">
+      <div class="hm-nav" style="border-bottom:1px solid #e8e4da;">
+        <div style="font-family:'Playfair Display',serif; font-size:17px; font-weight:500; letter-spacing:0.02em;">Rami Rafeh</div>
+        <div class="hm-links" style="color:#6b6a64;"><span>Listings</span><span>About</span><span>Reviews</span></div>
+        <div style="border:1px solid #1a1a18; padding:9px 22px; border-radius:0; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">Consultation</div>
+      </div>
+      <div class="hm-body">
+        <div class="hm-kicker" style="color:#8a9b8e;">San Antonio · Texas Hill Country</div>
+        <h1 class="hm-h1" style="font-family:'Playfair Display',serif; font-weight:500; font-size:46px;">Discover your new home<br><em style="font-weight:400;">in San Antonio</em></h1>
+        <div style="width:54px; height:1px; background:#b49a5a; margin:24px auto;"></div>
+        <p class="hm-sub" style="color:#6b6a64; font-family:'Cormorant Garamond',serif; font-size:17px;">Rami Rafeh is a San Antonio realtor and retired Air Force veteran specializing in VA loans, first-time buyers, and new construction.</p>
+        <div class="hm-ctas">
+          <div class="hm-btn" style="background:#1a1a18; color:#faf8f4; border-radius:0; letter-spacing:0.14em; text-transform:uppercase; font-size:11px;">Explore Listings</div>
+          <div class="hm-btn" style="border:1px solid #81D8D0; color:#1a1a18; border-radius:0; letter-spacing:0.14em; text-transform:uppercase; font-size:11px;">Contact</div>
+        </div>
+        <div class="hm-stats" style="border-top:1px solid #e8e4da;">
+          <div><div class="hm-stat-n" style="font-family:'Playfair Display',serif;">200+</div><div class="hm-stat-l" style="color:#9a988f;">Transactions</div></div>
+          <div><div class="hm-stat-n" style="font-family:'Playfair Display',serif;">$50M+</div><div class="hm-stat-l" style="color:#9a988f;">In Home Sales</div></div>
+          <div><div class="hm-stat-n" style="font-family:'Playfair Display',serif;">5.0 ★</div><div class="hm-stat-l" style="color:#9a988f;">Average Rating</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B: MODERN DARK PREMIUM -->
+  <div class="option" data-choice="dark" onclick="toggleSelect(this)" style="display:block; margin-bottom:28px;">
+    <div class="content" style="margin-bottom:12px;">
+      <h3>B — Modern Dark Premium</h3>
+      <p>Near-black with Tiffany and gold glowing against it. Confident, bold, masculine — matches your headshot energy and Instagram presence. Stands out from every beige realtor site.</p>
+    </div>
+    <div class="hero-mock" style="background:#0d1413; font-family:Inter,sans-serif; color:#f2f4f3;">
+      <div class="hm-nav">
+        <div style="font-size:16px; font-weight:600;">RAMI RAFEH<span style="color:#81D8D0;">.</span></div>
+        <div class="hm-links" style="color:#8fa3a0;"><span>Listings</span><span>About</span><span>Reviews</span></div>
+        <div style="background:#81D8D0; color:#0d1413; padding:10px 24px; border-radius:999px; font-size:12px; font-weight:600;">Consultation</div>
+      </div>
+      <div class="hm-body">
+        <div class="hm-kicker" style="color:#81D8D0;">VA Loan Specialist · USAF Veteran</div>
+        <h1 class="hm-h1" style="font-weight:300; font-size:44px; letter-spacing:-0.02em;">Discover your new home in<br><span style="font-weight:600; color:#81D8D0;">San Antonio</span></h1>
+        <p class="hm-sub" style="color:#9fb2af;">Rami Rafeh is a San Antonio realtor and retired Air Force veteran specializing in VA loans, first-time buyers, and new construction.</p>
+        <div class="hm-ctas">
+          <div class="hm-btn" style="background:#81D8D0; color:#0d1413; font-weight:600;">Explore Listings →</div>
+          <div class="hm-btn" style="border:1px solid #2c3c3a; color:#f2f4f3;">Contact</div>
+        </div>
+        <div class="hm-stats" style="border-top:1px solid #1d2a28;">
+          <div><div class="hm-stat-n" style="font-weight:300;">200<span style="color:#b49a5a;">+</span></div><div class="hm-stat-l" style="color:#67807c;">Transactions</div></div>
+          <div><div class="hm-stat-n" style="font-weight:300;">$50M<span style="color:#b49a5a;">+</span></div><div class="hm-stat-l" style="color:#67807c;">In Home Sales</div></div>
+          <div><div class="hm-stat-n" style="font-weight:300;">5.0 <span style="color:#b49a5a;">★</span></div><div class="hm-stat-l" style="color:#67807c;">Average Rating</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C: REFINED LIGHT -->
+  <div class="option" data-choice="refined" onclick="toggleSelect(this)" style="display:block; margin-bottom:28px;">
+    <div class="content" style="margin-bottom:12px;">
+      <h3>C — Refined Light (evolve what you have)</h3>
+      <p>Keeps your current airy feel but tightens everything: stronger type contrast, Tiffany-tinted section washes, gold detail accents, premium spacing. Lowest risk, fastest to ship.</p>
+    </div>
+    <div class="hero-mock" style="background:linear-gradient(180deg,#f4faf9 0%,#ffffff 100%); font-family:Prompt,sans-serif; color:#15211f;">
+      <div class="hm-nav">
+        <div style="font-size:16px; font-weight:600; letter-spacing:-0.01em;">Rami Rafeh</div>
+        <div class="hm-links" style="color:#5d6f6c;"><span>Listings</span><span>About</span><span>Reviews</span></div>
+        <div style="background:#15211f; color:#fff; padding:10px 24px; border-radius:999px; font-size:12px; font-weight:500;">Consultation</div>
+      </div>
+      <div class="hm-body">
+        <div style="display:inline-flex; align-items:center; gap:8px; background:#81D8D022; border:1px solid #81D8D055; color:#1f6b63; padding:7px 16px; border-radius:999px; font-size:11px; font-weight:500; letter-spacing:0.06em; margin-bottom:24px;">★ 5.0 RATED · USAF VETERAN · VA LOAN EXPERT</div>
+        <h1 class="hm-h1" style="font-weight:275; font-size:46px; letter-spacing:-0.03em;">Discover your new home in<br><span style="font-weight:600; background:linear-gradient(90deg,#1f6b63,#15211f); -webkit-background-clip:text; background-clip:text; color:transparent;">San Antonio</span></h1>
+        <p class="hm-sub" style="color:#5d6f6c;">Rami Rafeh is a San Antonio realtor and retired Air Force veteran specializing in VA loans, first-time buyers, and new construction.</p>
+        <div class="hm-ctas">
+          <div class="hm-btn" style="background:#15211f; color:#fff; box-shadow:0 8px 24px -8px #15211f66;">Explore Listings →</div>
+          <div class="hm-btn" style="background:#fff; border:1.5px solid #81D8D0; color:#15211f;">Contact</div>
+        </div>
+        <div class="hm-stats" style="border-top:1px solid #e2edeb;">
+          <div><div class="hm-stat-n" style="font-weight:300;">200+</div><div class="hm-stat-l" style="color:#8aa09c;">Transactions</div></div>
+          <div><div class="hm-stat-n" style="font-weight:300;">$50M+</div><div class="hm-stat-l" style="color:#8aa09c;">In Home Sales</div></div>
+          <div><div class="hm-stat-n" style="font-weight:300;">5.0 ★</div><div class="hm-stat-l" style="color:#8aa09c;">Average Rating</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

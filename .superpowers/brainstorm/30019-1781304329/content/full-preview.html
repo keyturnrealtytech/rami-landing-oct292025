@@ -1,0 +1,117 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<h2>Full-page preview — the complete design</h2>
+<p class="subtitle">Scroll through the whole page top to bottom. This is the design we'd implement.</p>
+
+<style>
+  .pg { border-radius: 14px; overflow: hidden; border: 1px solid #e3e3e3; font-family: Prompt, sans-serif; color: #15211f; }
+  .pg-label { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #1f6b63; font-weight: 600; margin-bottom: 10px; }
+  .pg h1, .pg .h2 { letter-spacing: -0.03em; }
+  .pg .h2 { font-size: 34px; font-weight: 300; margin: 0 0 8px; }
+  .pg .h2 b { font-weight: 600; }
+  .pg-sub { font-size: 14px; color: #5d6f6c; line-height: 1.7; }
+  .pill { display: inline-block; padding: 14px 32px; border-radius: 999px; font-size: 13px; font-weight: 500; }
+  .cards3 { display: flex; gap: 18px; }
+  .vcard { flex: 1; border-radius: 18px; overflow: hidden; background: #fff; border: 1px solid #e8e4da; }
+  .vmedia { height: 200px; position: relative; }
+  .vplay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .vplay span { width: 44px; height: 44px; border-radius: 999px; background: #ffffffd9; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 6px 18px -6px #15211f55; }
+  .vcap { padding: 14px 16px; }
+  .vcap-t { font-size: 13px; font-weight: 600; }
+  .vcap-s { font-size: 11px; color: #8aa09c; margin-top: 2px; }
+  .gold-line { width: 54px; height: 2px; background: linear-gradient(90deg, #c9a227, #e2cb7a); border-radius: 2px; }
+  .stars { color: #c9a227; letter-spacing: 3px; }
+  .rcard { background: #fff; border: 1px solid #e8e4da; border-radius: 16px; padding: 18px; font-size: 12px; line-height: 1.65; color: #3d4f4c; }
+  .rname { font-weight: 600; color: #15211f; margin-top: 10px; font-size: 12px; }
+</style>
+
+<div class="pg">
+
+  <!-- NAV -->
+  <div style="display:flex; justify-content:space-between; align-items:center; padding:20px 44px; background:#eef7f5cc; border-bottom:1px solid #e4ece8;">
+    <div style="font-size:17px; font-weight:600;">Rami Rafeh</div>
+    <div style="display:flex; gap:30px; font-size:13px; color:#5d6f6c;"><span>Listings</span><span>About</span><span>Reviews</span><span>Contact</span></div>
+    <div class="pill" style="background:#15211f; color:#fff; padding:11px 26px; font-size:12px;">Consultation</div>
+  </div>
+
+  <!-- HERO -->
+  <div style="background:linear-gradient(180deg,#eef7f5 0%,#faf8f4 55%); text-align:center; padding:80px 40px 72px;">
+    <div style="display:inline-flex; gap:8px; background:#ffffffaa; border:1px solid #81D8D055; color:#1f6b63; padding:8px 18px; border-radius:999px; font-size:11px; font-weight:500; letter-spacing:0.06em; margin-bottom:28px;">★ 5.0 RATED · USAF VETERAN · VA LOAN EXPERT</div>
+    <h1 style="font-size:54px; font-weight:300; line-height:1.07; margin:0 0 22px;">Discover your new home in<br><span style="font-weight:600; background:linear-gradient(90deg,#1f6b63,#15211f); -webkit-background-clip:text; background-clip:text; color:transparent;">San Antonio</span></h1>
+    <div class="gold-line" style="margin:0 auto 26px;"></div>
+    <p class="pg-sub" style="max-width:560px; margin:0 auto 34px;">Rami Rafeh is a San Antonio realtor and retired Air Force veteran specializing in VA loans, first-time home buyers, and new construction.</p>
+    <div style="display:flex; gap:14px; justify-content:center;">
+      <span class="pill" style="background:#15211f; color:#fff; box-shadow:0 10px 28px -10px #15211f66;">Explore Listings →</span>
+      <span class="pill" style="background:#fffdf9; border:1.5px solid #81D8D0;">Contact</span>
+    </div>
+    <div style="display:flex; gap:70px; justify-content:center; margin-top:56px; padding-top:34px; border-top:1px solid #e4e0d4; max-width:560px; margin-left:auto; margin-right:auto;">
+      <div><div style="font-size:30px; font-weight:300;">200+</div><div style="font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#8aa09c;">Transactions</div></div>
+      <div><div style="font-size:30px; font-weight:300;">$50M+</div><div style="font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#8aa09c;">In Home Sales</div></div>
+      <div><div style="font-size:30px; font-weight:300;">5.0 ★</div><div style="font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#8aa09c;">Average Rating</div></div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div style="background:#fff; padding:64px 44px; display:flex; gap:44px; align-items:center;">
+    <img src="https://www.keyturnrealty.com/rami-rafeh-headshot.png" style="width:300px; border-radius:22px; border:1px solid #e8e4da;" alt="Rami Rafeh">
+    <div>
+      <div class="pg-label">Meet Rami</div>
+      <div class="h2">A veteran in <b>your corner</b></div>
+      <div class="gold-line" style="margin:14px 0 18px;"></div>
+      <p class="pg-sub" style="margin-bottom:14px;">I'm a San Antonio real estate agent and retired U.S. Air Force veteran, so I understand firsthand how stressful a move can be — especially a PCS into a new city or buying your very first home.</p>
+      <p class="pg-sub" style="margin-bottom:22px;">Last year alone I helped more than 50 families find their homes across San Antonio and the Hill Country.</p>
+      <span class="pill" style="background:#15211f; color:#fff; font-size:12px; padding:12px 26px;">Book a free consultation</span>
+    </div>
+  </div>
+
+  <!-- FEATURED HOMES -->
+  <div style="background:#faf8f4; padding:64px 44px;">
+    <div class="pg-label">Featured Homes</div>
+    <div class="h2">Featured <b>Homes</b></div>
+    <p class="pg-sub" style="margin-bottom:28px;">Real tours from recent San Antonio homes</p>
+    <div class="cards3">
+      <div class="vcard"><div class="vmedia" style="background:linear-gradient(135deg,#d8e8e4,#9cc5bd);"><div class="vplay"><span>▶</span></div></div><div class="vcap"><div class="vcap-t">San Antonio · New Construction</div><div class="vcap-s">Video tour</div></div></div>
+      <div class="vcard"><div class="vmedia" style="background:linear-gradient(135deg,#e4ddd0,#c4b291);"><div class="vplay"><span>▶</span></div></div><div class="vcap"><div class="vcap-t">San Antonio · Family Home</div><div class="vcap-s">Video tour</div></div></div>
+      <div class="vcard"><div class="vmedia" style="background:linear-gradient(135deg,#d6e4e8,#93b7c2);"><div class="vplay"><span>▶</span></div></div><div class="vcap"><div class="vcap-t">San Antonio · Modern Build</div><div class="vcap-s">Video tour</div></div></div>
+    </div>
+  </div>
+
+  <!-- CLIENT STORIES -->
+  <div style="background:linear-gradient(180deg,#eef7f5,#faf8f4); padding:64px 44px; text-align:center;">
+    <div class="pg-label">Client Stories</div>
+    <div class="h2">What clients <b>say</b></div>
+    <div class="stars" style="font-size:16px; margin:14px 0;">★★★★★</div>
+    <p class="pg-sub" style="max-width:520px; margin:0 auto 12px; font-size:16px;">"Really grateful I clicked on Rami's Instagram ad and decided to go with him. I was able to purchase my brand new home, and he made the buying process super easy!"</p>
+    <div style="font-size:13px; font-weight:600; margin-bottom:36px;">Gaby Adame</div>
+    <div class="cards3" style="text-align:left;">
+      <div class="rcard">"Rami went above and beyond for us. As first-time buyers we had a million questions and he answered every single one."<div class="rname">Marissa Arras</div><div class="stars" style="font-size:11px;">★★★★★</div></div>
+      <div class="rcard">"Used my VA loan and Rami knew exactly how to make it work. Closed in 30 days."<div class="rname">Trevor Rice</div><div class="stars" style="font-size:11px;">★★★★★</div></div>
+      <div class="rcard">"Professional, patient, and honest. He treated us like family from day one."<div class="rname">Donna Wilson</div><div class="stars" style="font-size:11px;">★★★★★</div></div>
+    </div>
+  </div>
+
+  <!-- DARK BOOKEND: CTA + FOOTER -->
+  <div style="background:#0f1a18; text-align:center; padding:72px 44px 0; color:#f2f4f3;">
+    <div class="pg-label" style="color:#81D8D0;">Let's Talk</div>
+    <div class="h2" style="color:#f2f4f3;">Ready to make San Antonio <b style="color:#81D8D0;">home?</b></div>
+    <p class="pg-sub" style="color:#9fb2af; margin:10px auto 30px; max-width:440px;">Tell Rami what you're looking for — it takes about a minute.</p>
+    <span class="pill" style="background:#81D8D0; color:#0f1a18; font-weight:600; box-shadow:0 12px 36px -10px #81D8D055;">Start My Home Search</span>
+    <div style="margin-top:64px; border-top:1px solid #1f2e2b; padding:28px 0; display:flex; justify-content:space-between; font-size:11px; color:#67807c;">
+      <div>Key Turn Realty Group · Real Broker, LLC</div>
+      <div>TREC #724566 · (713) 440-9407 · <span class="stars">★★★★★</span></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="options" style="margin-top:24px;">
+  <div class="option" data-choice="approve" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    <div class="content"><h3>This is it — build it</h3><p>Approve the design as shown</p></div>
+  </div>
+  <div class="option" data-choice="tweak" onclick="toggleSelect(this)">
+    <div class="letter">✎</div>
+    <div class="content"><h3>Close, but I have tweaks</h3><p>Tell me what to change in the terminal</p></div>
+  </div>
+</div>
